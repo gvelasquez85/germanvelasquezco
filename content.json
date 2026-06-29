@@ -6,10 +6,26 @@
   },
   "nav": {
     "items": [
-      { "label": "Qué hago", "url": "#como" },
-      { "label": "Proyectos", "url": "#proyectos" },
-      { "label": "Blog", "url": "blog.html" },
-      { "label": "Conversemos", "url": "#contacto" }
+      {
+        "label": "Qué hago",
+        "url": "#como"
+      },
+      {
+        "label": "Proyectos",
+        "url": "#proyectos"
+      },
+      {
+        "label": "Labs",
+        "url": "labs.html"
+      },
+      {
+        "label": "Blog",
+        "url": "blog.html"
+      },
+      {
+        "label": "Conversemos",
+        "url": "#contacto"
+      }
     ]
   },
   "hero": {
@@ -27,10 +43,26 @@
     "title_2": "no tecnología por modas",
     "desc": "Cada negocio es distinto. Mi trabajo es entender el tuyo lo suficiente para saber exactamente dónde la IA y la innovación generan impacto — y dónde no.",
     "steps": [
-      { "icon": "�", "title": "Diagnóstico real", "desc": "Entiendo tu negocio, tus clientes, tus cuellos de botella. Hablo tu idioma: P&L, churn, conversión, ROI." },
-      { "icon": "�", "title": "Estrategia con IA", "desc": "Diseño la solución con la tecnología correcta. IA donde genera valor, procesos lean donde la tecnología sobra." },
-      { "icon": "⚙️", "title": "Construyo y deployo", "desc": "Desarrollo ágil con retroalimentación real. Ves resultados en semanas, no en presentaciones de 6 meses." },
-      { "icon": "📈", "title": "Medimos y escalamos", "desc": "KPIs desde el día uno. Si no se puede medir, no se puede mejorar. Punto." }
+      {
+        "icon": "�",
+        "title": "Diagnóstico real",
+        "desc": "Entiendo tu negocio, tus clientes, tus cuellos de botella. Hablo tu idioma: P&L, churn, conversión, ROI."
+      },
+      {
+        "icon": "�",
+        "title": "Estrategia con IA",
+        "desc": "Diseño la solución con la tecnología correcta. IA donde genera valor, procesos lean donde la tecnología sobra."
+      },
+      {
+        "icon": "⚙️",
+        "title": "Construyo y deployo",
+        "desc": "Desarrollo ágil con retroalimentación real. Ves resultados en semanas, no en presentaciones de 6 meses."
+      },
+      {
+        "icon": "📈",
+        "title": "Medimos y escalamos",
+        "desc": "KPIs desde el día uno. Si no se puede medir, no se puede mejorar. Punto."
+      }
     ]
   },
   "why": {
@@ -39,27 +71,75 @@
     "title_2": "el negocio — no al revés",
     "desc": "13+ años liderando transformación digital y experiencia del cliente en empresas reales. He implementado CRM para 100K+ clientes, automatizado procesos que redujeron tiempos de horas a minutos, y construido plataformas SaaS desde cero. Mi ventaja: sé lo que importa porque lo he medido.",
     "stats": [
-      { "value": "+$3M", "label": "USD en ahorros generados" },
-      { "value": "+$2.6M", "label": "USD en facturación incremental" },
-      { "value": "13+", "label": "Años transformando negocios" },
-      { "value": "4", "label": "Países (experiencia regional)" }
+      {
+        "value": "+$3M",
+        "label": "USD en ahorros generados"
+      },
+      {
+        "value": "+$2.6M",
+        "label": "USD en facturación incremental"
+      },
+      {
+        "value": "13+",
+        "label": "Años transformando negocios"
+      },
+      {
+        "value": "4",
+        "label": "Países (experiencia regional)"
+      }
     ],
     "diffs": [
-      { "icon": "�", "bold": "Negocio primero", "text": " — Entiendo P&L, unidad de negocio, cliente real. No soy un dev que aprendí negocio." },
-      { "icon": "🤖", "bold": "IA con ROI", "text": " — No por moda. Perfilación inteligente, predicción de churn, automatización que libera horas humanas." },
-      { "icon": "�", "bold": "Builder, no consultor", "text": " — Construyo software que funciona en producción. No entrego PDFs." },
-      { "icon": "�", "bold": "Ojos en métricas", "text": " — ROI+, NPS, churn, conversión. Si no se mide, no importa." },
-      { "icon": "🌎", "bold": "Experiencia ejecutiva", "text": " — Comités con C-level, juntas directivas, panelista en CAMACOL y SOFTIC." }
+      {
+        "icon": "�",
+        "bold": "Negocio primero",
+        "text": " — Entiendo P&L, unidad de negocio, cliente real. No soy un dev que aprendí negocio."
+      },
+      {
+        "icon": "🤖",
+        "bold": "IA con ROI",
+        "text": " — No por moda. Perfilación inteligente, predicción de churn, automatización que libera horas humanas."
+      },
+      {
+        "icon": "�",
+        "bold": "Builder, no consultor",
+        "text": " — Construyo software que funciona en producción. No entrego PDFs."
+      },
+      {
+        "icon": "�",
+        "bold": "Ojos en métricas",
+        "text": " — ROI+, NPS, churn, conversión. Si no se mide, no importa."
+      },
+      {
+        "icon": "🌎",
+        "bold": "Experiencia ejecutiva",
+        "text": " — Comités con C-level, juntas directivas, panelista en CAMACOL y SOFTIC."
+      }
     ]
   },
   "build": {
     "label": "Qué hago",
     "title": "IA + Innovación aplicada a tu negocio",
     "items": [
-      { "emoji": "🤖", "title": "IA aplicada a negocio", "desc": "Perfilación inteligente de clientes, predicción de churn, automatización de procesos, análisis de sentimiento. IA donde genera ROI real, no como slide de pitch." },
-      { "emoji": "🎯", "title": "Estrategia de innovación", "desc": "Roadmap de transformación con tecnología correcta. Journey maps, gobernanza CX, Voice of Customer. Innovación alineada a objetivos de negocio." },
-      { "emoji": "�", "title": "Plataformas y productos", "desc": "CRM, canales digitales, automatización omnicanal, productos SaaS. De la idea al deploy, yo lo construyo." },
-      { "emoji": "🔗", "title": "Transformación end-to-end", "desc": "Diagnóstico → estrategia → construcción → medición. Procesos digitales completos que la empresa entiende y adopta." }
+      {
+        "emoji": "🤖",
+        "title": "IA aplicada a negocio",
+        "desc": "Perfilación inteligente de clientes, predicción de churn, automatización de procesos, análisis de sentimiento. IA donde genera ROI real, no como slide de pitch."
+      },
+      {
+        "emoji": "🎯",
+        "title": "Estrategia de innovación",
+        "desc": "Roadmap de transformación con tecnología correcta. Journey maps, gobernanza CX, Voice of Customer. Innovación alineada a objetivos de negocio."
+      },
+      {
+        "emoji": "�",
+        "title": "Plataformas y productos",
+        "desc": "CRM, canales digitales, automatización omnicanal, productos SaaS. De la idea al deploy, yo lo construyo."
+      },
+      {
+        "emoji": "🔗",
+        "title": "Transformación end-to-end",
+        "desc": "Diagnóstico → estrategia → construcción → medición. Procesos digitales completos que la empresa entiende y adopta."
+      }
     ]
   },
   "projects": {
@@ -71,21 +151,52 @@
       "badge": "★ Flagship",
       "desc": "Plataforma de éxito comercial que une equipos, metas e incentivos. Alinea el desempeño con recompensas reales, gamifica objetivos y crea un ciclo virtuoso. Inmobiliario, seguros, banca, telecom, resorts.",
       "stats": [
-        { "value": "5+", "label": "Industrias" },
-        { "value": "2", "label": "Productos" },
-        { "value": "∞", "label": "Ciclo virtuoso" }
+        {
+          "value": "5+",
+          "label": "Industrias"
+        },
+        {
+          "value": "2",
+          "label": "Productos"
+        },
+        {
+          "value": "∞",
+          "label": "Ciclo virtuoso"
+        }
       ],
-      "tags": ["SaaS", "Sales Enablement", "Incentivos", "Gamificación", "Multi-industria"]
+      "tags": [
+        "SaaS",
+        "Sales Enablement",
+        "Incentivos",
+        "Gamificación",
+        "Multi-industria"
+      ]
     },
     "turnflow": {
       "badge": "● Live",
       "desc": "CRM + cola virtual + recordatorios automáticos para negocios locales. Centraliza clientes, elimina filas con QR, fideliza con mensajes automatizados. Mobile-first.",
       "stats": [
-        { "value": "200+", "label": "Negocios activos" },
-        { "value": "6", "label": "Industrias" },
-        { "value": "60%", "label": "↑ Contactabilidad" }
+        {
+          "value": "200+",
+          "label": "Negocios activos"
+        },
+        {
+          "value": "6",
+          "label": "Industrias"
+        },
+        {
+          "value": "60%",
+          "label": "↑ Contactabilidad"
+        }
       ],
-      "tags": ["SaaS", "CRM", "Cola QR", "IA", "Recordatorios", "Mobile-first"]
+      "tags": [
+        "SaaS",
+        "CRM",
+        "Cola QR",
+        "IA",
+        "Recordatorios",
+        "Mobile-first"
+      ]
     }
   },
   "blog": {
@@ -98,5 +209,14 @@
     "title_2": "Conversemos.",
     "desc": "Cuéntame tu reto. Sin compromiso, sin pitch. Solo una conversación sobre si la IA y la innovación pueden ayudarte.",
     "cta_text": "Quiero conversar"
+  },
+  "labs": {
+    "label": "Labs",
+    "title_1": "Experimentos, ideas y código",
+    "desc": "Acá pongo lo que estoy probando. Algunas ideas se vuelven productos, otras quedan en el camino. Todas enseñan algo.",
+    "github_user": "gvelasquez85",
+    "featured_repos": [
+      "germanvelasquezco"
+    ]
   }
 }
