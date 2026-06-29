@@ -1,62 +1,70 @@
 {
+  "site": {
+    "logo": "Germán Velásquez",
+    "title": "Germán Velásquez — CX + IA + Construcción",
+    "description": "Experiencia del cliente e inteligencia artificial, aplicadas a problemas reales de negocio"
+  },
+  "nav": {
+    "items": ["Qué hago", "Proyectos", "Blog", "Conversemos"]
+  },
   "hero": {
-    "label": "Dev As A Service",
-    "title_1": "Tú sabes lo que necesitas.",
-    "title_2": "Yo lo convierto en",
-    "title_3": "software con IA",
-    "desc": "Entiendo tu problema. Lo diseño con la tecnología correcta. Lo construyo. Y te lo entrego funcionando — no en slideware, en producción.",
-    "cta_1": "Agendar conversación",
-    "cta_2": "Ver cómo funciona"
+    "label": "CX · IA · Construcción",
+    "title_1": "Donde la experiencia del cliente",
+    "title_2": "se encuentra con la",
+    "title_3": "inteligencia artificial",
+    "desc": "Transformo la forma en que las empresas entienden, sirven y retienen a sus clientes — combinando estrategia CX con tecnología que funciona. No slides, no teoría: resultados.",
+    "cta_1": "Conversemos",
+    "cta_2": "Ver qué hago"
   },
   "how": {
-    "label": "El proceso",
-    "title_1": "De problema a producto,",
-    "title_2": "en 4 pasos",
-    "desc": "Sin rodeos. Sin slideware. Sin sorpresas.",
+    "label": "Cómo trabajo",
+    "title_1": "Estrategia que entiende",
+    "title_2": "al cliente primero",
+    "desc": "La tecnología sin entender el problema es ruido. Yo empiezo por la experiencia, luego la potencio con IA.",
     "steps": [
-      {"icon": "💬", "title": "Conversamos", "desc": "Escucho tu problema. No necesitas hablar en idioma tech — yo traduzco."},
-      {"icon": "📐", "title": "Diseño la solución", "desc": "Arquitectura + IA + la tech correcta. No plantillas, diseño a tu medida."},
-      {"icon": "⚙️", "title": "La construyo", "desc": "Desarrollo ágil. Ves progreso real en semanas, no meses."},
-      {"icon": "🚀", "title": "Te lo entrego", "desc": "Funcionando. Documentado. En producción. Y me quedo si me necesitas."}
+      {"icon": "🎯", "title": "Entiendo el problema", "desc": "Diagnóstico CX: journey del cliente, puntos de fricción, oportunidades. Hablo tu idioma — P&L, NPS, churn."},
+      {"icon": "📐", "title": "Diseño la estrategia", "desc": "Arquitectura de experiencia + tecnología correcta. IA donde genera valor real, no donde se ve bien."},
+      {"icon": "⚙️", "title": "La construyo", "desc": "Desarrollo ágil con IA como acelerador. Ves progreso real en semanas. Construyo, no consulto."},
+      {"icon": "📈", "title": "Mido y itero", "desc": "KPIs desde día uno. ROI, NPS, CSAT, conversión. Si no se mide, no se mejoró."}
     ]
   },
   "why": {
     "label": "La diferencia",
-    "title_1": "No soy un dev que aprendió negocio.",
-    "title_2": "Soy de negocio y construyo con IA.",
-    "desc": "13+ años liderando transformación digital y CX en empresas reales. He implementado CRM para 100K+ clientes, automatizado procesos con IA que redujeron tiempos de horas a minutos, y consolidado canales digitales que generan millones.",
+    "title_1": "CX con tecnología,",
+    "title_2": "no tecnología sin CX",
+    "desc": "13+ años liderando experiencia del cliente y transformación digital en empresas reales. He implementado CRM para 100K+ clientes, automatizado procesos que redujeron tiempos de horas a minutos, y consolidado canales digitales que generan millones. La IA es mi herramienta — el cliente es mi brújula.",
     "stats": [
       {"value": "+$3M", "label": "USD en ahorros generados"},
       {"value": "+$2.6M", "label": "USD en facturación"},
-      {"value": "13+", "label": "Años en CX y tech"},
-      {"value": "70", "label": "Personas en mi team"}
+      {"value": "13+", "label": "Años en CX y transformación"},
+      {"value": "76%", "label": "NPS en seguros (100K+ clientes)"}
     ],
     "diffs": [
-      {"icon": "🎯", "bold": "Hablo tu idioma", "text": " — Entiendo P&L, NPS, churn, funnels. No solo código."},
-      {"icon": "🤖", "bold": "IA como motor", "text": " — No como feature de marketing. Aplicada a procesos reales."},
-      {"icon": "📈", "bold": "Resultados medibles", "text": " — ROI+ en <12 meses. Métricas, no promesas."},
-      {"icon": "🏗️", "bold": "He estado ahí", "text": " — Comité CX con C-level, junta del gremio, 4 países."},
-      {"icon": "🔧", "bold": "Construyo, no consulto", "text": " — Entrego software funcionando, no PDFs."}
+      {"icon": "🎯", "bold": "CX primero, tech después", "text": " — Entiendo el journey antes de tocar una línea de código. La tecnología sirve al cliente, no al revés."},
+      {"icon": "🤖", "bold": "IA donde importa", "text": " — No por moda. Perfilación de clientes, automatización de procesos, insights que un humano no ve en volumen."},
+      {"icon": "📈", "bold": "Resultados medibles", "text": " — ROI+ en <12 meses. NPS, churn, conversión. Métricas de negocio, no métricas de vanidad."},
+      {"icon": "🏗️", "bold": "He estado ahí", "text": " — Comité CX con C-level, junta del Gremio CX Colombia, regional en 4 países, panelista en CAMACOL y SOFTIC."},
+      {"icon": "🔧", "bold": "Construyo, no consulto", "text": " — Entrego software funcionando en producción, no presentaciones en PowerPoint."}
     ]
   },
   "build": {
     "label": "Servicios",
-    "title": "Lo que construyo",
+    "title": "Cómo puedo ayudarte",
     "items": [
-      {"emoji": "🤖", "title": "Agentes de IA", "desc": "Automatización, clasificación, análisis de documentos, asistentes que aprenden tu negocio."},
-      {"emoji": "📱", "title": "Apps con IA", "desc": "Aplicaciones completas donde IA es el motor. Customer-facing y operación interna."},
-      {"emoji": "🔗", "title": "Integraciones", "desc": "CRM, APIs, flujos automatizados. Conectar sistemas que no hablan. Salesforce, Zoho, WhatsApp."},
-      {"emoji": "📊", "title": "Dashboards", "desc": "Datos → insights → acción. KPIs, reportes, herramientas de decisión."}
+      {"emoji": "🎯", "title": "Estrategia CX", "desc": "Journey maps, gobernanza, Voice of Customer, NPS/CSAT/CES. Diseño de modelos de experiencia para grupos empresariales."},
+      {"emoji": "🤖", "title": "IA aplicada a CX", "desc": "Perfilación inteligente, automatización de procesos, análisis de sentimiento, predicción de churn. IA que genera ROI."},
+      {"emoji": "📱", "title": "Plataformas digitales", "desc": "CRM, canales inbound, automatización omnicanal, WhatsApp Business. Salesforce, Zoho, HubSpot — implementados y funcionando."},
+      {"emoji": "🔗", "title": "Transformación end-to-end", "desc": "Diagnóstico → diseño → construcción → medición. Procesos digitales completos, desde la estrategia hasta producción."}
     ]
   },
   "projects": {
     "label": "Emprendimiento",
-    "title_1": "Proyectos que nacieron de ver",
-    "title_2": "los problemas de cerca",
-    "desc": "No son hipótesis. Son productos en mercado, con clientes reales.",
+    "title_1": "Proyectos que nacieron",
+    "title_2": "de ver los problemas de cerca",
+    "desc": "No son hipótesis. Son productos en mercado, con clientes reales, resolviendo problemas que yo mismo viví.",
     "lynkko": {
       "badge": "★ Flagship",
-      "desc": "Plataforma de éxito comercial que une equipos, metas e incentivos en un solo ecosistema. Alinea el desempeño con recompensas reales y crea un ciclo donde ganar se retroalimenta. Funciona en inmobiliario, seguros, banca, telecom y resorts.",
+      "desc": "Plataforma de éxito comercial que une equipos, metas e incentivos en un solo ecosistema. Alinea el desempeño con recompensas reales y crea un ciclo donde ganar se retroalimenta. Inmobiliario, seguros, banca, telecom y resorts.",
       "stats": [
         {"value": "5+", "label": "Industrias"},
         {"value": "2", "label": "Productos"},
@@ -75,12 +83,41 @@
       "tags": ["SaaS", "CRM", "Cola QR", "Recordatorios", "Mobile-first"]
     }
   },
+  "blog": {
+    "label": "Blog",
+    "title_1": "Escribo sobre lo que vivo",
+    "desc": "CX, IA, transformación digital, emprendimiento. Cosas que aprendo en el día a día y vale la pena compartir.",
+    "posts": [
+      {
+        "id": "cx-antes-que-ia",
+        "title": "Por qué CX debe ir antes que IA (y por qué pocos lo entienden)",
+        "excerpt": "La IA es la herramienta más poderosa que hemos tenido. Pero si no entiendes el journey del cliente, solo estás automatizando problemas.",
+        "date": "2025-06-28",
+        "tags": ["CX", "IA"],
+        "read_time": "4 min"
+      },
+      {
+        "id": "nps-76-por-cien",
+        "title": "Cómo llegamos a NPS 76% con 100K+ clientes en seguros",
+        "excerpt": "No fue con más personas. Fue con mejor tecnología, procesos ágiles y una obsesión por el primer contacto.",
+        "date": "2025-06-15",
+        "tags": ["CX", "NPS", "Seguros"],
+        "read_time": "5 min"
+      },
+      {
+        "id": "ia-en-empresas-reales",
+        "title": "IA en empresas reales: lo que funciona vs. lo que se vende",
+        "excerpt": "He implementado IA en procesos de venta, perfilación y análisis de documentos. Esto es lo que realmente genera ROI y lo que es humo.",
+        "date": "2025-05-20",
+        "tags": ["IA", "Transformación Digital"],
+        "read_time": "6 min"
+      }
+    ]
+  },
   "cta": {
-    "title_1": "Tienes un problema.",
-    "title_2": "Yo tengo la",
-    "title_3": "obsesión",
-    "title_4": "por resolverlo.",
-    "desc": "Conversemos. No necesitas tener todo definido — solo el problema.",
+    "title_1": "¿Tienes un desafío de experiencia?",
+    "title_2": "Conversemos.",
+    "desc": "No necesitas tener todo definido — solo el problema. Yo te ayudo a encontrar el camino.",
     "cta_text": "gvelasquez85@gmail.com"
   }
 }

@@ -1,0 +1,1148 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CMS Admin &mdash; Germ&aacute;n Vel&aacute;squez</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --sidebar-bg: #0A0A0A;
+  --sidebar-hover: #1a1a1a;
+  --accent: #FF6B2C;
+  --accent-hover: #e55a1b;
+  --white: #ffffff;
+  --gray-50: #f9fafb;
+  --gray-100: #f3f4f6;
+  --gray-200: #e5e7eb;
+  --gray-300: #d1d5db;
+  --gray-400: #9ca3af;
+  --gray-500: #6b7280;
+  --gray-600: #4b5563;
+  --gray-700: #374151;
+  --gray-800: #1f2937;
+  --gray-900: #111827;
+  --danger: #ef4444;
+  --success: #10b981;
+  --radius: 8px;
+  --shadow: 0 1px 3px rgba(0,0,0,.1), 0 1px 2px rgba(0,0,0,.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0,0,0,.1), 0 4px 6px -2px rgba(0,0,0,.05);
+}
+body {
+  font-family: 'Montserrat', sans-serif;
+  background: var(--gray-50);
+  color: var(--gray-800);
+  display: flex;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+/* SIDEBAR */
+.sidebar {
+  width: 260px;
+  min-width: 260px;
+  background: var(--sidebar-bg);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  overflow-y: auto;
+}
+.sidebar-header {
+  padding: 24px 20px 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.sidebar-header h1 {
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.3;
+}
+.sidebar-header span {
+  display: block;
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--gray-400);
+  margin-top: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.sidebar-nav { flex: 1; padding: 12px 0; }
+.sidebar-nav button {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 12px 20px;
+  background: none;
+  border: none;
+  color: var(--gray-400);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 13.5px;
+  font-weight: 500;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.15s ease;
+  border-left: 3px solid transparent;
+}
+.sidebar-nav button:hover { background: var(--sidebar-hover); color: #fff; }
+.sidebar-nav button.active {
+  background: rgba(255,107,44,0.08);
+  color: var(--accent);
+  border-left-color: var(--accent);
+}
+.sidebar-nav button .nav-icon {
+  margin-right: 10px;
+  font-size: 15px;
+  width: 20px;
+  text-align: center;
+}
+.sidebar-footer {
+  padding: 16px 20px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+.btn-preview {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 10px 14px;
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.2);
+  color: #fff;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 12.5px;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: var(--radius);
+  transition: all 0.15s ease;
+}
+.btn-preview:hover {
+  background: rgba(255,255,255,0.08);
+  border-color: rgba(255,255,255,0.4);
+}
+.btn-preview .icon { margin-right: 6px; }
+
+/* MAIN */
+.main {
+  flex: 1;
+  margin-left: 260px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.topbar {
+  background: var(--white);
+  border-bottom: 1px solid var(--gray-200);
+  padding: 16px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+}
+.topbar h2 { font-size: 20px; font-weight: 600; color: var(--gray-900); }
+.btn-save {
+  padding: 10px 24px;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: var(--radius);
+  transition: all 0.15s ease;
+  box-shadow: var(--shadow);
+}
+.btn-save:hover {
+  background: var(--accent-hover);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-lg);
+}
+.btn-save:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+.content-area { flex: 1; overflow-y: auto; padding: 32px; }
+
+/* SECTIONS */
+.section { display: none; }
+.section.active { display: block; }
+
+/* FORM */
+.form-card {
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 20px;
+  box-shadow: var(--shadow);
+}
+.form-card h3 {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--gray-900);
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--gray-100);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.field-row { margin-bottom: 14px; }
+.field-row label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--gray-600);
+  margin-bottom: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+.field-row input[type="text"],
+.field-row input[type="url"],
+.field-row input[type="date"],
+.field-row textarea,
+.field-row select {
+  width: 100%;
+  padding: 9px 12px;
+  border: 1px solid var(--gray-300);
+  border-radius: 6px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 13.5px;
+  color: var(--gray-800);
+  background: var(--white);
+  transition: border-color 0.15s;
+  resize: vertical;
+}
+.field-row input:focus,
+.field-row textarea:focus,
+.field-row select:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(255,107,44,0.1);
+}
+.field-row textarea {
+  min-height: 80px;
+  font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
+  font-size: 12.5px;
+}
+.field-row textarea.tall { min-height: 300px; }
+
+/* REPEATER */
+.repeater-item {
+  background: var(--gray-50);
+  border: 1px solid var(--gray-200);
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 12px;
+  position: relative;
+}
+.repeater-item .repeater-actions {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  gap: 4px;
+}
+.repeater-item .repeater-actions button {
+  background: var(--white);
+  border: 1px solid var(--gray-300);
+  border-radius: 4px;
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s;
+}
+.repeater-item .repeater-actions button:hover { background: var(--gray-100); }
+.repeater-item .repeater-actions button.delete:hover {
+  background: #fee2e2;
+  border-color: var(--danger);
+  color: var(--danger);
+}
+.repeater-item .repeater-fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.repeater-item .repeater-fields.single { grid-template-columns: 1fr; }
+.repeater-item .repeater-fields input,
+.repeater-item .repeater-fields textarea {
+  padding: 7px 10px;
+  border: 1px solid var(--gray-300);
+  border-radius: 5px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 13px;
+  width: 100%;
+  resize: vertical;
+}
+.repeater-item .repeater-fields textarea { min-height: 60px; }
+.repeater-item .repeater-fields label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--gray-500);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  margin-bottom: 2px;
+  display: block;
+}
+.btn-add {
+  padding: 8px 16px;
+  background: var(--white);
+  border: 1.5px dashed var(--gray-300);
+  color: var(--gray-600);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 12.5px;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: all 0.15s;
+  width: 100%;
+  margin-top: 4px;
+}
+.btn-add:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: rgba(255,107,44,0.03);
+}
+
+/* BLOG LIST */
+.blog-list { display: grid; gap: 12px; margin-bottom: 20px; }
+.blog-card {
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: 10px;
+  padding: 18px 20px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  box-shadow: var(--shadow);
+  transition: all 0.15s;
+}
+.blog-card:hover { border-color: var(--accent); box-shadow: var(--shadow-lg); }
+.blog-card-info { flex: 1; min-width: 0; }
+.blog-card-info h4 {
+  font-size: 14.5px;
+  font-weight: 600;
+  color: var(--gray-900);
+  margin-bottom: 4px;
+}
+.blog-card-info .blog-meta {
+  font-size: 11.5px;
+  color: var(--gray-500);
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.blog-card-info .blog-meta .tag-pill {
+  background: var(--gray-100);
+  color: var(--gray-600);
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 10.5px;
+  font-weight: 500;
+}
+.blog-card-actions { display: flex; gap: 6px; flex-shrink: 0; }
+.blog-card-actions button {
+  padding: 7px 14px;
+  border-radius: 5px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  border: 1px solid var(--gray-300);
+  background: var(--white);
+  transition: all 0.15s;
+}
+.blog-card-actions button:hover { background: var(--gray-100); }
+.blog-card-actions button.delete:hover {
+  background: #fee2e2;
+  border-color: var(--danger);
+  color: var(--danger);
+}
+.blog-card-actions button.view { border-color: var(--accent); color: var(--accent); }
+.blog-card-actions button.view:hover { background: rgba(255,107,44,0.06); }
+
+/* BLOG EDITOR */
+.blog-editor {
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: var(--shadow);
+}
+.blog-editor .editor-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--gray-100);
+}
+.blog-editor .editor-header h3 { font-size: 15px; font-weight: 600; }
+.blog-editor .btn-back {
+  padding: 6px 14px;
+  border-radius: 5px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  border: 1px solid var(--gray-300);
+  background: var(--white);
+  transition: all 0.15s;
+}
+.blog-editor .btn-back:hover { background: var(--gray-100); }
+
+/* TOAST */
+.toast-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.toast {
+  padding: 14px 20px;
+  border-radius: 8px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: #fff;
+  box-shadow: var(--shadow-lg);
+  animation: slideIn 0.3s ease, fadeOut 0.3s ease 2.7s forwards;
+  max-width: 380px;
+}
+.toast.success { background: var(--success); }
+.toast.error { background: var(--danger); }
+.toast.info { background: #3b82f6; }
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(40px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes fadeOut { to { opacity: 0; transform: translateX(40px); } }
+
+/* AUTH MODAL */
+.auth-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+}
+.auth-box {
+  background: var(--white);
+  border-radius: 16px;
+  padding: 40px;
+  width: 380px;
+  max-width: 90vw;
+  box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
+}
+.auth-box h2 { font-size: 20px; font-weight: 700; margin-bottom: 6px; color: var(--gray-900); }
+.auth-box p { font-size: 13px; color: var(--gray-500); margin-bottom: 24px; }
+.auth-box input {
+  width: 100%;
+  padding: 11px 14px;
+  border: 1px solid var(--gray-300);
+  border-radius: 8px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  margin-bottom: 16px;
+  transition: border-color 0.15s;
+}
+.auth-box input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(255,107,44,0.1);
+}
+.auth-box button {
+  width: 100%;
+  padding: 12px;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background 0.15s;
+}
+.auth-box button:hover { background: var(--accent-hover); }
+.auth-box .error-msg {
+  color: var(--danger);
+  font-size: 12px;
+  margin-top: -8px;
+  margin-bottom: 12px;
+  display: none;
+}
+
+/* STATUS BAR */
+.save-status { font-size: 11.5px; color: var(--gray-400); margin-right: 12px; }
+.save-status.saving { color: var(--accent); }
+.save-status.saved { color: var(--success); }
+.save-status.error { color: var(--danger); }
+</style>
+</head>
+<body>
+
+<!-- AUTH MODAL -->
+<div class="auth-overlay" id="authOverlay">
+  <div class="auth-box">
+    <h2>CMS Admin</h2>
+    <p>Ingresa la contrase&ntilde;a para acceder al panel de edici&oacute;n.</p>
+    <input type="password" id="authPassword" placeholder="Contrase&ntilde;a" autofocus>
+    <div class="error-msg" id="authError">Contrase&ntilde;a incorrecta.</div>
+    <button onclick="submitAuth()">Acceder</button>
+  </div>
+</div>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="sidebar-header">
+    <h1>Germ&aacute;n Vel&aacute;squez</h1>
+    <span>CMS Admin</span>
+  </div>
+  <nav class="sidebar-nav" id="sidebarNav">
+    <button class="active" data-section="hero"><span class="nav-icon">&#127968;</span>Hero</button>
+    <button data-section="how"><span class="nav-icon">&#9881;&#65039;</span>C&oacute;mo trabajo</button>
+    <button data-section="why"><span class="nav-icon">&#11088;</span>Por qu&eacute; yo</button>
+    <button data-section="build"><span class="nav-icon">&#128736;&#65039;</span>Servicios</button>
+    <button data-section="projects"><span class="nav-icon">&#128640;</span>Proyectos</button>
+    <button data-section="blog"><span class="nav-icon">&#128221;</span>Blog Posts</button>
+    <button data-section="cta"><span class="nav-icon">&#128227;</span>CTA</button>
+  </nav>
+  <div class="sidebar-footer">
+    <button class="btn-preview" onclick="openPreview()"><span class="icon">&#128065;&#65039;</span>Vista previa</button>
+  </div>
+</aside>
+
+<!-- MAIN -->
+<div class="main">
+  <div class="topbar">
+    <h2 id="sectionTitle">Hero</h2>
+    <div style="display:flex;align-items:center;">
+      <span class="save-status" id="saveStatus"></span>
+      <button class="btn-save" id="btnSave" onclick="saveContent()">&#128190; Guardar cambios</button>
+    </div>
+  </div>
+  <div class="content-area" id="contentArea">
+    <!-- Sections rendered here -->
+  </div>
+</div>
+
+<!-- TOAST CONTAINER -->
+<div class="toast-container" id="toastContainer"></div>
+
+<script>
+// ===== STATE =====
+var contentData = null;
+var currentSection = 'hero';
+var editingPostId = null;
+var DEFAULT_TOKEN = 'dev2026';
+
+// ===== AUTH =====
+function initAuth() {
+  var stored = sessionStorage.getItem('cms-secret');
+  if (stored) {
+    document.getElementById('authOverlay').style.display = 'none';
+    loadContent(stored);
+  }
+}
+
+function submitAuth() {
+  var pw = document.getElementById('authPassword').value;
+  if (!pw) return;
+  sessionStorage.setItem('cms-secret', pw);
+  document.getElementById('authOverlay').style.display = 'none';
+  loadContent(pw);
+}
+
+document.getElementById('authPassword').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') submitAuth();
+});
+
+// ===== LOAD CONTENT =====
+function loadContent(token) {
+  fetch('content.json?t=' + Date.now())
+    .then(function(res) {
+      if (!res.ok) throw new Error('No se pudo cargar content.json');
+      return res.json();
+    })
+    .then(function(data) {
+      contentData = data;
+      renderAllSections();
+      showToast('Contenido cargado correctamente', 'success');
+    })
+    .catch(function(err) {
+      showToast('Error al cargar contenido: ' + err.message, 'error');
+    });
+}
+
+// ===== NAVIGATION =====
+document.getElementById('sidebarNav').addEventListener('click', function(e) {
+  var btn = e.target.closest('button[data-section]');
+  if (!btn) return;
+  currentSection = btn.dataset.section;
+  editingPostId = null;
+  var btns = document.querySelectorAll('#sidebarNav button');
+  for (var i = 0; i < btns.length; i++) btns[i].classList.remove('active');
+  btn.classList.add('active');
+  renderSection(currentSection);
+  updateTitle();
+});
+
+function updateTitle() {
+  var titles = {
+    hero: 'Hero',
+    how: 'C&oacute;mo trabajo',
+    why: 'Por qu&eacute; yo',
+    build: 'Servicios',
+    projects: 'Proyectos',
+    blog: 'Blog Posts',
+    cta: 'CTA'
+  };
+  document.getElementById('sectionTitle').textContent = titles[currentSection] || currentSection;
+}
+
+// ===== RENDER =====
+function renderAllSections() {
+  renderSection(currentSection);
+}
+
+function renderSection(name) {
+  var area = document.getElementById('contentArea');
+  area.innerHTML = '';
+  if (name === 'hero') area.appendChild(renderHero());
+  else if (name === 'how') area.appendChild(renderHow());
+  else if (name === 'why') area.appendChild(renderWhy());
+  else if (name === 'build') area.appendChild(renderBuild());
+  else if (name === 'projects') area.appendChild(renderProjects());
+  else if (name === 'blog') area.appendChild(renderBlog());
+  else if (name === 'cta') area.appendChild(renderCTA());
+}
+
+// ===== HELPERS =====
+function field(label, value, key, opts) {
+  opts = opts || {};
+  var div = document.createElement('div');
+  div.className = 'field-row';
+  var lbl = document.createElement('label');
+  lbl.textContent = label;
+  div.appendChild(lbl);
+  var input;
+  if (opts.type === 'textarea') {
+    input = document.createElement('textarea');
+    if (opts.tall) input.className = 'tall';
+  } else {
+    input = document.createElement('input');
+    input.type = opts.type || 'text';
+  }
+  input.value = value || '';
+  input.dataset.key = key;
+  input.addEventListener('input', function(e) { setNestedValue(key, e.target.value); });
+  div.appendChild(input);
+  return div;
+}
+
+function setNestedPath(obj, path, value) {
+  var keys = path.split('.');
+  var cur = obj;
+  for (var i = 0; i < keys.length - 1; i++) {
+    var k = keys[i];
+    if (!(k in cur)) cur[k] = {};
+    cur = cur[k];
+  }
+  cur[keys[keys.length - 1]] = value;
+}
+
+function setNestedValue(path, value) {
+  setNestedPath(contentData, path, value);
+}
+
+function getNestedValue(path) {
+  return path.split('.').reduce(function(o, k) { return (o != null ? o[k] : ''); }, contentData) || '';
+}
+
+function repeater(items, path, fields, renderFn) {
+  var container = document.createElement('div');
+  container.className = 'repeater-container';
+  container.dataset.path = path;
+
+  for (var idx = 0; idx < items.length; idx++) {
+    container.appendChild(repeaterItem(items[idx], idx, path, fields));
+  }
+
+  var addBtn = document.createElement('button');
+  addBtn.className = 'btn-add';
+  addBtn.textContent = '+ Agregar elemento';
+  addBtn.onclick = function() {
+    var arr = getNestedValue(path) || [];
+    arr.push(renderFn());
+    setNestedValue(path, arr);
+    renderSection(currentSection);
+  };
+  container.appendChild(addBtn);
+  return container;
+}
+
+function repeaterItem(item, idx, path, fields) {
+  var div = document.createElement('div');
+  div.className = 'repeater-item';
+
+  var actions = document.createElement('div');
+  actions.className = 'repeater-actions';
+  var delBtn = document.createElement('button');
+  delBtn.className = 'delete';
+  delBtn.innerHTML = '&#128465;';
+  delBtn.title = 'Eliminar';
+  delBtn.onclick = function() {
+    var arr = getNestedValue(path) || [];
+    arr.splice(idx, 1);
+    setNestedValue(path, arr);
+    renderSection(currentSection);
+  };
+  actions.appendChild(delBtn);
+  div.appendChild(actions);
+
+  var fieldsDiv = document.createElement('div');
+  fieldsDiv.className = 'repeater-fields' + (fields.length === 1 ? ' single' : '');
+
+  for (var f = 0; f < fields.length; f++) {
+    var fieldDef = fields[f];
+    var wrap = document.createElement('div');
+    var lbl = document.createElement('label');
+    lbl.textContent = fieldDef.label;
+    wrap.appendChild(lbl);
+    var inp;
+    if (fieldDef.type === 'textarea') {
+      inp = document.createElement('textarea');
+    } else {
+      inp = document.createElement('input');
+      inp.type = 'text';
+    }
+    inp.value = item[fieldDef.key] || '';
+    (function(fieldDef, idx, path) {
+      inp.addEventListener('input', function(e) {
+        var arr = getNestedValue(path) || [];
+        arr[idx][fieldDef.key] = e.target.value;
+        setNestedValue(path, arr);
+      });
+    })(fieldDef, idx, path);
+    wrap.appendChild(inp);
+    fieldsDiv.appendChild(wrap);
+  }
+
+  div.appendChild(fieldsDiv);
+  return div;
+}
+
+// ===== SECTION RENDERERS =====
+function renderHero() {
+  var d = contentData.hero;
+  var card = document.createElement('div');
+  card.className = 'section active';
+  var f = document.createElement('div');
+  f.className = 'form-card';
+  f.appendChild(field('Etiqueta', d.label, 'hero.label'));
+  f.appendChild(field('T&iacute;tulo l&iacute;nea 1', d.title_1, 'hero.title_1'));
+  f.appendChild(field('T&iacute;tulo l&iacute;nea 2', d.title_2, 'hero.title_2'));
+  f.appendChild(field('T&iacute;tulo l&iacute;nea 3', d.title_3, 'hero.title_3'));
+  f.appendChild(field('Descripci&oacute;n', d.desc, 'hero.desc', { type: 'textarea' }));
+  f.appendChild(field('CTA 1', d.cta_1, 'hero.cta_1'));
+  f.appendChild(field('CTA 2', d.cta_2, 'hero.cta_2'));
+  card.appendChild(f);
+  return card;
+}
+
+function renderHow() {
+  var d = contentData.how;
+  var card = document.createElement('div');
+  card.className = 'section active';
+  var f = document.createElement('div');
+  f.className = 'form-card';
+  f.appendChild(field('Etiqueta', d.label, 'how.label'));
+  f.appendChild(field('T&iacute;tulo l&iacute;nea 1', d.title_1, 'how.title_1'));
+  f.appendChild(field('T&iacute;tulo l&iacute;nea 2', d.title_2, 'how.title_2'));
+  f.appendChild(field('Descripci&oacute;n', d.desc, 'how.desc', { type: 'textarea' }));
+  card.appendChild(f);
+
+  var stepsCard = document.createElement('div');
+  stepsCard.className = 'form-card';
+  var h3 = document.createElement('h3');
+  h3.textContent = 'Pasos';
+  stepsCard.appendChild(h3);
+  stepsCard.appendChild(repeater(d.steps || [], 'how.steps', [
+    { key: 'icon', label: 'Icono' },
+    { key: 'title', label: 'T&iacute;tulo' },
+    { key: 'desc', label: 'Descripci&oacute;n', type: 'textarea' }
+  ], function() { return { icon: '', title: '', desc: '' }; }));
+  card.appendChild(stepsCard);
+  return card;
+}
+
+function renderWhy() {
+  var d = contentData.why;
+  var card = document.createElement('div');
+  card.className = 'section active';
+  var f = document.createElement('div');
+  f.className = 'form-card';
+  f.appendChild(field('Etiqueta', d.label, 'why.label'));
+  f.appendChild(field('T&iacute;tulo l&iacute;nea 1', d.title_1, 'why.title_1'));
+  f.appendChild(field('T&iacute;tulo l&iacute;nea 2', d.title_2, 'why.title_2'));
+  f.appendChild(field('Descripci&oacute;n', d.desc, 'why.desc', { type: 'textarea' }));
+  card.appendChild(f);
+
+  var statsCard = document.createElement('div');
+  statsCard.className = 'form-card';
+  var h3s = document.createElement('h3');
+  h3s.textContent = 'Estad&iacute;sticas';
+  statsCard.appendChild(h3s);
+  statsCard.appendChild(repeater(d.stats || [], 'why.stats', [
+    { key: 'value', label: 'Valor' },
+    { key: 'label', label: 'Etiqueta' }
+  ], function() { return { value: '', label: '' }; }));
+  card.appendChild(statsCard);
+
+  var diffsCard = document.createElement('div');
+  diffsCard.className = 'form-card';
+  var h3d = document.createElement('h3');
+  h3d.textContent = 'Diferenciadores';
+  diffsCard.appendChild(h3d);
+  diffsCard.appendChild(repeater(d.diffs || [], 'why.diffs', [
+    { key: 'icon', label: 'Icono' },
+    { key: 'bold', label: 'Negrita' },
+    { key: 'text', label: 'Texto', type: 'textarea' }
+  ], function() { return { icon: '', bold: '', text: '' }; }));
+  card.appendChild(diffsCard);
+  return card;
+}
+
+function renderBuild() {
+  var d = contentData.build;
+  var card = document.createElement('div');
+  card.className = 'section active';
+  var f = document.createElement('div');
+  f.className = 'form-card';
+  f.appendChild(field('Etiqueta', d.label, 'build.label'));
+  f.appendChild(field('T&iacute;tulo', d.title, 'build.title'));
+  card.appendChild(f);
+
+  var itemsCard = document.createElement('div');
+  itemsCard.className = 'form-card';
+  var h3 = document.createElement('h3');
+  h3.textContent = 'Servicios';
+  itemsCard.appendChild(h3);
+  itemsCard.appendChild(repeater(d.items || [], 'build.items', [
+    { key: 'emoji', label: 'Emoji' },
+    { key: 'title', label: 'T&iacute;tulo' },
+    { key: 'desc', label: 'Descripci&oacute;n', type: 'textarea' }
+  ], function() { return { emoji: '', title: '', desc: '' }; }));
+  card.appendChild(itemsCard);
+  return card;
+}
+
+function renderProjects() {
+  var d = contentData.projects;
+  var card = document.createElement('div');
+  card.className = 'section active';
+
+  var f = document.createElement('div');
+  f.className = 'form-card';
+  f.appendChild(field('Etiqueta', d.label, 'projects.label'));
+  f.appendChild(field('T&iacute;tulo l&iacute;nea 1', d.title_1, 'projects.title_1'));
+  f.appendChild(field('T&iacute;tulo l&iacute;nea 2', d.title_2, 'projects.title_2'));
+  f.appendChild(field('Descripci&oacute;n', d.desc, 'projects.desc', { type: 'textarea' }));
+  card.appendChild(f);
+
+  // LYNKKO
+  var lynkko = d.lynkko;
+  var lCard = document.createElement('div');
+  lCard.className = 'form-card';
+  var lH3 = document.createElement('h3');
+  lH3.textContent = 'Lynkko';
+  lCard.appendChild(lH3);
+  lCard.appendChild(field('Badge', lynkko.badge, 'projects.lynkko.badge'));
+  lCard.appendChild(field('Descripci&oacute;n', lynkko.desc, 'projects.lynkko.desc', { type: 'textarea' }));
+  lCard.appendChild(field('Tags (separados por coma)', (lynkko.tags || []).join(', '), '_lynkko_tags'));
+  lCard.querySelector('[data-key="_lynkko_tags"]').addEventListener('input', function(e) {
+    contentData.projects.lynkko.tags = e.target.value.split(',').map(function(t) { return t.trim(); }).filter(Boolean);
+  });
+  lCard.appendChild(repeater(lynkko.stats || [], 'projects.lynkko.stats', [
+    { key: 'value', label: 'Valor' },
+    { key: 'label', label: 'Etiqueta' }
+  ], function() { return { value: '', label: '' }; }));
+  card.appendChild(lCard);
+
+  // TURNFLOW
+  var tf = d.turnflow;
+  var tCard = document.createElement('div');
+  tCard.className = 'form-card';
+  var tH3 = document.createElement('h3');
+  tH3.textContent = 'TurnFlow';
+  tCard.appendChild(tH3);
+  tCard.appendChild(field('Badge', tf.badge, 'projects.turnflow.badge'));
+  tCard.appendChild(field('Descripci&oacute;n', tf.desc, 'projects.turnflow.desc', { type: 'textarea' }));
+  tCard.appendChild(field('Tags (separados por coma)', (tf.tags || []).join(', '), '_turnflow_tags'));
+  tCard.querySelector('[data-key="_turnflow_tags"]').addEventListener('input', function(e) {
+    contentData.projects.turnflow.tags = e.target.value.split(',').map(function(t) { return t.trim(); }).filter(Boolean);
+  });
+  tCard.appendChild(repeater(tf.stats || [], 'projects.turnflow.stats', [
+    { key: 'value', label: 'Valor' },
+    { key: 'label', label: 'Etiqueta' }
+  ], function() { return { value: '', label: '' }; }));
+  card.appendChild(tCard);
+
+  return card;
+}
+
+function renderBlog() {
+  var d = contentData.blog;
+  var card = document.createElement('div');
+  card.className = 'section active';
+
+  if (editingPostId !== null) {
+    // Show editor
+    var post = null;
+    for (var p = 0; p < d.posts.length; p++) {
+      if (d.posts[p].id === editingPostId) { post = d.posts[p]; break; }
+    }
+    if (!post) post = { id: '', title: '', excerpt: '', date: '', tags: [], read_time: '', body: '' };
+
+    var editor = document.createElement('div');
+    editor.className = 'blog-editor';
+    var header = document.createElement('div');
+    header.className = 'editor-header';
+    var h3 = document.createElement('h3');
+    h3.textContent = post.id ? 'Editando: ' + post.id : 'Nuevo post';
+    var backBtn = document.createElement('button');
+    backBtn.className = 'btn-back';
+    backBtn.textContent = '&larr; Volver a lista';
+    backBtn.onclick = function() { editingPostId = null; renderSection('blog'); };
+    header.appendChild(h3);
+    header.appendChild(backBtn);
+    editor.appendChild(header);
+
+    editor.appendChild(field('ID (slug)', post.id, '_blog_id'));
+    editor.appendChild(field('T&iacute;tulo', post.title, '_blog_title'));
+    editor.appendChild(field('Extracto', post.excerpt, '_blog_excerpt', { type: 'textarea' }));
+    editor.appendChild(field('Fecha (YYYY-MM-DD)', post.date, '_blog_date'));
+    editor.appendChild(field('Tags (separados por coma)', (post.tags || []).join(', '), '_blog_tags'));
+    editor.appendChild(field('Tiempo de lectura', post.read_time, '_blog_read_time'));
+    editor.appendChild(field('Contenido (Markdown)', post.body, '_blog_body', { type: 'textarea', tall: true }));
+
+    // Bind special fields
+    var bindField = function(key, setter) {
+      var inp = editor.querySelector('[data-key="' + key + '"]');
+      if (inp) inp.addEventListener('input', function(e) { setter(e.target.value); });
+    };
+    bindField('_blog_id', function(v) { post.id = v; });
+    bindField('_blog_title', function(v) { post.title = v; });
+    bindField('_blog_excerpt', function(v) { post.excerpt = v; });
+    bindField('_blog_date', function(v) { post.date = v; });
+    bindField('_blog_tags', function(v) { post.tags = v.split(',').map(function(t) { return t.trim(); }).filter(Boolean); });
+    bindField('_blog_read_time', function(v) { post.read_time = v; });
+    bindField('_blog_body', function(v) { post.body = v; });
+
+    // Save post button
+    var saveBtn = document.createElement('button');
+    saveBtn.className = 'btn-save';
+    saveBtn.style.marginTop = '16px';
+    saveBtn.textContent = '&#10003; Guardar post';
+    saveBtn.onclick = function() {
+      if (!post.id) { showToast('El ID es obligatorio', 'error'); return; }
+      var existingIdx = -1;
+      for (var i = 0; i < d.posts.length; i++) {
+        if (d.posts[i].id === editingPostId) { existingIdx = i; break; }
+      }
+      var newPost = {
+        id: post.id,
+        title: post.title,
+        excerpt: post.excerpt,
+        date: post.date,
+        tags: post.tags,
+        read_time: post.read_time,
+        body: post.body
+      };
+      if (existingIdx >= 0) {
+        d.posts[existingIdx] = newPost;
+      } else {
+        for (var j = 0; j < d.posts.length; j++) {
+          if (d.posts[j].id === post.id) {
+            showToast('Ya existe un post con ese ID', 'error');
+            return;
+          }
+        }
+        d.posts.push(newPost);
+      }
+      editingPostId = null;
+      renderSection('blog');
+      showToast('Post guardado en memoria. Guarda los cambios para persistir.', 'info');
+    };
+    editor.appendChild(saveBtn);
+
+    card.appendChild(editor);
+  } else {
+    // Show list
+    var header = document.createElement('div');
+    header.style.display = 'flex';
+    header.style.justifyContent = 'space-between';
+    header.style.alignItems = 'center';
+    header.style.marginBottom = '16px';
+    var h3 = document.createElement('h3');
+    h3.style.fontSize = '15px';
+    h3.style.fontWeight = '600';
+    h3.textContent = 'Posts (' + (d.posts ? d.posts.length : 0) + ')';
+    var addBtn = document.createElement('button');
+    addBtn.className = 'btn-save';
+    addBtn.textContent = '+ Nuevo post';
+    addBtn.onclick = function() {
+      editingPostId = '___new___';
+      contentData.blog.posts.push({ id: '', title: '', excerpt: '', date: '', tags: [], read_time: '', body: '' });
+      renderSection('blog');
+    };
+    header.appendChild(h3);
+    header.appendChild(addBtn);
+    card.appendChild(header);
+
+    var list = document.createElement('div');
+    list.className = 'blog-list';
+    if (d.posts) {
+      for (var idx = 0; idx < d.posts.length; idx++) {
+        (function(post, idx) {
+          var c = document.createElement('div');
+          c.className = 'blog-card';
+          var info = document.createElement('div');
+          info.className = 'blog-card-info';
+          var title = document.createElement('h4');
+          title.textContent = post.title || '(sin t&iacute;tulo)';
+          info.appendChild(title);
+          var meta = document.createElement('div');
+          meta.className = 'blog-meta';
+          var dateSpan = document.createElement('span');
+          dateSpan.innerHTML = '&#128197; ' + (post.date || '&mdash;');
+          var readSpan = document.createElement('span');
+          readSpan.innerHTML = '&#9201; ' + (post.read_time || '&mdash;');
+          meta.appendChild(dateSpan);
+          meta.appendChild(readSpan);
+          for (var t = 0; t < (post.tags || []).length; t++) {
+            var span = document.createElement('span');
+            span.className = 'tag-pill';
+            span.textContent = post.tags[t];
+            meta.appendChild(span);
+          }
+          info.appendChild(meta);
+          c.appendChild(info);
+
+          var actions = document.createElement('div');
+          actions.className = 'blog-card-actions';
+          var viewBtn = document.createElement('button');
+          viewBtn.className = 'view';
+          viewBtn.textContent = 'Ver';
+          viewBtn.onclick = function() { window.open('/blog/' + post.id + '.html', '_blank'); };
+          var editBtn = document.createElement('button');
+          editBtn.textContent = 'Editar';
+          editBtn.onclick = function() { editingPostId = post.id; renderSection('blog'); };
+          var delBtn = document.createElement('button');
+          delBtn.className = 'delete';
+          delBtn.textContent = 'Eliminar';
+          delBtn.onclick = function() {
+            if (confirm('&#191;Eliminar el post "' + (post.id || 'sin id') + '"?')) {
+              contentData.blog.posts.splice(idx, 1);
+              renderSection('blog');
+              showToast('Post eliminado de memoria. Guarda para persistir.', 'info');
+            }
+          };
+          actions.appendChild(viewBtn);
+          actions.appendChild(editBtn);
+          actions.appendChild(delBtn);
+          c.appendChild(actions);
+          list.appendChild(c);
+        })(d.posts[idx], idx);
+      }
+    }
+    card.appendChild(list);
+  }
+  return card;
+}
+
+function renderCTA() {
+  var d = contentData.cta;
+  var card = document.createElement('div');
+  card.className = 'section active';
+  var f = document.createElement('div');
+  f.className = 'form-card';
+  f.appendChild(field('T&iacute;tulo l&iacute;nea 1', d.title_1, 'cta.title_1'));
+  f.appendChild(field('T&iacute;tulo l&iacute;nea 2', d.title_2, 'cta.title_2'));
+  f.appendChild(field('Descripci&oacute;n', d.desc, 'cta.desc', { type: 'textarea' }));
+  f.appendChild(field('Texto CTA / Email', d.cta_text, 'cta.cta_text'));
+  card.appendChild(f);
+  return card;
+}
+
+// ===== SAVE =====
+function saveContent() {
+  var token = sessionStorage.getItem('cms-secret') || DEFAULT_TOKEN;
+  var status = document.getElementById('saveStatus');
+  var btn = document.getElementById('btnSave');
+  status.textContent = 'Guardando...';
+  status.className = 'save-status saving';
+  btn.disabled = true;
+
+  fetch('api/save.php?token=' + encodeURIComponent(token), {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(contentData)
+  })
+    .then(function(res) { return res.json().then(function(d) { return { ok: res.ok, data: d }; }); })
+    .then(function(result) {
+      if (result.ok && result.data.success !== false) {
+        status.textContent = '&#10003; Guardado';
+        status.className = 'save-status saved';
+        showToast('Contenido guardado correctamente', 'success');
+      } else {
+        throw new Error(result.data.error || 'Error del servidor');
+      }
+    })
+    .catch(function(err) {
+      status.textContent = '&#10007; Error';
+      status.className = 'save-status error';
+      showToast('Error al guardar: ' + err.message, 'error');
+    })
+    .then(function() {
+      btn.disabled = false;
+      setTimeout(function() { status.textContent = ''; status.className = 'save-status'; }, 4000);
+    });
+}
+
+// ===== PREVIEW =====
+function openPreview() {
+  window.open('index.html', '_blank');
+}
+
+// ===== TOAST =====
+function showToast(msg, type) {
+  type = type || 'info';
+  var container = document.getElementById('toastContainer');
+  var toast = document.createElement('div');
+  toast.className = 'toast ' + type;
+  toast.textContent = msg;
+  container.appendChild(toast);
+  setTimeout(function() { if (toast.parentNode) toast.parentNode.removeChild(toast); }, 3200);
+}
+
+// ===== INIT =====
+initAuth();
+</script>
+</body>
+</html>
