@@ -6,10 +6,22 @@
   },
   "nav": {
     "items": [
-      "Quiero hacer",
-      "Proyectos",
-      "Blog",
-      "Conversemos"
+      {
+        "label": "Quiero hacer",
+        "url": "#como"
+      },
+      {
+        "label": "Proyectos",
+        "url": "#proyectos"
+      },
+      {
+        "label": "Blog",
+        "url": "blog.html"
+      },
+      {
+        "label": "Conversemos",
+        "url": "mailto:gvelasquez85@gmail.com"
+      }
     ]
   },
   "hero": {

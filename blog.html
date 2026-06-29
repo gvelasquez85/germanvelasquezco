@@ -81,9 +81,8 @@
 </head>
 <body>
   <nav id="nav"><div class="nav-inner">
-    <a href="/germanvelasquezco/" class="nav-logo">Germán Velásquez</a>
-    <div class="nav-links">
-      <a href="/germanvelasquezco/">Inicio</a>
+    <a href="/" class="nav-logo" id="nav-logo-blog"></a>
+    <div class="nav-links" id="nav-links-blog"></div>
       <a href="/germanvelasquezco/#proyectos">Proyectos</a>
       <a href="/germanvelasquezco/blog.html" class="active">Blog</a>
       <a href="mailto:gvelasquez85@gmail.com" class="nav-cta">Conversemos</a>
@@ -273,6 +272,21 @@
     });
 
     // Load posts
+    // Build nav from content.json
+    fetch('content.json').then(r=>r.json()).then(nc=>{
+      document.getElementById('nav-logo-blog').textContent=nc.site.logo;
+      const navEl=document.getElementById('nav-links-blog');
+      const navCta=['conversemos'];
+      (nc.nav&&nc.nav.items||[]).forEach(item=>{
+        const label=item.label||item;
+        const href=item.url||'#';
+        const base='/';
+        const resolvedHref=href.startsWith('#')?base+href:href.startsWith('http')||href.startsWith('mailto:')?href:base+href;
+        const isCta=navCta.includes(label.toLowerCase());
+        navEl.innerHTML+=isCta?`<a href="${resolvedHref}" class="nav-cta">${label}</a>`:`<a href="${resolvedHref}">${label}</a>`;
+      });
+    }).catch(()=>{});
+
     fetch('blog/content.json').then(r => r.json()).then(data => {
       allPosts = data.posts || [];
       renderFilters(allPosts);

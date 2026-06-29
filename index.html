@@ -226,15 +226,14 @@
       const t=id=>document.getElementById(id);
       const s=(id,txt)=>{const e=t(id);if(e)e.textContent=txt};
       s('nav-logo',c.site.logo);
-      // Build nav from content.json
+      // Build nav from content.json (items now have label + url)
       const navEl=t('nav-links');
-      const navMap={'quiero hacer':'#como','proyectos':'#proyectos','blog':'blog.html','conversemos':'mailto:gvelasquez85@gmail.com'};
       const navCta=['conversemos'];
       (c.nav&&c.nav.items||[]).forEach(item=>{
-        const key=item.toLowerCase();
-        const href=navMap[key]||'#';
-        const isCta=navCta.includes(key);
-        navEl.innerHTML+=isCta?`<a href="${href}" class="nav-cta">${item}</a>`:`<a href="${href}">${item}</a>`;
+        const label=item.label||item;
+        const href=item.url||'#';
+        const isCta=navCta.includes(label.toLowerCase());
+        navEl.innerHTML+=isCta?`<a href="${href}" class="nav-cta">${label}</a>`:`<a href="${href}">${label}</a>`;
       });
       s('hero-label',c.hero.label);s('hero-t1',c.hero.title_1);s('hero-t2',c.hero.title_2);s('hero-desc',c.hero.desc);s('hero-cta1',c.hero.cta_1);s('hero-cta2',c.hero.cta_2);
       s('how-label',c.how.label);s('how-t1',c.how.title_1);s('how-t2',c.how.title_2);s('how-desc',c.how.desc);
