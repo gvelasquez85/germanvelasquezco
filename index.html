@@ -4,26 +4,28 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Germán Velásquez — CX + IA</title>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Montserrat+Alternates:wght@400;700&display=swap" rel="stylesheet">
+  <meta name="description" content="Experiencia del cliente e inteligencia artificial, aplicadas a problemas reales de negocio">
+  <meta property="og:title" content="Germán Velásquez — CX + IA">
+  <meta property="og:description" content="Transformo la forma en que las empresas entienden, sirven y retienen a sus clientes">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary">
+  <link rel="canonical" href="https://gvelasquez85.github.io/germanvelasquezco/">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
-    :root{--orange:#FF6B2C;--orange-light:#FF8F5E;--orange-dark:#E85520;--orange-glow:rgba(255,107,44,0.15);--orange-glow2:rgba(255,107,44,0.08);--black:#0A0A0A;--dark:#1A1A1A;--gray-900:#2D2D2D;--gray-700:#555555;--gray-500:#888888;--gray-300:#CCCCCC;--gray-100:#F2F2F2;--white:#FFFFFF;--blue:#2563EB;--blue-light:#3B82F6;--blue-dark:#1D4ED8;--blue-glow:rgba(37,99,235,0.12);--font:'Montserrat',sans-serif;--radius:12px;--radius-lg:20px;--transition:0.3s cubic-bezier(0.4,0,0.2,1)}
+    :root{--orange:#FF6B2C;--orange-light:#FF8F5E;--orange-dark:#E85520;--orange-glow:rgba(255,107,44,0.15);--orange-glow2:rgba(255,107,44,0.08);--black:#0A0A0A;--dark:#1A1A1A;--gray-900:#2D2D2D;--gray-700:#555555;--gray-500:#888888;--gray-300:#CCCCCC;--gray-100:#F2F2F2;--white:#FFFFFF;--blue:#2563EB;--blue-light:#3B82F6;--blue-glow:rgba(37,99,235,0.12);--font:'Montserrat',sans-serif;--radius:12px;--radius-lg:20px;--transition:0.3s cubic-bezier(0.4,0,0.2,1)}
     *{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
     body{font-family:var(--font);color:var(--dark);background:var(--white);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
     nav{position:fixed;top:0;width:100%;z-index:1000;transition:var(--transition)}
-    nav.scrolled{background:rgba(255,255,255,0.97);backdrop-filter:blur(20px);box-shadow:0 1px 20px rgba(0,0,0,0.06)}
+    nav.scrolled{background:rgba(255,255,255,0.95);backdrop-filter:blur(20px);box-shadow:0 1px 20px rgba(0,0,0,0.06)}
     .nav-inner{max-width:1200px;margin:0 auto;padding:20px 40px;display:flex;align-items:center;justify-content:space-between}
-    .nav-logo{font-family:var(--font);font-size:18px;font-weight:700;color:var(--white);text-decoration:none;letter-spacing:-0.3px;transition:color 0.3s}
-    nav.scrolled .nav-logo{color:var(--black)}
+    .nav-logo{font-family:var(--font);font-size:18px;font-weight:700;color:var(--black);text-decoration:none;letter-spacing:-0.3px}
     .nav-links{display:flex;gap:32px;align-items:center}
-    .nav-links a{font-size:13px;font-weight:500;color:rgba(255,255,255,0.8);text-decoration:none;letter-spacing:0.5px;text-transform:uppercase;transition:var(--transition)}
+    .nav-links a{font-size:13px;font-weight:500;color:var(--gray-700);text-decoration:none;letter-spacing:0.5px;text-transform:uppercase;transition:var(--transition)}
     .nav-links a:hover{color:var(--orange)}
-    nav.scrolled .nav-links a{color:var(--gray-700)}
-    nav.scrolled .nav-links a:hover{color:var(--orange)}
     .nav-cta{font-size:13px!important;font-weight:600!important;color:var(--white)!important;background:var(--orange);padding:10px 20px;border-radius:100px;text-transform:uppercase!important;letter-spacing:0.5px;transition:var(--transition)}
     .nav-cta:hover{background:var(--orange-dark);transform:scale(1.02)}
     .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;z-index:1001}
-    .hamburger span{width:24px;height:2px;background:var(--white);border-radius:2px;transition:background 0.3s}
-    nav.scrolled .hamburger span{background:var(--black)}
+    .hamburger span{width:24px;height:2px;background:var(--black);border-radius:2px}
     .hero{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;background:var(--black)}
     .hero-bg{position:absolute;inset:0;z-index:1}
     .hero-bg .gradient1{position:absolute;width:800px;height:800px;background:radial-gradient(circle,var(--orange-glow) 0%,transparent 70%);top:-200px;right:-100px;animation:float 8s ease-in-out infinite}
@@ -86,21 +88,30 @@
     .project-tag{font-size:11px;font-weight:500;padding:4px 10px;border-radius:100px;text-transform:uppercase;letter-spacing:0.3px}
     .project-tag-lynkko{color:#14532d;background:#f0fdf4;border:1px solid #bbf7d0}.project-tag-turnflow{color:#0c4a6e;background:#f0f9ff;border:1px solid #bae6fd}
     .project-cta{margin-top:20px;display:flex;gap:12px}
-    .btn-lynkko{color:var(--white);background:#166534;display:inline-flex;align-items:center;gap:8px;font-family:var(--font);font-size:14px;font-weight:600;padding:14px 28px;border-radius:100px;text-decoration:none;transition:var(--transition);border:none;cursor:pointer}
-    .btn-lynkko:hover{background:#14532d;transform:translateY(-2px);box-shadow:0 8px 24px rgba(22,101,52,0.25)}
+    .btn-lynkko,.btn-turnflow{display:inline-flex;align-items:center;gap:8px;font-family:var(--font);font-size:14px;font-weight:600;padding:14px 28px;border-radius:100px;text-decoration:none;transition:var(--transition);border:none;cursor:pointer}
+    .btn-lynkko{color:var(--white);background:#166534}.btn-lynkko:hover{background:#14532d;transform:translateY(-2px)}
+    .btn-turnflow{color:var(--white);background:#0369a1}.btn-turnflow:hover{background:#075985;transform:translateY(-2px)}
     .btn-lynkko .arrow,.btn-turnflow .arrow{transition:transform 0.2s}.btn-lynkko:hover .arrow,.btn-turnflow:hover .arrow{transform:translateX(3px)}
-    .btn-turnflow{color:var(--white);background:#0369a1;display:inline-flex;align-items:center;gap:8px;font-family:var(--font);font-size:14px;font-weight:600;padding:14px 28px;border-radius:100px;text-decoration:none;transition:var(--transition);border:none;cursor:pointer}
-    .btn-turnflow:hover{background:#075985;transform:translateY(-2px);box-shadow:0 8px 24px rgba(3,105,161,0.25)}
     /* Blog */
-    .blog-section{background:var(--white)}.blog-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:48px}
-    .blog-card{background:var(--white);border:1px solid var(--gray-100);border-radius:var(--radius);padding:28px;transition:var(--transition);display:flex;flex-direction:column}
+    .blog-section{background:var(--white)}
+    .blog-filters{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:40px;margin-bottom:24px}
+    .blog-search{flex:1;min-width:200px;padding:12px 16px;border:1px solid var(--gray-100);border-radius:100px;font-family:var(--font);font-size:14px;outline:none;transition:var(--transition)}
+    .blog-search:focus{border-color:var(--orange);box-shadow:0 0 0 3px var(--orange-glow)}
+    .blog-filter-btn{font-size:12px;font-weight:600;padding:8px 16px;border-radius:100px;border:1px solid var(--gray-100);background:var(--white);color:var(--gray-700);cursor:pointer;transition:var(--transition);text-transform:uppercase;letter-spacing:0.5px}
+    .blog-filter-btn:hover,.blog-filter-btn.active{border-color:var(--orange);color:var(--orange);background:var(--orange-glow2)}
+    .blog-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+    .blog-card{background:var(--white);border:1px solid var(--gray-100);border-radius:var(--radius);padding:28px;transition:var(--transition);display:flex;flex-direction:column;cursor:pointer}
     .blog-card:hover{border-color:var(--orange);transform:translateY(-4px);box-shadow:0 12px 32px rgba(0,0,0,0.06)}
     .blog-date{font-size:12px;color:var(--gray-500);margin-bottom:8px;font-weight:500}
     .blog-card h3{font-size:18px;font-weight:700;margin-bottom:10px;line-height:1.3}
     .blog-card p{font-size:14px;color:var(--gray-700);line-height:1.6;flex:1}
     .blog-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:16px}
     .blog-tag{font-size:10px;font-weight:600;color:var(--orange);background:var(--orange-glow2);padding:3px 10px;border-radius:100px;text-transform:uppercase;letter-spacing:0.5px}
+    .blog-category{font-size:10px;font-weight:600;color:var(--white);background:var(--orange);padding:3px 10px;border-radius:100px;text-transform:uppercase;letter-spacing:0.5px}
     .blog-read{font-size:12px;color:var(--gray-500);margin-top:12px;font-weight:500}
+    .blog-share{margin-top:12px;display:flex;gap:8px}
+    .blog-share-btn{width:28px;height:28px;border-radius:50%;border:1px solid var(--gray-100);background:var(--white);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:12px;transition:var(--transition)}
+    .blog-share-btn:hover{border-color:var(--orange);color:var(--orange)}
     .blog-more{margin-top:36px;text-align:center}
     .cta-section{background:var(--black);color:var(--white);text-align:center}
     .cta-section h2{font-size:44px;font-weight:800;letter-spacing:-1.5px;line-height:1.1;max-width:700px;margin:0 auto 20px}
@@ -112,34 +123,32 @@
     .mobile-menu{display:none;position:fixed;inset:0;background:var(--white);z-index:999;flex-direction:column;align-items:center;justify-content:center;gap:24px}
     .mobile-menu.open{display:flex}.mobile-menu a{font-size:20px;font-weight:600;color:var(--dark);text-decoration:none}.mobile-menu a:hover{color:var(--orange)}
     .mobile-close{position:absolute;top:20px;right:20px;background:none;border:none;font-size:28px;cursor:pointer}
-    @media(max-width:1024px){.hero-content{max-width:100%}.steps-grid{grid-template-columns:repeat(2,1fr)}.build-grid{grid-template-columns:repeat(2,1fr)}.why-grid{grid-template-columns:1fr}.project-showcase{grid-template-columns:1fr}.blog-grid{grid-template-columns:1fr}}
-    @media(max-width:768px){.hero-text h1{font-size:36px;letter-spacing:-1.5px}.hero{min-height:auto;padding:120px 20px 60px}section{padding:60px 20px}.nav-links{display:none}.hamburger{display:flex}.steps-grid{grid-template-columns:1fr}.build-grid{grid-template-columns:1fr}.stat-row{grid-template-columns:1fr}.section-title{font-size:28px}.cta-section h2{font-size:28px}.nav-inner{padding:16px 20px}.blog-grid{grid-template-columns:1fr}}
+    @media(max-width:1024px){.hero-content{max-width:100%}.steps-grid{grid-template-columns:repeat(2,1fr)}.build-grid{grid-template-columns:repeat(2,1fr)}.why-grid{grid-template-columns:1fr}.project-showcase{grid-template-columns:1fr}.blog-grid{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:768px){.hero-text h1{font-size:36px;letter-spacing:-1.5px}.hero{min-height:auto;padding:120px 20px 60px}section{padding:60px 20px}.nav-links{display:none}.hamburger{display:flex}.steps-grid{grid-template-columns:1fr}.build-grid{grid-template-columns:1fr}.stat-row{grid-template-columns:1fr}.section-title{font-size:28px}.cta-section h2{font-size:28px}.nav-inner{padding:16px 20px}.blog-grid{grid-template-columns:1fr}.blog-filters{flex-direction:column}}
   </style>
 </head>
 <body>
   <nav id="nav"><div class="nav-inner">
     <a href="#" class="nav-logo" id="nav-logo"></a>
     <div class="nav-links">
-      <a href="#como">Qué hago</a><a href="#proyectos">Proyectos</a><a href="#blog">Blog</a>
+      <a href="#como">Quiero hacer</a><a href="#proyectos">Proyectos</a><a href="#blog">Blog</a>
       <a href="mailto:gvelasquez85@gmail.com" class="nav-cta">Conversemos</a>
     </div>
     <div class="hamburger" onclick="toggleMobile()"><span></span><span></span><span></span></div>
   </div></nav>
-  <div class="mobile-menu" id="mobileMenu"><button class="mobile-close" onclick="toggleMobile()">✕</button><a href="#como" onclick="toggleMobile()">Qué hago</a><a href="#proyectos" onclick="toggleMobile()">Proyectos</a><a href="#blog" onclick="toggleMobile()">Blog</a><a href="mailto:gvelasquez85@gmail.com" style="color:var(--orange)">Conversemos</a></div>
+  <div class="mobile-menu" id="mobileMenu"><button class="mobile-close" onclick="toggleMobile()">&#x2715;</button><a href="#como" onclick="toggleMobile()">Quiero hacer</a><a href="#proyectos" onclick="toggleMobile()">Proyectos</a><a href="#blog" onclick="toggleMobile()">Blog</a><a href="mailto:gvelasquez85@gmail.com" style="color:var(--orange)">Conversemos</a></div>
 
   <section class="hero" id="hero">
     <div class="hero-bg"><div class="gradient1"></div><div class="gradient2"></div><div class="grid"></div></div>
-    <div class="hero-content">
-      <div class="hero-text">
-        <div class="label" id="hero-label-wrap"><span class="label-dot"></span> <span id="hero-label"></span></div>
-        <h1><span id="hero-t1"></span> <em id="hero-t2"></em></h1>
-        <p id="hero-desc"></p>
-        <div class="hero-actions">
-          <a href="mailto:gvelasquez85@gmail.com" class="btn btn-primary"><span id="hero-cta1"></span> <span class="arrow">→</span></a>
-          <a href="#como" class="btn btn-secondary" id="hero-cta2"></a>
-        </div>
+    <div class="hero-content"><div class="hero-text">
+      <div class="label" id="hero-label-wrap"><span class="label-dot"></span> <span id="hero-label"></span></div>
+      <h1><span id="hero-t1"></span> <em id="hero-t2"></em></h1>
+      <p id="hero-desc"></p>
+      <div class="hero-actions">
+        <a href="mailto:gvelasquez85@gmail.com" class="btn btn-primary"><span id="hero-cta1"></span> <span class="arrow">&#x2192;</span></a>
+        <a href="#como" class="btn btn-secondary" id="hero-cta2"></a>
       </div>
-    </div>
+    </div></div>
   </section>
 
   <section class="how" id="como"><div class="container reveal">
@@ -175,18 +184,20 @@
     <div class="section-label" id="blog-label"></div>
     <h2 class="section-title" id="blog-title"></h2>
     <p class="section-desc" id="blog-desc"></p>
+    <div class="blog-filters" id="blog-filters">
+      <input type="text" class="blog-search" id="blog-search" placeholder="Buscar art&#x00ed;culos...">
+    </div>
     <div class="blog-grid" id="blog-grid"></div>
-    <div class="blog-more"><a href="#" class="btn btn-primary" style="background:var(--dark)">Ver todo el blog <span class="arrow">→</span></a></div>
   </div></section>
 
   <section class="cta-section"><div class="container reveal">
     <h2><span id="cta-t1"></span><br><span id="cta-t2"></span></h2>
     <p id="cta-desc"></p>
-    <a href="mailto:gvelasquez85@gmail.com" class="btn btn-primary" style="font-size:16px;padding:16px 36px;"><span id="cta-btn"></span> <span class="arrow">→</span></a>
+    <a href="mailto:gvelasquez85@gmail.com" class="btn btn-primary" style="font-size:16px;padding:16px 36px;"><span id="cta-btn"></span> <span class="arrow">&#x2192;</span></a>
   </div></section>
 
   <footer><div class="footer-inner">
-    <span>Germán Velásquez · Cajicá, Colombia</span>
+    <span>Germ&#x00e1;n Vel&#x00e1;squez &#x00b7; Cajic&#x00e1;, Colombia</span>
     <div class="footer-links">
       <a href="https://www.linkedin.com/in/germanvelasquezco" target="_blank">LinkedIn</a>
       <a href="https://turnflow.com.co" target="_blank">TurnFlow</a>
@@ -202,37 +213,63 @@
     document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
 
     fetch('content.json').then(r=>r.json()).then(c=>{
+      // Inject GTM if configured
+      if(c.config&&c.config.gtm_id){const gtm=document.createElement('script');gtm.innerHTML=`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','${c.config.gtm_id}');`;document.head.appendChild(gtm)}
+      // Inject analytics if configured
+      if(c.config&&c.config.analytics_id){const ga=document.createElement('script');ga.async=true;ga.src=`https://www.googletagmanager.com/gtag/js?id=${c.config.analytics_id}`;document.head.appendChild(ga);const g2=document.createElement('script');g2.innerHTML=`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','${c.config.analytics_id}');`;document.head.appendChild(g2)}
+      // Update SEO from config
+      if(c.config&&c.config.site_description){document.querySelector('meta[name="description"]').content=c.config.site_description}
+      if(c.config&&c.config.site_url){document.querySelector('link[rel="canonical"]').href=c.config.site_url}
+
       const t=id=>document.getElementById(id);
       const s=(id,txt)=>{const e=t(id);if(e)e.textContent=txt};
-      // Nav
       s('nav-logo',c.site.logo);
-      // Hero
       s('hero-label',c.hero.label);s('hero-t1',c.hero.title_1);s('hero-t2',c.hero.title_2);s('hero-desc',c.hero.desc);s('hero-cta1',c.hero.cta_1);s('hero-cta2',c.hero.cta_2);
-      // How
       s('how-label',c.how.label);s('how-t1',c.how.title_1);s('how-t2',c.how.title_2);s('how-desc',c.how.desc);
       const sg=t('steps-grid');
       c.how.steps.forEach((st,i)=>{sg.innerHTML+=`<div class="step-card" data-step="0${i+1}"><div class="step-icon">${st.icon}</div><h3>${st.title}</h3><p>${st.desc}</p></div>`});
-      // Why
       s('why-label',c.why.label);s('why-t1',c.why.title_1);s('why-t2',c.why.title_2);s('why-desc',c.why.desc);
-      const sr=t('stat-row');
-      c.why.stats.forEach(st=>{sr.innerHTML+=`<div class="stat-card"><div class="stat-value">${st.value}</div><div class="stat-label">${st.label}</div></div>`});
-      const dl=t('diff-list');
-      c.why.diffs.forEach(d=>{dl.innerHTML+=`<div class="diff-item"><span class="diff-icon">${d.icon}</span><span><strong>${d.bold}</strong>${d.text}</span></div>`});
-      // Build
+      const sr=t('stat-row');c.why.stats.forEach(st=>{sr.innerHTML+=`<div class="stat-card"><div class="stat-value">${st.value}</div><div class="stat-label">${st.label}</div></div>`});
+      const dl=t('diff-list');c.why.diffs.forEach(d=>{dl.innerHTML+=`<div class="diff-item"><span class="diff-icon">${d.icon}</span><span><strong>${d.bold}</strong>${d.text}</span></div>`});
       s('build-label',c.build.label);s('build-title',c.build.title);
-      const bg=t('build-grid');
-      c.build.items.forEach(b=>{bg.innerHTML+=`<div class="build-card"><div class="build-emoji">${b.emoji}</div><h3>${b.title}</h3><p>${b.desc}</p></div>`});
-      // Projects
+      const bg=t('build-grid');c.build.items.forEach(b=>{bg.innerHTML+=`<div class="build-card"><div class="build-emoji">${b.emoji}</div><h3>${b.title}</h3><p>${b.desc}</p></div>`});
       s('proj-label',c.projects.label);s('proj-t1',c.projects.title_1);s('proj-t2',c.projects.title_2);s('proj-desc',c.projects.desc);
       const ps=t('project-showcase');
       const lk=c.projects.lynkko;
-      ps.innerHTML+=`<div class="project-card project-card-lynkko"><div class="project-hero project-hero-lynkko"><div class="project-logo"><span class="accent-lynkko">L</span>ynkko</div><span class="project-badge badge-flagship">${lk.badge}</span></div><div class="project-body"><h3>Lynkko</h3><a href="https://lynkko.co" target="_blank" class="project-url project-url-lynkko">lynkko.co →</a><p>${lk.desc}</p><div class="project-stats">${lk.stats.map(x=>`<div class="project-stat"><div class="project-stat-val-lynkko">${x.value}</div><div class="project-stat-lbl">${x.label}</div></div>`).join('')}</div><div class="project-tags">${lk.tags.map(x=>`<span class="project-tag project-tag-lynkko">${x}</span>`).join('')}</div><div class="project-cta"><a href="https://lynkko.co" target="_blank" class="btn-lynkko">Conocer Lynkko <span class="arrow">→</span></a></div></div></div>`;
+      ps.innerHTML+=`<div class="project-card project-card-lynkko"><div class="project-hero project-hero-lynkko"><div class="project-logo"><span class="accent-lynkko">L</span>ynkko</div><span class="project-badge badge-flagship">${lk.badge}</span></div><div class="project-body"><h3>Lynkko</h3><a href="https://lynkko.co" target="_blank" class="project-url project-url-lynkko">lynkko.co</a><p>${lk.desc}</p><div class="project-stats">${lk.stats.map(x=>`<div class="project-stat"><div class="project-stat-val-lynkko">${x.value}</div><div class="project-stat-lbl">${x.label}</div></div>`).join('')}</div><div class="project-tags">${lk.tags.map(x=>`<span class="project-tag project-tag-lynkko">${x}</span>`).join('')}</div><div class="project-cta"><a href="https://lynkko.co" target="_blank" class="btn-lynkko">Conocer Lynkko <span class="arrow">&#x2192;</span></a></div></div></div>`;
       const tf=c.projects.turnflow;
-      ps.innerHTML+=`<div class="project-card project-card-turnflow"><div class="project-hero project-hero-turnflow"><div class="project-logo">Turn<span class="accent-turnflow">Flow</span></div><span class="project-badge badge-live">${tf.badge}</span></div><div class="project-body"><h3>TurnFlow</h3><a href="https://turnflow.com.co" target="_blank" class="project-url project-url-turnflow">turnflow.com.co →</a><p>${tf.desc}</p><div class="project-stats">${tf.stats.map(x=>`<div class="project-stat"><div class="project-stat-val-turnflow">${x.value}</div><div class="project-stat-lbl">${x.label}</div></div>`).join('')}</div><div class="project-tags">${tf.tags.map(x=>`<span class="project-tag project-tag-turnflow">${x}</span>`).join('')}</div><div class="project-cta"><a href="https://turnflow.com.co" target="_blank" class="btn-turnflow">Conocer TurnFlow <span class="arrow">→</span></a></div></div></div>`;
+      ps.innerHTML+=`<div class="project-card project-card-turnflow"><div class="project-hero project-hero-turnflow"><div class="project-logo">Turn<span class="accent-turnflow">Flow</span></div><span class="project-badge badge-live">${tf.badge}</span></div><div class="project-body"><h3>TurnFlow</h3><a href="https://turnflow.com.co" target="_blank" class="project-url project-url-turnflow">turnflow.com.co</a><p>${tf.desc}</p><div class="project-stats">${tf.stats.map(x=>`<div class="project-stat"><div class="project-stat-val-turnflow">${x.value}</div><div class="project-stat-lbl">${x.label}</div></div>`).join('')}</div><div class="project-tags">${tf.tags.map(x=>`<span class="project-tag project-tag-turnflow">${x}</span>`).join('')}</div><div class="project-cta"><a href="https://turnflow.com.co" target="_blank" class="btn-turnflow">Conocer TurnFlow <span class="arrow">&#x2192;</span></a></div></div></div>`;
       // Blog
       s('blog-label',c.blog.label);s('blog-title',c.blog.title_1);s('blog-desc',c.blog.desc);
-      const bG=t('blog-grid');
-      if(c.blog.posts){c.blog.posts.forEach(p=>{bG.innerHTML+=`<div class="blog-card"><div class="blog-date">${p.date}</div><h3>${p.title}</h3><p>${p.excerpt}</p><div class="blog-tags">${p.tags.map(tg=>`<span class="blog-tag">${tg}</span>`).join('')}</div><div class="blog-read">${p.read_time} de lectura</div></div>`})};
+      const posts=c.blog.posts||[];
+      // Extract unique categories and tags
+      const cats=[...new Set(posts.map(p=>p.category))].sort();
+      const allTags=[...new Set(posts.flatMap(p=>p.tags||[]))].sort();
+      // Build filter bar
+      const bf=t('blog-filters');
+      cats.forEach(cat=>{bf.innerHTML+=`<button class="blog-filter-btn" data-filter="cat" data-value="${cat}">${cat}</button>`});
+      allTags.forEach(tag=>{bf.innerHTML+=`<button class="blog-filter-btn" data-filter="tag" data-value="${tag}">${tag}</button>`});
+      // Render blog posts
+      let activeFilter=null;
+      function renderBlog(filter,search){
+        const bG=t('blog-grid');bG.innerHTML='';
+        let filtered=posts;
+        if(filter)filtered=filter.type==='cat'?filtered.filter(p=>p.category===filter.value):filtered.filter(p=>(p.tags||[]).includes(filter.value));
+        if(search){const q=search.toLowerCase();filtered=filtered.filter(p=>p.title.toLowerCase().includes(q)||p.excerpt.toLowerCase().includes(q)||(p.tags||[]).some(tg=>tg.toLowerCase().includes(q))||p.category.toLowerCase().includes(q))}
+        filtered.forEach(p=>{
+          const url=`blog/post.html?id=${p.id}`;
+          bG.innerHTML+=`<div class="blog-card" onclick="location.href='${url}'"><div class="blog-date">${p.date}</div><span class="blog-category">${p.category}</span><h3>${p.title}</h3><p>${p.excerpt}</p><div class="blog-tags">${(p.tags||[]).map(tg=>`<span class="blog-tag">${tg}</span>`).join('')}</div><div class="blog-read">${p.read_time} de lectura</div><div class="blog-share"><button class="blog-share-btn" onclick="event.stopPropagation();shareLi('${url}','${p.title.replace(/'/g,"\\'")}') " title="LinkedIn">in</button><button class="blog-share-btn" onclick="event.stopPropagation();shareWa('${url}','${p.title.replace(/'/g,"\\'")}') " title="WhatsApp">wa</button></div></div>`;
+        });
+        if(!filtered.length)bG.innerHTML='<p style="color:var(--gray-500);grid-column:1/-1;text-align:center;padding:40px">No se encontraron art\u00edculos</p>';
+      }
+      // Share helpers
+      window.shareLi=(url,title)=>{window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(location.origin+'/'+url)}`,'_blank')};
+      window.shareWa=(url,title)=>{window.open(`https://wa.me/?text=${encodeURIComponent(title+' '+location.origin+'/'+url)}`,'_blank')};
+      // Filter clicks
+      bf.addEventListener('click',e=>{const btn=e.target.closest('.blog-filter-btn');if(!btn)return;const type=btn.dataset.filter,value=btn.dataset.value;if(activeFilter&&activeFilter.type===type&&activeFilter.value===value){activeFilter=null;bf.querySelectorAll('.blog-filter-btn').forEach(b=>b.classList.remove('active'))}else{activeFilter={type,value};bf.querySelectorAll('.blog-filter-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active')}renderBlog(activeFilter,t('blog-search').value)});
+      // Search
+      t('blog-search').addEventListener('input',e=>renderBlog(activeFilter,e.target.value));
+      renderBlog(null,'');
       // CTA
       s('cta-t1',c.cta.title_1);s('cta-t2',c.cta.title_2);s('cta-desc',c.cta.desc);s('cta-btn',c.cta.cta_text);
     });
