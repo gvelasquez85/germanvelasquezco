@@ -1028,20 +1028,20 @@ function renderBlog() {
     mediumBtn.style.cssText = 'font-family:Montserrat,sans-serif;font-size:13px;font-weight:600;padding:10px 20px;border-radius:8px;border:none;background:#000;color:#fff;cursor:pointer;';
     mediumBtn.onclick = function() {
       if (!post.title || !post.body) { showToast('Título y contenido requeridos', true); return; }
-      // Medium API: open pre-filled composer
-      var mediumUrl = 'https://medium.com/p/import';
-      // Alternative: use medium's new post with title via URL params
-      var composerUrl = 'https://medium.com/m/import';
-      // Best approach: open medium's intent with title
-      var intentUrl = 'https://medium.com/m/import';
-      // For now, open medium compose and copy content to clipboard
-      var content = '# ' + post.title + '\n\n' + (post.excerpt||'') + '\n\n' + post.body + '\n\n';
-      if (post.tags) content += post.tags.map(function(t){return '#'+t.replace(/\s+/g,'')}).join(' ') + '\n';
+      // Build full article markdown: title + body + tags
+      var content = '# ' + post.title + '\n\n';
+      if (post.excerpt) content += post.excerpt + '\n\n';
+      content += post.body + '\n\n';
+      if (post.tags && post.tags.length) {
+        content += post.tags.map(function(t){ return '#' + t.replace(/\s+/g,''); }).join(' ') + '\n';
+      }
+      // Copy formatted content to clipboard and open Medium
       navigator.clipboard.writeText(content).then(function(){
         window.open('https://medium.com/new-story', '_blank');
-        showToast('Contenido copiado. Pega en Medium para publicar.');
+        showToast('Contenido copiado al clipboard. Pega (Ctrl+V) en el editor de Medium para crear el artículo.', 'info');
       }).catch(function(){
         window.open('https://medium.com/new-story', '_blank');
+        showToast('No se pudo copiar al clipboard. Abre Medium manualmente.', 'info');
       });
     };
     publishDiv.appendChild(mediumBtn);
@@ -1051,9 +1051,12 @@ function renderBlog() {
     liBtn.style.cssText = 'font-family:Montserrat,sans-serif;font-size:13px;font-weight:600;padding:10px 20px;border-radius:8px;border:none;background:#0A66C2;color:#fff;cursor:pointer;';
     liBtn.onclick = function() {
       if (!post.title || !post.excerpt) { showToast('Título y extracto requeridos', true); return; }
-      var url = 'https://www.linkedin.com/sharing/share-offsite/?url=' + encodeURIComponent('https://germanvelasquez.co/blog/post.html?id=' + post.id) + '&title=' + encodeURIComponent(post.title) + '&summary=' + encodeURIComponent(post.excerpt);
+      var postUrl = encodeURIComponent('https://germanvelasquez.co/blog/post.html?id=' + post.id);
+      var postTitle = encodeURIComponent(post.title);
+      var postSummary = encodeURIComponent(post.excerpt);
+      var url = 'https://www.linkedin.com/publish/article?mini=true&url=' + postUrl + '&title=' + postTitle + '&summary=' + postSummary;
       window.open(url, '_blank');
-      showToast('Abriendo LinkedIn para compartir...');
+      showToast('Abriendo LinkedIn para publicar artículo...', 'info');
     };
     publishDiv.appendChild(liBtn);
     editor.appendChild(publishDiv);

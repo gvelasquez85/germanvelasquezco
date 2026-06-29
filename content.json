@@ -44,12 +44,12 @@
     "desc": "Cada negocio es distinto. Mi trabajo es entender el tuyo lo suficiente para saber exactamente dónde la IA y la innovación generan impacto — y dónde no.",
     "steps": [
       {
-        "icon": "�",
+        "icon": "🎯",
         "title": "Diagnóstico real",
         "desc": "Entiendo tu negocio, tus clientes, tus cuellos de botella. Hablo tu idioma: P&L, churn, conversión, ROI."
       },
       {
-        "icon": "�",
+        "icon": "📐",
         "title": "Estrategia con IA",
         "desc": "Diseño la solución con la tecnología correcta. IA donde genera valor, procesos lean donde la tecnología sobra."
       },
@@ -90,7 +90,7 @@
     ],
     "diffs": [
       {
-        "icon": "�",
+        "icon": "⚙️",
         "bold": "Negocio primero",
         "text": " — Entiendo P&L, unidad de negocio, cliente real. No soy un dev que aprendí negocio."
       },
@@ -100,12 +100,12 @@
         "text": " — No por moda. Perfilación inteligente, predicción de churn, automatización que libera horas humanas."
       },
       {
-        "icon": "�",
+        "icon": "📈",
         "bold": "Builder, no consultor",
         "text": " — Construyo software que funciona en producción. No entrego PDFs."
       },
       {
-        "icon": "�",
+        "icon": "🎯",
         "bold": "Ojos en métricas",
         "text": " — ROI+, NPS, churn, conversión. Si no se mide, no importa."
       },
@@ -131,7 +131,7 @@
         "desc": "Roadmap de transformación con tecnología correcta. Journey maps, gobernanza CX, Voice of Customer. Innovación alineada a objetivos de negocio."
       },
       {
-        "emoji": "�",
+        "emoji": "💡",
         "title": "Plataformas y productos",
         "desc": "CRM, canales digitales, automatización omnicanal, productos SaaS. De la idea al deploy, yo lo construyo."
       },

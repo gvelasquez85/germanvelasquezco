@@ -4,45 +4,138 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Blog — Germán Velásquez</title>
+  <meta name="description" content="Artículos sobre IA, CX, Transformación Digital, Emprendimiento y Liderazgo por Germán Velásquez.">
+  <meta property="og:locale" content="es_CO">
+  <meta property="og:site_name" content="Germán Velásquez">
+  <meta property="og:type" content="article">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://germanvelasquez.co/blog/post.html">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
-    :root{--orange:#FF6B2C;--orange-dark:#E85520;--orange-glow:rgba(255,107,44,0.15);--orange-glow2:rgba(255,107,44,0.08);--black:#0A0A0A;--dark:#1A1A1A;--gray-700:#555;--gray-500:#888;--gray-300:#CCC;--gray-100:#F2F2F2;--white:#FFF;--font:'Montserrat',sans-serif;--radius:12px;--transition:0.3s cubic-bezier(0.4,0,0.2,1)}
-    *{margin:0;padding:0;box-sizing:border-box}body{font-family:var(--font);color:var(--dark);background:var(--white);line-height:1.8;-webkit-font-smoothing:antialiased}
-    nav{position:fixed;top:0;width:100%;z-index:1000;background:rgba(255,255,255,0.95);backdrop-filter:blur(20px);box-shadow:0 1px 20px rgba(0,0,0,0.06)}
+    :root{--orange:#FF6B2C;--orange-light:#FF8F5E;--orange-dark:#E85520;--orange-glow:rgba(255,107,44,0.15);--orange-glow2:rgba(255,107,44,0.08);--black:#0A0A0A;--dark:#1A1A1A;--gray-900:#2D2D2D;--gray-700:#555;--gray-500:#888;--gray-300:#CCC;--gray-100:#F2F2F2;--white:#FFF;--blue:#2563EB;--blue-light:#3B82F6;--font:'Montserrat',sans-serif;--radius:12px;--radius-lg:20px;--transition:0.3s cubic-bezier(0.4,0,0.2,1)}
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{font-family:var(--font);color:var(--dark);background:var(--white);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+    /* ===== NAV (white interior page) ===== */
+    nav{position:fixed;top:0;width:100%;z-index:1000;background:rgba(255,255,255,0.97);backdrop-filter:blur(20px);box-shadow:0 1px 20px rgba(0,0,0,0.06)}
     .nav-inner{max-width:1200px;margin:0 auto;padding:16px 40px;display:flex;align-items:center;justify-content:space-between}
-    .nav-logo{font-size:18px;font-weight:700;color:var(--black);text-decoration:none}
-    .nav-links{display:flex;gap:24px;align-items:center}
-    .nav-links a{font-size:13px;font-weight:500;color:var(--gray-700);text-decoration:none;letter-spacing:0.5px;text-transform:uppercase;transition:var(--transition)}
-    .nav-links a:hover{color:var(--orange)}
-    .container{max-width:800px;margin:0 auto;padding:100px 24px 60px}
-    article h1{font-size:36px;font-weight:800;letter-spacing:-1.5px;line-height:1.15;margin-bottom:12px}
-    .meta{font-size:13px;color:var(--gray-500);margin-bottom:32px;display:flex;gap:16px;align-items:center;flex-wrap:wrap}
-    .tag{font-size:11px;font-weight:600;color:var(--orange);background:var(--orange-glow2);padding:3px 10px;border-radius:100px;text-transform:uppercase;letter-spacing:0.5px}
-    .cat{font-size:11px;font-weight:600;color:var(--white);background:var(--orange);padding:3px 10px;border-radius:100px;text-transform:uppercase;letter-spacing:0.5px}
-    article h2{font-size:24px;font-weight:700;margin:32px 0 12px;letter-spacing:-0.5px}
-    article h3{font-size:20px;font-weight:600;margin:24px 0 8px}
-    article p{margin-bottom:16px;font-size:16px;color:#333}
-    article ul,article ol{margin:0 0 16px 24px;font-size:16px;color:#333}
-    article li{margin-bottom:8px}
-    article strong{font-weight:700;color:var(--black)}
-    article blockquote{border-left:3px solid var(--orange);padding:8px 20px;margin:0 0 16px;background:var(--orange-glow2);border-radius:0 var(--radius) var(--radius) 0;font-style:italic}
-    .share-bar{margin-top:40px;padding-top:24px;border-top:1px solid var(--gray-100);display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+    .nav-logo-post{font-family:var(--font);font-size:18px;font-weight:700;color:var(--black);text-decoration:none;letter-spacing:-0.3px}
+    .nav-links-post{display:flex;gap:32px;align-items:center}
+    .nav-links-post a{font-size:13px;font-weight:500;color:var(--gray-700);text-decoration:none;letter-spacing:0.5px;text-transform:uppercase;transition:var(--transition)}
+    .nav-links-post a:hover{color:var(--orange)}
+    .nav-links-post a.nav-cta{font-size:13px!important;font-weight:600!important;color:var(--white)!important;background:var(--orange);padding:10px 20px;border-radius:100px;text-transform:uppercase!important;letter-spacing:0.5px;transition:var(--transition)}
+    .nav-links-post a.nav-cta:hover{background:var(--orange-dark);transform:scale(1.02)}
+    .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;z-index:1001;padding:4px}
+    .hamburger span{display:block;width:24px;height:2px;background:var(--black);border-radius:2px;transition:var(--transition)}
+    /* Mobile menu */
+    .mobile-menu{display:none;position:fixed;inset:0;background:var(--white);z-index:999;flex-direction:column;align-items:center;justify-content:center;gap:24px}
+    .mobile-menu.open{display:flex}
+    .mobile-menu a{font-size:20px;font-weight:600;color:var(--dark);text-decoration:none;transition:var(--transition)}
+    .mobile-menu a:hover{color:var(--orange)}
+    .mobile-close{position:absolute;top:20px;right:20px;background:none;border:none;font-size:28px;cursor:pointer;color:var(--black)}
+    /* ===== ARTICLE HERO ===== */
+    .article-hero{margin-top:64px;height:300px;position:relative;display:flex;align-items:flex-end;overflow:hidden}
+    .article-hero-img{position:absolute;inset:0;background-size:cover;background-position:center;z-index:1}
+    .article-hero-overlay{position:absolute;inset:0;background:linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.7) 100%);z-index:2}
+    .article-hero-content{position:relative;z-index:3;padding:32px 40px;max-width:800px;width:100%;margin:0 auto}
+    .article-hero-cat{display:inline-block;font-size:11px;font-weight:600;color:var(--white);background:var(--orange);padding:4px 12px;border-radius:100px;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px}
+    .article-hero h1{font-size:36px;font-weight:800;color:var(--white);line-height:1.15;letter-spacing:-1.5px}
+    /* ===== ARTICLE BODY ===== */
+    .container{max-width:800px;margin:0 auto;padding:48px 40px 60px}
+    .article-meta{display:flex;gap:16px;align-items:center;flex-wrap:wrap;margin-bottom:32px;font-size:13px;color:var(--gray-500)}
+    .article-meta .tag{font-size:11px;font-weight:600;color:var(--orange);background:var(--orange-glow2);padding:3px 10px;border-radius:100px;text-transform:uppercase;letter-spacing:0.5px}
+    .article-body{font-size:17px;color:#333;line-height:1.85}
+    .article-body h2{font-size:26px;font-weight:700;margin:40px 0 16px;letter-spacing:-0.5px;color:var(--black)}
+    .article-body h3{font-size:20px;font-weight:600;margin:28px 0 10px;color:var(--dark)}
+    .article-body p{margin-bottom:20px}
+    .article-body ul,.article-body ol{margin:0 0 20px 24px}
+    .article-body li{margin-bottom:8px}
+    .article-body strong{font-weight:700;color:var(--black)}
+    .article-body em{font-style:italic}
+    .article-body blockquote{border-left:4px solid var(--orange);padding:12px 24px;margin:24px 0;background:var(--orange-glow2);border-radius:0 var(--radius) var(--radius) 0;font-style:italic;font-size:16px;color:var(--gray-700)}
+    .article-body a{color:var(--orange);text-decoration:underline;text-underline-offset:2px}
+    .article-body a:hover{color:var(--orange-dark)}
+    .back-link{display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:600;color:var(--gray-700);text-decoration:none;margin-bottom:32px;transition:var(--transition)}
+    .back-link:hover{color:var(--orange)}
+    /* ===== SHARE BAR ===== */
+    .share-bar{margin-top:48px;padding-top:24px;border-top:1px solid var(--gray-100);display:flex;gap:12px;align-items:center;flex-wrap:wrap}
     .share-bar span{font-size:13px;font-weight:600;color:var(--gray-700);text-transform:uppercase;letter-spacing:1px}
     .share-btn{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;padding:8px 16px;border-radius:100px;border:1px solid var(--gray-100);background:var(--white);color:var(--gray-700);cursor:pointer;text-decoration:none;transition:var(--transition)}
     .share-btn:hover{border-color:var(--orange);color:var(--orange)}
-    .back-link{display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:600;color:var(--gray-700);text-decoration:none;margin-bottom:40px;transition:var(--transition)}
-    .back-link:hover{color:var(--orange)}
-    @media(max-width:768px){.container{padding:80px 16px 40px}article h1{font-size:28px}.nav-links{display:none}}
+    .share-btn svg{flex-shrink:0}
+    /* ===== RELATED ===== */
+    .related-section{margin-top:60px;padding-top:40px;border-top:1px solid var(--gray-100)}
+    .related-section h3{font-size:20px;font-weight:700;margin-bottom:24px;letter-spacing:-0.5px}
+    .related-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+    .related-card{border:1px solid var(--gray-100);border-radius:var(--radius);padding:24px;transition:var(--transition);cursor:pointer;text-decoration:none;color:inherit;display:block}
+    .related-card:hover{border-color:var(--orange);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,0.06)}
+    .related-card .rel-cat{font-size:10px;font-weight:600;color:var(--white);background:var(--orange);padding:3px 10px;border-radius:100px;text-transform:uppercase;letter-spacing:0.5px;display:inline-block;margin-bottom:10px}
+    .related-card h4{font-size:16px;font-weight:700;line-height:1.35;margin-bottom:8px;color:var(--black)}
+    .related-card:hover h4{color:var(--orange)}
+    .related-card .rel-excerpt{font-size:13px;color:var(--gray-500);line-height:1.5;margin-bottom:8px}
+    .related-card .rel-date{font-size:12px;color:var(--gray-500);font-weight:500}
+    /* ===== FOOTER ===== */
+    footer{background:var(--black);border-top:1px solid rgba(255,255,255,0.06);padding:32px 40px}
+    .footer-inner{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--gray-500);flex-wrap:wrap;gap:16px}
+    .footer-links{display:flex;gap:24px}
+    .footer-links a{color:var(--gray-500);text-decoration:none;transition:var(--transition)}
+    .footer-links a:hover{color:var(--orange)}
+    /* ===== RESPONSIVE ===== */
+    @media(max-width:768px){
+      .nav-inner{padding:16px 20px}
+      .nav-links-post{display:none}
+      .hamburger{display:flex}
+      .article-hero{height:220px;margin-top:56px}
+      .article-hero-content{padding:20px}
+      .article-hero h1{font-size:24px;letter-spacing:-1px}
+      .container{padding:32px 20px 40px}
+      .article-body{font-size:16px}
+      .article-body h2{font-size:22px}
+      .related-grid{grid-template-columns:1fr}
+      .share-bar{gap:8px}
+      .share-btn{padding:6px 12px;font-size:12px}
+      footer{padding:24px 20px}
+      .footer-inner{flex-direction:column;text-align:center}
+    }
+    @media(max-width:480px){
+      .article-hero{height:180px}
+      .article-hero h1{font-size:20px}
+    }
   </style>
+  <script type="application/ld+json" id="jsonld-schema"></script>
 </head>
 <body>
+  <!-- NAV -->
   <nav><div class="nav-inner">
-    <a href="/" class="nav-logo" id="nav-logo-post"></a>
-    <div class="nav-links" id="nav-links-post"></div>
+    <a href="/" class="nav-logo-post" id="nav-logo-post"></a>
+    <div class="nav-links-post" id="nav-links-post"></div>
+    <div class="hamburger" onclick="toggleMobile()" id="hamburger-btn">
+      <span></span><span></span><span></span>
+    </div>
   </div></nav>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobileMenu">
+    <button class="mobile-close" onclick="toggleMobile()">&#x2715;</button>
+    <div id="mobile-nav-links"></div>
+  </div>
+
+  <!-- ARTICLE HERO -->
+  <section class="article-hero" id="article-hero">
+    <div class="article-hero-img" id="article-hero-img"></div>
+    <div class="article-hero-overlay"></div>
+    <div class="article-hero-content">
+      <span class="article-hero-cat" id="article-cat"></span>
+      <h1 id="article-title-hero"></h1>
+    </div>
+  </section>
+
+  <!-- ARTICLE CONTENT -->
   <div class="container">
-    <a href="/#blog" class="back-link">← Volver al blog</a>
-    <article id="article"></article>
+    <a href="/blog.html" class="back-link">&#x2190; Volver al blog</a>
+    <div class="article-meta" id="article-meta"></div>
+    <div class="article-body" id="article-body"></div>
+
+    <!-- SHARE BAR -->
     <div class="share-bar">
       <span>Compartir</span>
       <a class="share-btn" id="share-li" target="_blank" title="LinkedIn">
@@ -52,68 +145,220 @@
         <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
       </a>
       <a class="share-btn" id="share-wa" target="_blank" title="WhatsApp">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      </a>
+      <a class="share-btn" id="share-email" target="_blank" title="Email">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
       </a>
       <button class="share-btn" id="share-copy" title="Copiar enlace">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>
         <span>Copiar</span>
       </button>
     </div>
+
+    <!-- RELATED ARTICLES -->
+    <div class="related-section">
+      <h3>Artículos relacionados</h3>
+      <div class="related-grid" id="related-grid"></div>
+    </div>
   </div>
+
+  <!-- FOOTER -->
+  <footer><div class="footer-inner">
+    <span>Germ&#x00e1;n Vel&#x00e1;squez &#x00b7; Cajic&#x00e1;, Colombia</span>
+    <div class="footer-links">
+      <a href="https://www.linkedin.com/in/germanvelasquezco" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://github.com/gvelasquez85" target="_blank" rel="noopener">GitHub</a>
+      <a href="mailto:gvelasquez85@gmail.com">Email</a>
+    </div>
+  </div></footer>
+
   <script>
-    // Simple markdown to HTML renderer
+    function toggleMobile(){document.getElementById('mobileMenu').classList.toggle('open')}
+
+    // Category gradients
+    const catGradients={
+      'CX':'linear-gradient(135deg, #FF6B2C 0%, #E85520 100%)',
+      'IA':'linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%)',
+      'Transformación Digital':'linear-gradient(135deg, #7C3AED 0%, #5B21B6 100%)',
+      'Transformacion Digital':'linear-gradient(135deg, #7C3AED 0%, #5B21B6 100%)',
+      'Emprendimiento':'linear-gradient(135deg, #059669 0%, #047857 100%)',
+      'Liderazgo':'linear-gradient(135deg, #DC2626 0%, #B91C1C 100%)'
+    };
+    function getGradient(cat){return catGradients[cat]||catGradients['CX']}
+
+    // Improved markdown to HTML renderer
     function md(text){
-      return text
-        .replace(/^### (.+)$/gm,'<h3>$1</h3>')
-        .replace(/^## (.+)$/gm,'<h2>$1</h2>')
-        .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
-        .replace(/^> (.+)$/gm,'<blockquote>$1</blockquote>')
-        .replace(/^- (.+)$/gm,'<li>$1</li>')
-        .replace(/(<li>.*<\/li>\n?)+/g,'<ul>$&</ul>')
-        .replace(/\n\n/g,'</p><p>')
-        .replace(/^\s*/,'')
+      if(!text)return '';
+      let html=text;
+      // Escape HTML
+      html=html.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+      // Headers
+      html=html.replace(/^### (.+)$/gm,'<h3>$1</h3>');
+      html=html.replace(/^## (.+)$/gm,'<h2>$1</h2>');
+      // Bold + italic
+      html=html.replace(/\*\*\*(.+?)\*\*\*/g,'<strong><em>$1</em></strong>');
+      html=html.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>');
+      html=html.replace(/\*(.+?)\*/g,'<em>$1</em>');
+      // Blockquotes
+      html=html.replace(/^&gt; (.+)$/gm,'<blockquote>$1</blockquote>');
+      // Unordered lists
+      html=html.replace(/^- (.+)$/gm,'<li>$1</li>');
+      html=html.replace(/((?:<li>.*<\/li>\n?)+)/g,function(m){return '<ul>'+m+'</ul>'});
+      // Ordered lists
+      html=html.replace(/^\d+\. (.+)$/gm,'<li>$1</li>');
+      // Split paragraphs on double newlines
+      html=html.split(/\n\n+/).map(block=>{
+        block=block.trim();
+        if(!block)return '';
+        if(block.startsWith('<h')||block.startsWith('<ul')||block.startsWith('<blockquote'))return block;
+        return '<p>'+block.replace(/\n/g,'<br>')+'</p>';
+      }).join('');
+      return html;
     }
+
+    // Helper to add meta tags
+    function addMeta(attrs){const e=document.createElement('meta');Object.entries(attrs).forEach(([k,v])=>e.setAttribute(k,v));document.head.appendChild(e)}
+
+    // Parse URL param or path
     const params=new URLSearchParams(location.search);
     const slug=params.get('id')||location.pathname.match(/blog\/(.+)\.html/)?.[1];
+
     if(slug){
-      // Build nav
-      fetch('content.json').then(r=>r.json()).then(nc=>{
+      // Build nav from content.json
+      fetch('/content.json').then(r=>r.json()).then(nc=>{
         document.getElementById('nav-logo-post').textContent=nc.site.logo;
         const navEl=document.getElementById('nav-links-post');
+        const mobileEl=document.getElementById('mobile-nav-links');
         const navCta=['conversemos'];
         (nc.nav&&nc.nav.items||[]).forEach(item=>{
           const label=item.label||item;
           const href=item.url||'#';
           const resolvedHref=href.startsWith('#')?'/'+href:href.startsWith('http')||href.startsWith('mailto:')?href:'/'+href;
           const isCta=navCta.includes(label.toLowerCase());
-          navEl.innerHTML+=isCta?`<a href="${resolvedHref}" style="color:var(--white);background:var(--orange);padding:8px 16px;border-radius:100px">${label}</a>`:`<a href="${resolvedHref}">${label}</a>`;
+          const linkHtml=isCta?`<a href="${resolvedHref}" class="nav-cta">${label}</a>`:`<a href="${resolvedHref}">${label}</a>`;
+          navEl.innerHTML+=linkHtml;
+          mobileEl.innerHTML+=`<a href="${resolvedHref}" onclick="toggleMobile()">${label}</a>`;
         });
+        // Add CTA button to mobile menu too
+        mobileEl.innerHTML+=`<a href="/#contacto" onclick="toggleMobile()" style="color:var(--orange);background:var(--orange-glow2);padding:10px 24px;border-radius:100px">Conversemos</a>`;
       }).catch(()=>{});
 
+      // Load article data
       fetch('/blog/content.json').then(r=>r.json()).then(bc=>{
         const post=(bc.posts||[]).find(p=>p.id===slug);
-        if(!post){document.getElementById('article').innerHTML='<h1>Artículo no encontrado</h1><p><a href="/">Volver al inicio</a></p>';return}
+        if(!post){
+          document.getElementById('article-title-hero').textContent='Artículo no encontrado';
+          document.getElementById('article-body').innerHTML='<p><a href="/">Volver al inicio</a></p>';
+          return;
+        }
+
+        // Page title
         document.title=post.title+' — Germán Velásquez';
-        // SEO
-        const m=d=>{const e=document.createElement('meta');Object.entries(d).forEach(([k,v])=>e.setAttribute(k,v));document.head.appendChild(e)};
-        m({name:'description',content:post.excerpt});
-        m({property:'og:title',content:post.title});
-        m({property:'og:description',content:post.excerpt});
-        m({property:'og:type',content:'article'});
-        m({name:'twitter:card',content:'summary'});
-        m({name:'twitter:title',content:post.title});
-        m({name:'article:published_time',content:post.date});
-        m({name:'article:section',content:post.category});
-        post.tags.forEach(t=>m({name:'article:tag',content:t}));
-        const a=document.getElementById('article');
-        a.innerHTML=`<h1>${post.title}</h1><div class="meta"><span class="cat">${post.category}</span>${post.tags.map(t=>`<span class="tag">${t}</span>`).join('')}<span>${post.date}</span><span>${post.read_time}</span></div><p>${post.body?md(post.body):post.excerpt}</p>`;
-        // Share
-        const url=encodeURIComponent(location.href),title=encodeURIComponent(post.title),excerpt=encodeURIComponent(post.excerpt);
-        document.getElementById('share-li').href=`https://www.linkedin.com/sharing/share-offsite/?url=${url}`;
-        document.getElementById('share-tw').href=`https://twitter.com/intent/tweet?text=${title}&url=${url}`;
-        document.getElementById('share-wa').href=`https://wa.me/?text=${title}%20${url}`;
-        document.getElementById('share-copy').onclick=()=>{navigator.clipboard.writeText(location.href);document.getElementById('share-copy').textContent='✓ Copiado';setTimeout(()=>document.getElementById('share-copy').textContent='Copiar link',2000)};
+
+        // ===== SEO META TAGS =====
+        addMeta({name:'description',content:post.excerpt});
+        addMeta({property:'og:title',content:post.title});
+        addMeta({property:'og:description',content:post.excerpt});
+        addMeta({property:'og:type',content:'article'});
+        addMeta({property:'og:url',content:'https://germanvelasquez.co/blog/post.html?id='+post.id});
+        addMeta({name:'twitter:card',content:'summary_large_image'});
+        addMeta({name:'twitter:title',content:post.title});
+        addMeta({name:'twitter:description',content:post.excerpt});
+        addMeta({name:'article:published_time',content:post.date});
+        addMeta({name:'article:section',content:post.category});
+        (post.tags||[]).forEach(t=>addMeta({name:'article:tag',content:t}));
+        // Update canonical
+        document.querySelector('link[rel="canonical"]').href='https://germanvelasquez.co/blog/post.html?id='+post.id;
+
+        // ===== JSON-LD =====
+        const publisher={
+          "@type":"Person",
+          "name":"Germán Velásquez",
+          "url":"https://germanvelasquez.co",
+          "sameAs":[
+            "https://www.linkedin.com/in/germanvelasquezco",
+            "https://github.com/gvelasquez85"
+          ]
+        };
+        const jsonld={
+          "@context":"https://schema.org",
+          "@type":"BlogPosting",
+          "headline":post.title,
+          "description":post.excerpt,
+          "author":{"@type":"Person","name":"Germán Velásquez"},
+          "datePublished":post.date,
+          "publisher":publisher,
+          "mainEntityOfPage":{"@type":"WebPage","@id":'https://germanvelasquez.co/blog/post.html?id='+post.id},
+          "keywords":(post.tags||[]).join(','),
+          "articleSection":post.category
+        };
+        // Use image if specified on post, else use OG image placeholder
+        const ogImageUrl=post.image||'https://germanvelasquez.co/assets/og-default.png';
+        jsonld.image=ogImageUrl;
+        addMeta({property:'og:image',content:ogImageUrl});
+        addMeta({name:'twitter:image',content:ogImageUrl});
+        document.getElementById('jsonld-schema').textContent=JSON.stringify(jsonld);
+
+        // ===== HERO IMAGE =====
+        const heroImg=document.getElementById('article-hero-img');
+        if(post.image){
+          heroImg.style.backgroundImage='url('+post.image+')';
+        } else {
+          heroImg.style.backgroundImage=getGradient(post.category);
+        }
+
+        // ===== ARTICLE HEADER =====
+        document.getElementById('article-cat').textContent=post.category;
+        document.getElementById('article-title-hero').textContent=post.title;
+
+        // ===== ARTICLE META =====
+        document.getElementById('article-meta').innerHTML=
+          '<span>'+post.date+'</span><span>'+post.read_time+'</span>'+
+          (post.tags||[]).map(t=>'<span class="tag">'+t+'</span>').join('');
+
+        // ===== ARTICLE BODY =====
+        document.getElementById('article-body').innerHTML=md(post.body||post.excerpt);
+
+        // ===== SOCIAL SHARE =====
+        const url=encodeURIComponent('https://germanvelasquez.co/blog/post.html?id='+post.id);
+        const title=encodeURIComponent(post.title);
+        const excerpt=encodeURIComponent(post.excerpt);
+        document.getElementById('share-li').href='https://www.linkedin.com/sharing/share-offsite/?url='+url;
+        document.getElementById('share-tw').href='https://twitter.com/intent/tweet?text='+title+'&url='+url;
+        document.getElementById('share-wa').href='https://wa.me/?text='+title+'%20'+url;
+        document.getElementById('share-email').href='mailto:?subject='+title+'&body='+excerpt+'%20'+url;
+        document.getElementById('share-copy').onclick=()=>{
+          navigator.clipboard.writeText('https://germanvelasquez.co/blog/post.html?id='+post.id).then(()=>{
+            const btn=document.getElementById('share-copy');
+            btn.innerHTML='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><span>¡Copiado!</span>';
+            setTimeout(()=>{btn.innerHTML='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg><span>Copiar</span>'},2000);
+          });
+        };
+
+        // ===== RELATED ARTICLES =====
+        const others=(bc.posts||[]).filter(p=>p.id!==post.id);
+        // First try same category, fallback to latest
+        let related=others.filter(p=>p.category===post.category).slice(0,2);
+        if(related.length<2){
+          related=related.concat(others.filter(p=>(related.indexOf(p)===-1)).slice(0,2-related.length));
+        }
+        const relGrid=document.getElementById('related-grid');
+        relGrid.innerHTML=related.map(p=>`
+          <a href="/blog/post.html?id=${p.id}" class="related-card">
+            <span class="rel-cat">${p.category}</span>
+            <h4>${p.title}</h4>
+            <p class="rel-excerpt">${p.excerpt.substring(0,120)}...</p>
+            <div class="rel-date">${p.date} · ${p.read_time}</div>
+          </a>
+        `).join('');
+      }).catch(err=>{
+        document.getElementById('article-title-hero').textContent='Error cargando artículo';
+        document.getElementById('article-body').innerHTML='<p>No se pudo cargar el contenido. <a href="/blog.html">Volver al blog</a></p>';
       });
+    } else {
+      document.getElementById('article-title-hero').textContent='Artículo no especificado';
+      document.getElementById('article-body').innerHTML='<p>Usa ?id=slug en la URL o accede desde <a href="/blog.html">el blog</a>.</p>';
     }
   </script>
 </body>

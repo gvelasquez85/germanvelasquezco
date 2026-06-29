@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+Disallow: /admin.html
+Disallow: /api/
+Disallow: /cms.secret
+Disallow: /config.json
+Disallow: /content.json
+Disallow: /blog/content.json
+
+Sitemap: https://germanvelasquez.co/sitemap.php
