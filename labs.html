@@ -121,7 +121,7 @@
       // Load GitHub repos
       const user=c.labs.github_user||'gvelasquez85';
       const featured=(c.labs.featured_repos||[]);
-      return fetch('https://api.github.com/users/'+user+'repos?sort=updated&per_page=100').then(r=>r.json()).then(repos=>{
+      return fetch('/api/github-proxy.php?path=users/'+user+'/repos?sort=updated&per_page=100').then(r=>r.json()).then(repos=>{
         if(!Array.isArray(repos)){document.getElementById('repos-grid').innerHTML='<p style="color:#888">No se pudieron cargar los repos</p>';return}
         const grid=document.getElementById('repos-grid');grid.innerHTML='';
         repos.filter(r=>!r.fork).sort((a,b)=>b.stargazers_count-a.stargazers_count).forEach(r=>{
