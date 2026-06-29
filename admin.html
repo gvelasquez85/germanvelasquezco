@@ -7,6 +7,7 @@
 <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
 <title>CMS Admin — Germán Velásquez</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/nav.css">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
@@ -432,6 +433,14 @@ body {
 }
 @keyframes fadeOut { to { opacity: 0; transform: translateX(40px); } }
 
+/* ADMIN RESPONSIVE: show shared nav on mobile, hide sidebar */
+@media(max-width:768px){
+  .sidebar { display: none; }
+  .main { margin-left: 0; }
+  #topNav { display: block !important; position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; }
+  .topbar { margin-top: 56px; }
+}
+
 /* AUTH MODAL */
 .auth-overlay {
   position: fixed;
@@ -531,6 +540,16 @@ body {
     <button class="btn-preview" onclick="openPreview()"><span class="icon">👁️</span>Vista previa</button>
   </div>
 </aside>
+
+<!-- SHARED NAV (top bar for mobile) -->
+<nav class="nav-light" id="topNav" style="display:none;">
+  <div class="nav-inner" style="padding:12px 20px;">
+    <a href="/" class="nav-logo" id="nav-logo" style="font-size:16px;"></a>
+    <div class="nav-links" id="nav-links"></div>
+    <button class="hamburger" onclick="toggleMobile()" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu"><button class="mobile-close" onclick="toggleMobile()">x</button><div id="mobile-nav-links"></div></div>
 
 <!-- MAIN -->
 <div class="main">
@@ -946,7 +965,29 @@ function renderBlog() {
     editor.appendChild(field('ID (slug)', post.id, '_blog_id'));
     editor.appendChild(field('Título', post.title, '_blog_title'));
     editor.appendChild(field('Extracto', post.excerpt, '_blog_excerpt', { type: 'textarea' }));
-    editor.appendChild(field('Fecha (YYYY-MM-DD)', post.date, '_blog_date'));
+    editor.appendChild(field('Fecha', post.date, '_blog_date', { type: 'date' }));
+    // Published toggle
+    var pubDiv = document.createElement('div');
+    pubDiv.className = 'field-row';
+    var pubLabel = document.createElement('label');
+    pubLabel.textContent = 'Publicado';
+    pubDiv.appendChild(pubLabel);
+    var pubToggle = document.createElement('label');
+    pubToggle.style.cssText = 'display:inline-flex;align-items:center;gap:8px;cursor:pointer;font-size:13px;font-weight:500;color:var(--gray-700);';
+    var pubCheckbox = document.createElement('input');
+    pubCheckbox.type = 'checkbox';
+    pubCheckbox.checked = post.published !== false;
+    pubCheckbox.style.cssText = 'width:18px;height:18px;accent-color:var(--accent);cursor:pointer;';
+    var pubSpan = document.createElement('span');
+    pubSpan.textContent = pubCheckbox.checked ? 'Sí' : 'No';
+    pubToggle.appendChild(pubCheckbox);
+    pubToggle.appendChild(pubSpan);
+    pubDiv.appendChild(pubToggle);
+    pubCheckbox.addEventListener('change', function() {
+      post.published = pubCheckbox.checked;
+      pubSpan.textContent = pubCheckbox.checked ? 'Sí' : 'No';
+    });
+    editor.appendChild(pubDiv);
     editor.appendChild(field('Tags (separados por coma)', (post.tags || []).join(', '), '_blog_tags'));
     editor.appendChild(field('Tiempo de lectura', post.read_time, '_blog_read_time'));
     editor.appendChild(field('Contenido (Markdown)', post.body, '_blog_body', { type: 'textarea', tall: true }));
@@ -989,7 +1030,8 @@ function renderBlog() {
         date: post.date,
         tags: post.tags,
         read_time: post.read_time,
-        body: post.body
+        body: post.body,
+        published: post.published !== false
       };
       if (existingIdx >= 0) {
         blogPosts[existingIdx] = newPost;
@@ -1119,7 +1161,7 @@ function renderBlog() {
           var viewBtn = document.createElement('button');
           viewBtn.className = 'view';
           viewBtn.textContent = 'Ver';
-          viewBtn.onclick = function() { window.open(SITE_URL + '/blog/' + post.id + '.html', '_blank'); };
+          viewBtn.onclick = function() { window.open(SITE_URL + '/blog/post.html?id=' + post.id, '_blank'); };
           var editBtn = document.createElement('button');
           editBtn.textContent = 'Editar';
           editBtn.onclick = function() { editingPostId = post.id; renderSection('blog'); };
@@ -1447,5 +1489,6 @@ function renderContacts() {
 // ===== INIT =====
 initAuth();
 </script>
+<script src="js/nav.js"></script>
 </body>
 </html>
