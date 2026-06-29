@@ -15,23 +15,7 @@
     :root{--orange:#FF6B2C;--orange-light:#FF8F5E;--orange-dark:#E85520;--orange-glow:rgba(255,107,44,0.15);--orange-glow2:rgba(255,107,44,0.08);--black:#0A0A0A;--dark:#1A1A1A;--gray-900:#2D2D2D;--gray-700:#555555;--gray-500:#888888;--gray-300:#CCCCCC;--gray-100:#F2F2F2;--white:#FFFFFF;--blue:#2563EB;--blue-light:#3B82F6;--blue-glow:rgba(37,99,235,0.12);--font:'Montserrat',sans-serif;--radius:12px;--radius-lg:20px;--transition:0.3s cubic-bezier(0.4,0,0.2,1)}
     *{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
     body{font-family:var(--font);color:var(--dark);background:var(--white);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
-    nav{position:fixed;top:0;width:100%;z-index:1000;transition:var(--transition);background:transparent}
-    nav.scrolled{background:rgba(255,255,255,0.95);backdrop-filter:blur(20px);box-shadow:0 1px 20px rgba(0,0,0,0.06)}
-    .nav-inner{max-width:1200px;margin:0 auto;padding:20px 40px;display:flex;align-items:center;justify-content:space-between}
-    .nav-logo{font-family:var(--font);font-size:18px;font-weight:700;text-decoration:none;letter-spacing:-0.3px;transition:color 0.3s}
-    nav .nav-logo{color:var(--white)}
-    nav.scrolled .nav-logo{color:var(--black)}
-    .nav-links{display:flex;gap:32px;align-items:center}
-    .nav-links a{font-size:13px;font-weight:500;color:rgba(255,255,255,0.8);text-decoration:none;letter-spacing:0.5px;text-transform:uppercase;transition:var(--transition)}
-    .nav-links a:hover{color:var(--white)}
-    nav.scrolled .nav-links a{color:var(--gray-700)}
-    nav.scrolled .nav-links a:hover{color:var(--orange)}
-    .nav-cta{font-size:13px!important;font-weight:600!important;color:var(--white)!important;background:var(--orange);padding:10px 20px;border-radius:100px;text-transform:uppercase!important;letter-spacing:0.5px;transition:var(--transition)}
-    .nav-cta:hover{background:var(--orange-dark);transform:scale(1.02)}
-    .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;z-index:1001}
-    .hamburger span{width:24px;height:2px;background:var(--white);border-radius:2px}
-    nav.scrolled .hamburger span{background:var(--black)}
-    .hero{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;background:var(--black)}
+    /* Nav handled by css/nav.css */
     .hero-bg{position:absolute;inset:0;z-index:1}
     .hero-bg .gradient1{position:absolute;width:800px;height:800px;background:radial-gradient(circle,var(--orange-glow) 0%,transparent 70%);top:-200px;right:-100px;animation:float 8s ease-in-out infinite}
     .hero-bg .gradient2{position:absolute;width:600px;height:600px;background:radial-gradient(circle,var(--blue-glow) 0%,transparent 70%);bottom:-200px;left:-100px;animation:float 10s ease-in-out infinite reverse}
@@ -125,9 +109,6 @@
     .footer-inner{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--gray-500)}
     .footer-links{display:flex;gap:24px}.footer-links a{color:var(--gray-500);text-decoration:none;transition:var(--transition)}.footer-links a:hover{color:var(--orange)}
     .reveal{opacity:0;transform:translateY(30px);transition:opacity 0.7s ease,transform 0.7s ease}.reveal.visible{opacity:1;transform:translateY(0)}
-    .mobile-menu{display:none;position:fixed;inset:0;background:var(--white);z-index:999;flex-direction:column;align-items:center;justify-content:center;gap:24px}
-    .mobile-menu.open{display:flex}.mobile-menu a{font-size:20px;font-weight:600;color:var(--dark);text-decoration:none}.mobile-menu a:hover{color:var(--orange)}
-    .mobile-close{position:absolute;top:20px;right:20px;background:none;border:none;font-size:28px;cursor:pointer}
     @media(max-width:1024px){.hero-content{max-width:100%}.steps-grid{grid-template-columns:repeat(2,1fr)}.build-grid{grid-template-columns:repeat(2,1fr)}.why-grid{grid-template-columns:1fr}.project-showcase{grid-template-columns:1fr}.blog-grid{grid-template-columns:repeat(2,1fr)}}
     @media(max-width:768px){.hero-text h1{font-size:36px;letter-spacing:-1.5px}.hero{min-height:auto;padding:120px 20px 60px}section{padding:60px 20px}.nav-links{display:none}.hamburger{display:flex}.steps-grid{grid-template-columns:1fr}.build-grid{grid-template-columns:1fr}.stat-row{grid-template-columns:1fr}.section-title{font-size:28px}.cta-section h2{font-size:28px}.nav-inner{padding:16px 20px}.blog-grid{grid-template-columns:1fr}.blog-filters{flex-direction:column}}
   </style>
@@ -257,15 +238,7 @@
       const t=id=>document.getElementById(id);
       const s=(id,txt)=>{const e=t(id);if(e)e.textContent=txt};
       s('nav-logo',c.site.logo);
-      // Build nav from content.json (items now have label + url)
-      const navEl=t('nav-links');
-      const navCta=['conversemos'];
-      (c.nav&&c.nav.items||[]).forEach(item=>{
-        const label=item.label||item;
-        const href=item.url||'#';
-        const isCta=navCta.includes(label.toLowerCase());
-        navEl.innerHTML+=isCta?`<a href="${href}" class="nav-cta">${label}</a>`:`<a href="${href}">${label}</a>`;
-      });
+      // Nav is handled by js/nav.js — do not duplicate here
       s('hero-label',c.hero.label);s('hero-t1',c.hero.title_1);s('hero-t2',c.hero.title_2);s('hero-desc',c.hero.desc);s('hero-cta1',c.hero.cta_1);s('hero-cta2',c.hero.cta_2);
       s('how-label',c.how.label);s('how-t1',c.how.title_1);s('how-t2',c.how.title_2);s('how-desc',c.how.desc);
       const sg=t('steps-grid');
