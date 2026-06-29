@@ -184,9 +184,7 @@
     <div class="section-label" id="blog-label"></div>
     <h2 class="section-title" id="blog-title"></h2>
     <p class="section-desc" id="blog-desc"></p>
-    <div class="blog-filters" id="blog-filters">
-      <input type="text" class="blog-search" id="blog-search" placeholder="Buscar art&#x00ed;culos...">
-    </div>
+    <div class="blog-filters" id="blog-filters"></div>
     <div class="blog-grid" id="blog-grid"></div>
   </div></section>
 
@@ -213,13 +211,15 @@
     document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
 
     fetch('content.json').then(r=>r.json()).then(c=>{
-      // Inject GTM if configured
-      if(c.config&&c.config.gtm_id){const gtm=document.createElement('script');gtm.innerHTML=`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','${c.config.gtm_id}');`;document.head.appendChild(gtm)}
-      // Inject analytics if configured
-      if(c.config&&c.config.analytics_id){const ga=document.createElement('script');ga.async=true;ga.src=`https://www.googletagmanager.com/gtag/js?id=${c.config.analytics_id}`;document.head.appendChild(ga);const g2=document.createElement('script');g2.innerHTML=`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','${c.config.analytics_id}');`;document.head.appendChild(g2)}
-      // Update SEO from config
-      if(c.config&&c.config.site_description){document.querySelector('meta[name="description"]').content=c.config.site_description}
-      if(c.config&&c.config.site_url){document.querySelector('link[rel="canonical"]').href=c.config.site_url}
+      // Load config separately
+      fetch('config.json').then(r=>r.json()).then(cfg=>{
+        // Inject GTM if configured
+        if(cfg.gtm_id){const gtm=document.createElement('script');gtm.innerHTML=`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','${cfg.gtm_id}');`;document.head.appendChild(gtm)}
+        // Inject analytics if configured
+        if(cfg.analytics_id){const ga=document.createElement('script');ga.async=true;ga.src=`https://www.googletagmanager.com/gtag/js?id=${cfg.analytics_id}`;document.head.appendChild(ga);const g2=document.createElement('script');g2.innerHTML=`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','${cfg.analytics_id}');`;document.head.appendChild(g2)}
+        if(cfg.site_description){document.querySelector('meta[name="description"]').content=cfg.site_description}
+        if(cfg.site_url){document.querySelector('link[rel="canonical"]').href=cfg.site_url}
+      }).catch(()=>{});
 
       const t=id=>document.getElementById(id);
       const s=(id,txt)=>{const e=t(id);if(e)e.textContent=txt};
@@ -241,38 +241,22 @@
       ps.innerHTML+=`<div class="project-card project-card-turnflow"><div class="project-hero project-hero-turnflow"><div class="project-logo">Turn<span class="accent-turnflow">Flow</span></div><span class="project-badge badge-live">${tf.badge}</span></div><div class="project-body"><h3>TurnFlow</h3><a href="https://turnflow.com.co" target="_blank" class="project-url project-url-turnflow">turnflow.com.co</a><p>${tf.desc}</p><div class="project-stats">${tf.stats.map(x=>`<div class="project-stat"><div class="project-stat-val-turnflow">${x.value}</div><div class="project-stat-lbl">${x.label}</div></div>`).join('')}</div><div class="project-tags">${tf.tags.map(x=>`<span class="project-tag project-tag-turnflow">${x}</span>`).join('')}</div><div class="project-cta"><a href="https://turnflow.com.co" target="_blank" class="btn-turnflow">Conocer TurnFlow <span class="arrow">&#x2192;</span></a></div></div></div>`;
       // Blog
       s('blog-label',c.blog.label);s('blog-title',c.blog.title_1);s('blog-desc',c.blog.desc);
-      const posts=c.blog.posts||[];
+      const allPosts=c.blog.posts||[];
+      const posts=allPosts.slice(0,3);
       // Also load full blog content from blog/content.json for search
       let fullPosts=[];
       fetch('blog/content.json').then(r=>r.json()).then(bc=>{fullPosts=bc.posts||[]}).catch(()=>{});
-      // Extract unique categories and tags
-      const cats=[...new Set(posts.map(p=>p.category))].sort();
-      const allTags=[...new Set(posts.flatMap(p=>p.tags||[]))].sort();
-      // Build filter bar
+      // Extract unique categories for the link
+      const blogUrl='blog.html';
+      // Render blog posts - simple cards, no filters
+      const bG=t('blog-grid');bG.innerHTML='';
+      posts.forEach(p=>{
+        const url=`blog/post.html?id=${p.id}`;
+        bG.innerHTML+=`<div class="blog-card" onclick="location.href='${url}'"><div class="blog-date">${p.date}</div><span class="blog-category">${p.category}</span><h3>${p.title}</h3><p>${p.excerpt}</p><div class="blog-tags">${(p.tags||[]).map(tg=>`<span class="blog-tag">${tg}</span>`).join('')}</div><div class="blog-read">${p.read_time} de lectura</div></div>`;
+      });
+      // Replace filter area with link to full blog
       const bf=t('blog-filters');
-      cats.forEach(cat=>{bf.innerHTML+=`<button class="blog-filter-btn" data-filter="cat" data-value="${cat}">${cat}</button>`});
-      allTags.forEach(tag=>{bf.innerHTML+=`<button class="blog-filter-btn" data-filter="tag" data-value="${tag}">${tag}</button>`});
-      // Render blog posts
-      let activeFilter=null;
-      function renderBlog(filter,search){
-        const bG=t('blog-grid');bG.innerHTML='';
-        let filtered=posts;
-        if(filter)filtered=filter.type==='cat'?filtered.filter(p=>p.category===filter.value):filtered.filter(p=>(p.tags||[]).includes(filter.value));
-        if(search){const q=search.toLowerCase();filtered=filtered.filter(p=>p.title.toLowerCase().includes(q)||p.excerpt.toLowerCase().includes(q)||(p.tags||[]).some(tg=>tg.toLowerCase().includes(q))||p.category.toLowerCase().includes(q))}
-        filtered.forEach(p=>{
-          const url=`blog/post.html?id=${p.id}`;
-          bG.innerHTML+=`<div class="blog-card" onclick="location.href='${url}'"><div class="blog-date">${p.date}</div><span class="blog-category">${p.category}</span><h3>${p.title}</h3><p>${p.excerpt}</p><div class="blog-tags">${(p.tags||[]).map(tg=>`<span class="blog-tag">${tg}</span>`).join('')}</div><div class="blog-read">${p.read_time} de lectura</div><div class="blog-share"><button class="blog-share-btn" onclick="event.stopPropagation();shareLi('${url}','${p.title.replace(/'/g,"\\'")}') " title="LinkedIn">in</button><button class="blog-share-btn" onclick="event.stopPropagation();shareWa('${url}','${p.title.replace(/'/g,"\\'")}') " title="WhatsApp">wa</button></div></div>`;
-        });
-        if(!filtered.length)bG.innerHTML='<p style="color:var(--gray-500);grid-column:1/-1;text-align:center;padding:40px">No se encontraron art\u00edculos</p>';
-      }
-      // Share helpers
-      window.shareLi=(url,title)=>{window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(location.origin+'/'+url)}`,'_blank')};
-      window.shareWa=(url,title)=>{window.open(`https://wa.me/?text=${encodeURIComponent(title+' '+location.origin+'/'+url)}`,'_blank')};
-      // Filter clicks
-      bf.addEventListener('click',e=>{const btn=e.target.closest('.blog-filter-btn');if(!btn)return;const type=btn.dataset.filter,value=btn.dataset.value;if(activeFilter&&activeFilter.type===type&&activeFilter.value===value){activeFilter=null;bf.querySelectorAll('.blog-filter-btn').forEach(b=>b.classList.remove('active'))}else{activeFilter={type,value};bf.querySelectorAll('.blog-filter-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active')}renderBlog(activeFilter,t('blog-search').value)});
-      // Search
-      t('blog-search').addEventListener('input',e=>renderBlog(activeFilter,e.target.value));
-      renderBlog(null,'');
+      bf.innerHTML=`<a href="${blogUrl}" class="btn btn-primary" style="background:var(--dark)">Ver todo el blog <span class="arrow">&#x2192;</span></a>`;
       // CTA
       s('cta-t1',c.cta.title_1);s('cta-t2',c.cta.title_2);s('cta-desc',c.cta.desc);s('cta-btn',c.cta.cta_text);
     });

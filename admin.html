@@ -3,7 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CMS Admin &mdash; Germ&aacute;n Vel&aacute;squez</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+<script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+<title>CMS Admin — Germán Velásquez</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -500,9 +502,9 @@ body {
 <div class="auth-overlay" id="authOverlay">
   <div class="auth-box">
     <h2>CMS Admin</h2>
-    <p>Ingresa la contrase&ntilde;a para acceder al panel de edici&oacute;n.</p>
-    <input type="password" id="authPassword" placeholder="Contrase&ntilde;a" autofocus>
-    <div class="error-msg" id="authError">Contrase&ntilde;a incorrecta.</div>
+    <p>Ingresa la contraseña para acceder al panel de edición.</p>
+    <input type="password" id="authPassword" placeholder="Contraseña" autofocus>
+    <div class="error-msg" id="authError">Contraseña incorrecta.</div>
     <button onclick="submitAuth()">Acceder</button>
   </div>
 </div>
@@ -510,20 +512,20 @@ body {
 <!-- SIDEBAR -->
 <aside class="sidebar">
   <div class="sidebar-header">
-    <h1>Germ&aacute;n Vel&aacute;squez</h1>
+    <h1>Germán Velásquez</h1>
     <span>CMS Admin</span>
   </div>
   <nav class="sidebar-nav" id="sidebarNav">
-    <button class="active" data-section="hero"><span class="nav-icon">&#127968;</span>Hero</button>
-    <button data-section="how"><span class="nav-icon">&#9881;&#65039;</span>C&oacute;mo trabajo</button>
-    <button data-section="why"><span class="nav-icon">&#11088;</span>Por qu&eacute; yo</button>
-    <button data-section="build"><span class="nav-icon">&#128736;&#65039;</span>Servicios</button>
-    <button data-section="projects"><span class="nav-icon">&#128640;</span>Proyectos</button>
-    <button data-section="blog"><span class="nav-icon">&#128221;</span>Blog Posts</button>
-    <button data-section="cta"><span class="nav-icon">&#128227;</span>CTA</button>
+    <button class="active" data-section="hero"><span class="nav-icon">🏠</span>Hero</button>
+    <button data-section="how"><span class="nav-icon">⚙️</span>Cómo trabajo</button>
+    <button data-section="why"><span class="nav-icon">⭐</span>Por qué yo</button>
+    <button data-section="build"><span class="nav-icon">🛠️</span>Servicios</button>
+    <button data-section="projects"><span class="nav-icon">🚀</span>Proyectos</button>
+    <button data-section="blog"><span class="nav-icon">📝</span>Blog Posts</button>
+    <button data-section="cta"><span class="nav-icon">📣</span>CTA</button>
   </nav>
   <div class="sidebar-footer">
-    <button class="btn-preview" onclick="openPreview()"><span class="icon">&#128065;&#65039;</span>Vista previa</button>
+    <button class="btn-preview" onclick="openPreview()"><span class="icon">👁️</span>Vista previa</button>
   </div>
 </aside>
 
@@ -533,7 +535,7 @@ body {
     <h2 id="sectionTitle">Hero</h2>
     <div style="display:flex;align-items:center;">
       <span class="save-status" id="saveStatus"></span>
-      <button class="btn-save" id="btnSave" onclick="saveContent()">&#128190; Guardar cambios</button>
+      <button class="btn-save" id="btnSave" onclick="saveContent()">💾 Guardar cambios</button>
     </div>
   </div>
   <div class="content-area" id="contentArea">
@@ -605,8 +607,8 @@ document.getElementById('sidebarNav').addEventListener('click', function(e) {
 function updateTitle() {
   var titles = {
     hero: 'Hero',
-    how: 'C&oacute;mo trabajo',
-    why: 'Por qu&eacute; yo',
+    how: 'Cómo trabajo',
+    why: 'Por qué yo',
     build: 'Servicios',
     projects: 'Proyectos',
     blog: 'Blog Posts',
@@ -704,7 +706,7 @@ function repeaterItem(item, idx, path, fields) {
   actions.className = 'repeater-actions';
   var delBtn = document.createElement('button');
   delBtn.className = 'delete';
-  delBtn.innerHTML = '&#128465;';
+  delBtn.innerHTML = '🗑';
   delBtn.title = 'Eliminar';
   delBtn.onclick = function() {
     var arr = getNestedValue(path) || [];
@@ -755,10 +757,10 @@ function renderHero() {
   var f = document.createElement('div');
   f.className = 'form-card';
   f.appendChild(field('Etiqueta', d.label, 'hero.label'));
-  f.appendChild(field('T&iacute;tulo l&iacute;nea 1', d.title_1, 'hero.title_1'));
-  f.appendChild(field('T&iacute;tulo l&iacute;nea 2', d.title_2, 'hero.title_2'));
-  f.appendChild(field('T&iacute;tulo l&iacute;nea 3', d.title_3, 'hero.title_3'));
-  f.appendChild(field('Descripci&oacute;n', d.desc, 'hero.desc', { type: 'textarea' }));
+  f.appendChild(field('Título línea 1', d.title_1, 'hero.title_1'));
+  f.appendChild(field('Título línea 2', d.title_2, 'hero.title_2'));
+  f.appendChild(field('Título línea 3', d.title_3, 'hero.title_3'));
+  f.appendChild(field('Descripción', d.desc, 'hero.desc', { type: 'textarea' }));
   f.appendChild(field('CTA 1', d.cta_1, 'hero.cta_1'));
   f.appendChild(field('CTA 2', d.cta_2, 'hero.cta_2'));
   card.appendChild(f);
@@ -772,9 +774,9 @@ function renderHow() {
   var f = document.createElement('div');
   f.className = 'form-card';
   f.appendChild(field('Etiqueta', d.label, 'how.label'));
-  f.appendChild(field('T&iacute;tulo l&iacute;nea 1', d.title_1, 'how.title_1'));
-  f.appendChild(field('T&iacute;tulo l&iacute;nea 2', d.title_2, 'how.title_2'));
-  f.appendChild(field('Descripci&oacute;n', d.desc, 'how.desc', { type: 'textarea' }));
+  f.appendChild(field('Título línea 1', d.title_1, 'how.title_1'));
+  f.appendChild(field('Título línea 2', d.title_2, 'how.title_2'));
+  f.appendChild(field('Descripción', d.desc, 'how.desc', { type: 'textarea' }));
   card.appendChild(f);
 
   var stepsCard = document.createElement('div');
@@ -784,8 +786,8 @@ function renderHow() {
   stepsCard.appendChild(h3);
   stepsCard.appendChild(repeater(d.steps || [], 'how.steps', [
     { key: 'icon', label: 'Icono' },
-    { key: 'title', label: 'T&iacute;tulo' },
-    { key: 'desc', label: 'Descripci&oacute;n', type: 'textarea' }
+    { key: 'title', label: 'Título' },
+    { key: 'desc', label: 'Descripción', type: 'textarea' }
   ], function() { return { icon: '', title: '', desc: '' }; }));
   card.appendChild(stepsCard);
   return card;
@@ -798,15 +800,15 @@ function renderWhy() {
   var f = document.createElement('div');
   f.className = 'form-card';
   f.appendChild(field('Etiqueta', d.label, 'why.label'));
-  f.appendChild(field('T&iacute;tulo l&iacute;nea 1', d.title_1, 'why.title_1'));
-  f.appendChild(field('T&iacute;tulo l&iacute;nea 2', d.title_2, 'why.title_2'));
-  f.appendChild(field('Descripci&oacute;n', d.desc, 'why.desc', { type: 'textarea' }));
+  f.appendChild(field('Título línea 1', d.title_1, 'why.title_1'));
+  f.appendChild(field('Título línea 2', d.title_2, 'why.title_2'));
+  f.appendChild(field('Descripción', d.desc, 'why.desc', { type: 'textarea' }));
   card.appendChild(f);
 
   var statsCard = document.createElement('div');
   statsCard.className = 'form-card';
   var h3s = document.createElement('h3');
-  h3s.textContent = 'Estad&iacute;sticas';
+  h3s.textContent = 'Estadísticas';
   statsCard.appendChild(h3s);
   statsCard.appendChild(repeater(d.stats || [], 'why.stats', [
     { key: 'value', label: 'Valor' },
@@ -835,7 +837,7 @@ function renderBuild() {
   var f = document.createElement('div');
   f.className = 'form-card';
   f.appendChild(field('Etiqueta', d.label, 'build.label'));
-  f.appendChild(field('T&iacute;tulo', d.title, 'build.title'));
+  f.appendChild(field('Título', d.title, 'build.title'));
   card.appendChild(f);
 
   var itemsCard = document.createElement('div');
@@ -845,8 +847,8 @@ function renderBuild() {
   itemsCard.appendChild(h3);
   itemsCard.appendChild(repeater(d.items || [], 'build.items', [
     { key: 'emoji', label: 'Emoji' },
-    { key: 'title', label: 'T&iacute;tulo' },
-    { key: 'desc', label: 'Descripci&oacute;n', type: 'textarea' }
+    { key: 'title', label: 'Título' },
+    { key: 'desc', label: 'Descripción', type: 'textarea' }
   ], function() { return { emoji: '', title: '', desc: '' }; }));
   card.appendChild(itemsCard);
   return card;
@@ -860,9 +862,9 @@ function renderProjects() {
   var f = document.createElement('div');
   f.className = 'form-card';
   f.appendChild(field('Etiqueta', d.label, 'projects.label'));
-  f.appendChild(field('T&iacute;tulo l&iacute;nea 1', d.title_1, 'projects.title_1'));
-  f.appendChild(field('T&iacute;tulo l&iacute;nea 2', d.title_2, 'projects.title_2'));
-  f.appendChild(field('Descripci&oacute;n', d.desc, 'projects.desc', { type: 'textarea' }));
+  f.appendChild(field('Título línea 1', d.title_1, 'projects.title_1'));
+  f.appendChild(field('Título línea 2', d.title_2, 'projects.title_2'));
+  f.appendChild(field('Descripción', d.desc, 'projects.desc', { type: 'textarea' }));
   card.appendChild(f);
 
   // LYNKKO
@@ -873,7 +875,7 @@ function renderProjects() {
   lH3.textContent = 'Lynkko';
   lCard.appendChild(lH3);
   lCard.appendChild(field('Badge', lynkko.badge, 'projects.lynkko.badge'));
-  lCard.appendChild(field('Descripci&oacute;n', lynkko.desc, 'projects.lynkko.desc', { type: 'textarea' }));
+  lCard.appendChild(field('Descripción', lynkko.desc, 'projects.lynkko.desc', { type: 'textarea' }));
   lCard.appendChild(field('Tags (separados por coma)', (lynkko.tags || []).join(', '), '_lynkko_tags'));
   lCard.querySelector('[data-key="_lynkko_tags"]').addEventListener('input', function(e) {
     contentData.projects.lynkko.tags = e.target.value.split(',').map(function(t) { return t.trim(); }).filter(Boolean);
@@ -892,7 +894,7 @@ function renderProjects() {
   tH3.textContent = 'TurnFlow';
   tCard.appendChild(tH3);
   tCard.appendChild(field('Badge', tf.badge, 'projects.turnflow.badge'));
-  tCard.appendChild(field('Descripci&oacute;n', tf.desc, 'projects.turnflow.desc', { type: 'textarea' }));
+  tCard.appendChild(field('Descripción', tf.desc, 'projects.turnflow.desc', { type: 'textarea' }));
   tCard.appendChild(field('Tags (separados por coma)', (tf.tags || []).join(', '), '_turnflow_tags'));
   tCard.querySelector('[data-key="_turnflow_tags"]').addEventListener('input', function(e) {
     contentData.projects.turnflow.tags = e.target.value.split(',').map(function(t) { return t.trim(); }).filter(Boolean);
@@ -927,14 +929,14 @@ function renderBlog() {
     h3.textContent = post.id ? 'Editando: ' + post.id : 'Nuevo post';
     var backBtn = document.createElement('button');
     backBtn.className = 'btn-back';
-    backBtn.textContent = '&larr; Volver a lista';
+    backBtn.textContent = '← Volver a lista';
     backBtn.onclick = function() { editingPostId = null; renderSection('blog'); };
     header.appendChild(h3);
     header.appendChild(backBtn);
     editor.appendChild(header);
 
     editor.appendChild(field('ID (slug)', post.id, '_blog_id'));
-    editor.appendChild(field('T&iacute;tulo', post.title, '_blog_title'));
+    editor.appendChild(field('Título', post.title, '_blog_title'));
     editor.appendChild(field('Extracto', post.excerpt, '_blog_excerpt', { type: 'textarea' }));
     editor.appendChild(field('Fecha (YYYY-MM-DD)', post.date, '_blog_date'));
     editor.appendChild(field('Tags (separados por coma)', (post.tags || []).join(', '), '_blog_tags'));
@@ -954,11 +956,18 @@ function renderBlog() {
     bindField('_blog_read_time', function(v) { post.read_time = v; });
     bindField('_blog_body', function(v) { post.body = v; });
 
+    // SimpleMDE markdown editor for blog body
+    var bodyEl = editor.querySelector('[data-key="_blog_body"]');
+    if (bodyEl && typeof SimpleMDE !== 'undefined') {
+      var mde = new SimpleMDE({ element: bodyEl, spellChecker: false, placeholder: 'Escribe en Markdown...', toolbar: ["bold","italic","heading","|","quote","unordered-list","ordered-list","|","link","image","code","|","preview","side-by-side","fullscreen","guide"] });
+      mde.codemirror.on('change', function() { post.body = mde.value(); });
+    }
+
     // Save post button
     var saveBtn = document.createElement('button');
     saveBtn.className = 'btn-save';
     saveBtn.style.marginTop = '16px';
-    saveBtn.textContent = '&#10003; Guardar post';
+    saveBtn.textContent = '✓ Guardar post';
     saveBtn.onclick = function() {
       if (!post.id) { showToast('El ID es obligatorio', 'error'); return; }
       var existingIdx = -1;
@@ -1025,14 +1034,14 @@ function renderBlog() {
           var info = document.createElement('div');
           info.className = 'blog-card-info';
           var title = document.createElement('h4');
-          title.textContent = post.title || '(sin t&iacute;tulo)';
+          title.textContent = post.title || '(sin título)';
           info.appendChild(title);
           var meta = document.createElement('div');
           meta.className = 'blog-meta';
           var dateSpan = document.createElement('span');
-          dateSpan.innerHTML = '&#128197; ' + (post.date || '&mdash;');
+          dateSpan.innerHTML = '📅 ' + (post.date || '—');
           var readSpan = document.createElement('span');
-          readSpan.innerHTML = '&#9201; ' + (post.read_time || '&mdash;');
+          readSpan.innerHTML = '⏱ ' + (post.read_time || '—');
           meta.appendChild(dateSpan);
           meta.appendChild(readSpan);
           for (var t = 0; t < (post.tags || []).length; t++) {
@@ -1057,7 +1066,7 @@ function renderBlog() {
           delBtn.className = 'delete';
           delBtn.textContent = 'Eliminar';
           delBtn.onclick = function() {
-            if (confirm('&#191;Eliminar el post "' + (post.id || 'sin id') + '"?')) {
+            if (confirm('¿Eliminar el post "' + (post.id || 'sin id') + '"?')) {
               contentData.blog.posts.splice(idx, 1);
               renderSection('blog');
               showToast('Post eliminado de memoria. Guarda para persistir.', 'info');
@@ -1082,9 +1091,9 @@ function renderCTA() {
   card.className = 'section active';
   var f = document.createElement('div');
   f.className = 'form-card';
-  f.appendChild(field('T&iacute;tulo l&iacute;nea 1', d.title_1, 'cta.title_1'));
-  f.appendChild(field('T&iacute;tulo l&iacute;nea 2', d.title_2, 'cta.title_2'));
-  f.appendChild(field('Descripci&oacute;n', d.desc, 'cta.desc', { type: 'textarea' }));
+  f.appendChild(field('Título línea 1', d.title_1, 'cta.title_1'));
+  f.appendChild(field('Título línea 2', d.title_2, 'cta.title_2'));
+  f.appendChild(field('Descripción', d.desc, 'cta.desc', { type: 'textarea' }));
   f.appendChild(field('Texto CTA / Email', d.cta_text, 'cta.cta_text'));
   card.appendChild(f);
   return card;
@@ -1107,7 +1116,7 @@ function saveContent() {
     .then(function(res) { return res.json().then(function(d) { return { ok: res.ok, data: d }; }); })
     .then(function(result) {
       if (result.ok && result.data.success !== false) {
-        status.textContent = '&#10003; Guardado';
+        status.textContent = '✓ Guardado';
         status.className = 'save-status saved';
         showToast('Contenido guardado correctamente', 'success');
       } else {
@@ -1115,7 +1124,7 @@ function saveContent() {
       }
     })
     .catch(function(err) {
-      status.textContent = '&#10007; Error';
+      status.textContent = '✗ Error';
       status.className = 'save-status error';
       showToast('Error al guardar: ' + err.message, 'error');
     })
