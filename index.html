@@ -10,16 +10,20 @@
     *{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
     body{font-family:var(--font);color:var(--dark);background:var(--white);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
     nav{position:fixed;top:0;width:100%;z-index:1000;transition:var(--transition)}
-    nav.scrolled{background:rgba(255,255,255,0.95);backdrop-filter:blur(20px));box-shadow:0 1px 20px rgba(0,0,0,0.06)}
+    nav.scrolled{background:rgba(255,255,255,0.97);backdrop-filter:blur(20px);box-shadow:0 1px 20px rgba(0,0,0,0.06)}
     .nav-inner{max-width:1200px;margin:0 auto;padding:20px 40px;display:flex;align-items:center;justify-content:space-between}
-    .nav-logo{font-family:var(--font);font-size:18px;font-weight:700;color:var(--black);text-decoration:none;letter-spacing:-0.3px}
+    .nav-logo{font-family:var(--font);font-size:18px;font-weight:700;color:var(--white);text-decoration:none;letter-spacing:-0.3px;transition:color 0.3s}
+    nav.scrolled .nav-logo{color:var(--black)}
     .nav-links{display:flex;gap:32px;align-items:center}
-    .nav-links a{font-size:13px;font-weight:500;color:var(--gray-700);text-decoration:none;letter-spacing:0.5px;text-transform:uppercase;transition:var(--transition)}
+    .nav-links a{font-size:13px;font-weight:500;color:rgba(255,255,255,0.8);text-decoration:none;letter-spacing:0.5px;text-transform:uppercase;transition:var(--transition)}
     .nav-links a:hover{color:var(--orange)}
+    nav.scrolled .nav-links a{color:var(--gray-700)}
+    nav.scrolled .nav-links a:hover{color:var(--orange)}
     .nav-cta{font-size:13px!important;font-weight:600!important;color:var(--white)!important;background:var(--orange);padding:10px 20px;border-radius:100px;text-transform:uppercase!important;letter-spacing:0.5px;transition:var(--transition)}
     .nav-cta:hover{background:var(--orange-dark);transform:scale(1.02)}
     .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;z-index:1001}
-    .hamburger span{width:24px;height:2px;background:var(--black);border-radius:2px}
+    .hamburger span{width:24px;height:2px;background:var(--white);border-radius:2px;transition:background 0.3s}
+    nav.scrolled .hamburger span{background:var(--black)}
     .hero{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;background:var(--black)}
     .hero-bg{position:absolute;inset:0;z-index:1}
     .hero-bg .gradient1{position:absolute;width:800px;height:800px;background:radial-gradient(circle,var(--orange-glow) 0%,transparent 70%);top:-200px;right:-100px;animation:float 8s ease-in-out infinite}
