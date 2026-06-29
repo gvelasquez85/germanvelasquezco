@@ -525,6 +525,7 @@ body {
     <button data-section="cta"><span class="nav-icon">📣</span>CTA</button>
     <button data-section="nav" style="margin-top:12px;border-top:1px solid rgba(255,255,255,0.1);padding-top:12px"><span class="nav-icon">☰</span>Menú</button>
     <button data-section="config"><span class="nav-icon">⚙️</span>Config</button>
+    <button data-section="contacts" style="margin-top:12px;border-top:1px solid rgba(255,255,255,0.1);padding-top:12px"><span class="nav-icon">👥</span>Contactos <span id="contact-count" style="background:#FF6B2C;color:#fff;font-size:10px;padding:2px 6px;border-radius:100px;margin-left:4px">0</span></button>
   </nav>
   <div class="sidebar-footer">
     <button class="btn-preview" onclick="openPreview()"><span class="icon">👁️</span>Vista previa</button>
@@ -636,6 +637,7 @@ function renderSection(name) {
   else if (name === 'cta') area.appendChild(renderCTA());
   else if (name === 'nav') area.appendChild(renderNav());
   else if (name === 'config') area.appendChild(renderConfig());
+  else if (name === 'contacts') area.appendChild(renderContacts());
 }
 
 // ===== HELPERS =====
@@ -1004,6 +1006,45 @@ function renderBlog() {
     };
     editor.appendChild(saveBtn);
 
+    // Publish buttons
+    var publishDiv = document.createElement('div');
+    publishDiv.style.cssText = 'display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;';
+    // Medium button
+    var mediumBtn = document.createElement('button');
+    mediumBtn.textContent = '📝 Publicar en Medium';
+    mediumBtn.style.cssText = 'font-family:Montserrat,sans-serif;font-size:13px;font-weight:600;padding:10px 20px;border-radius:8px;border:none;background:#000;color:#fff;cursor:pointer;';
+    mediumBtn.onclick = function() {
+      if (!post.title || !post.body) { showToast('Título y contenido requeridos', true); return; }
+      // Medium API: open pre-filled composer
+      var mediumUrl = 'https://medium.com/p/import';
+      // Alternative: use medium's new post with title via URL params
+      var composerUrl = 'https://medium.com/m/import';
+      // Best approach: open medium's intent with title
+      var intentUrl = 'https://medium.com/m/import';
+      // For now, open medium compose and copy content to clipboard
+      var content = '# ' + post.title + '\n\n' + (post.excerpt||'') + '\n\n' + post.body + '\n\n';
+      if (post.tags) content += post.tags.map(function(t){return '#'+t.replace(/\s+/g,'')}).join(' ') + '\n';
+      navigator.clipboard.writeText(content).then(function(){
+        window.open('https://medium.com/new-story', '_blank');
+        showToast('Contenido copiado. Pega en Medium para publicar.');
+      }).catch(function(){
+        window.open('https://medium.com/new-story', '_blank');
+      });
+    };
+    publishDiv.appendChild(mediumBtn);
+    // LinkedIn button
+    var liBtn = document.createElement('button');
+    liBtn.textContent = '💼 Publicar en LinkedIn';
+    liBtn.style.cssText = 'font-family:Montserrat,sans-serif;font-size:13px;font-weight:600;padding:10px 20px;border-radius:8px;border:none;background:#0A66C2;color:#fff;cursor:pointer;';
+    liBtn.onclick = function() {
+      if (!post.title || !post.excerpt) { showToast('Título y extracto requeridos', true); return; }
+      var url = 'https://www.linkedin.com/sharing/share-offsite/?url=' + encodeURIComponent('https://germanvelasquez.co/blog/post.html?id=' + post.id) + '&title=' + encodeURIComponent(post.title) + '&summary=' + encodeURIComponent(post.excerpt);
+      window.open(url, '_blank');
+      showToast('Abriendo LinkedIn para compartir...');
+    };
+    publishDiv.appendChild(liBtn);
+    editor.appendChild(publishDiv);
+
     card.appendChild(editor);
   } else {
     // Show list
@@ -1289,6 +1330,93 @@ function renderConfig() {
     }).catch(function(){ showToast('Error de conexión', true); });
   };
   f.appendChild(saveBtn);
+  return f;
+}
+
+// ===== CONTACTS MANAGER =====
+function renderContacts() {
+  var f = document.createElement('div');
+  var h = document.createElement('h2'); h.textContent = 'Contactos'; f.appendChild(h);
+  var p = document.createElement('p'); p.className = 'section-hint'; p.textContent = 'Contactos que llegaron por el formulario Lynkko. Actualiza su estado: nuevo, contactado, en proceso, cliente, descartado.'; f.appendChild(p);
+  // Stats
+  var statsDiv = document.createElement('div');
+  statsDiv.id = 'contact-stats';
+  statsDiv.style.cssText = 'display:flex;gap:12px;margin-bottom:20px;flex-wrap:wrap;';
+  f.appendChild(statsDiv);
+  // Filter
+  var filterDiv = document.createElement('div');
+  filterDiv.style.cssText = 'margin-bottom:16px;';
+  var statusFilter = document.createElement('select');
+  statusFilter.id = 'contact-status-filter';
+  statusFilter.style.cssText = 'font-family:Montserrat,sans-serif;font-size:13px;padding:8px 12px;border:1px solid #ccc;border-radius:8px;';
+  statusFilter.innerHTML = '<option value="">Todos</option><option value="nuevo">Nuevos</option><option value="contactado">Contactados</option><option value="en proceso">En proceso</option><option value="cliente">Clientes</option><option value="recontacto">Recontactos</option><option value="descartado">Descartados</option>';
+  filterDiv.appendChild(statusFilter);
+  f.appendChild(filterDiv);
+  // List
+  var listDiv = document.createElement('div');
+  listDiv.id = 'contacts-list';
+  f.appendChild(listDiv);
+  // Load contacts
+  var secret = sessionStorage.getItem('cms-secret') || '';
+  fetch('api/webhook.php?token=' + encodeURIComponent(secret)).then(function(r){return r.json()}).then(function(contacts){
+    if (!Array.isArray(contacts)) contacts = [];
+    document.getElementById('contact-count').textContent = contacts.length;
+    // Stats
+    var counts = {};
+    contacts.forEach(function(c){ counts[c.status] = (counts[c.status]||0)+1; });
+    statsDiv.innerHTML = '';
+    var statuses = ['nuevo','contactado','en proceso','cliente','recontacto','descartado'];
+    var labels = {'nuevo':'Nuevos','contactado':'Contactados','en proceso':'En proceso','cliente':'Clientes','recontacto':'Recontactos','descartado':'Descartados'};
+    statuses.forEach(function(s){
+      var badge = document.createElement('span');
+      badge.style.cssText = 'font-size:12px;font-weight:600;padding:4px 12px;border-radius:100px;background:#f3f4f6;color:#555;';
+      badge.textContent = (labels[s]||s) + ': ' + (counts[s]||0);
+      statsDiv.appendChild(badge);
+    });
+    function renderList(filter) {
+      listDiv.innerHTML = '';
+      var filtered = filter ? contacts.filter(function(c){return c.status===filter}) : contacts;
+      if (!filtered.length) { listDiv.innerHTML = '<p style="color:#888;text-align:center;padding:40px">Sin contactos aún</p>'; return; }
+      filtered.forEach(function(c) {
+        var card = document.createElement('div');
+        card.style.cssText = 'border:1px solid #e5e7eb;border-radius:8px;padding:16px;margin-bottom:12px;background:#fff;';
+        var statusColors = {'nuevo':'#3b82f6','contactado':'#f59e0b','en proceso':'#8b5cf6','cliente':'#10b981','recontacto':'#ec4899','descartado':'#9ca3af'};
+        var sc = statusColors[c.status]||'#9ca3af';
+        card.innerHTML = '<div style="display:flex;justify-content:space-between;align-items:start;gap:12px">'+
+          '<div style="flex:1"><div style="font-weight:700;font-size:15px;margin-bottom:2px">'+(c.name||'Sin nombre')+'</div>'+
+          '<div style="font-size:12px;color:#888">'+(c.email||'')+' '+(c.company?'· '+c.company:'')+'</div>'+
+          (c.message?'<div style="margin-top:8px;font-size:13px;color:#555;padding:8px;background:#f9fafb;border-radius:6px">'+c.message+'</div>':'')+
+          '<div style="font-size:11px;color:#aaa;margin-top:6px">'+c.created_at+'</div></div>'+
+          '<div style="display:flex;flex-direction:column;gap:6px;align-items:flex-end">'+
+          '<span style="font-size:10px;font-weight:600;padding:3px 10px;border-radius:100px;color:#fff;background:'+sc+'">'+(c.status||'nuevo')+'</span>'+
+          '<select data-id="'+c.id+'" class="status-change" style="font-size:11px;padding:4px 8px;border:1px solid #ccc;border-radius:6px;font-family:Montserrat,sans-serif">'+
+          '<option value="nuevo"'+(c.status==='nuevo'?' selected':'')+'>Nuevo</option>'+
+          '<option value="contactado"'+(c.status==='contactado'?' selected':'')+'>Contactado</option>'+
+          '<option value="en proceso"'+(c.status==='en proceso'?' selected':'')+'>En proceso</option>'+
+          '<option value="cliente"'+(c.status==='cliente'?' selected':'')+'>Cliente</option>'+
+          '<option value="descartado"'+(c.status==='descartado'?' selected':'')+'>Descartado</option>'+
+          '</select></div></div>';
+        listDiv.appendChild(card);
+      });
+      // Bind status changes
+      listDiv.querySelectorAll('.status-change').forEach(function(sel){
+        sel.addEventListener('change', function(e){
+          var id = e.target.dataset.id;
+          var newStatus = e.target.value;
+          fetch('api/webhook.php?token=' + encodeURIComponent(secret), {
+            method: 'PATCH',
+            headers: {'Content-Type':'application/json'},
+            body: JSON.stringify({id:id, status:newStatus})
+          }).then(function(r){return r.json()}).then(function(res){
+            if(res.ok) { showToast('Estado actualizado'); renderContacts(); }
+            else showToast('Error al actualizar', true);
+          }).catch(function(){ showToast('Error de conexión', true); });
+        });
+      });
+    }
+    renderList('');
+    statusFilter.addEventListener('change', function(e){ renderList(e.target.value); });
+  }).catch(function(){ listDiv.innerHTML = '<p style="color:#dc2626">Error cargando contactos</p>'; });
   return f;
 }
 
