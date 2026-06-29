@@ -229,21 +229,16 @@
 
     function filterPosts() {
       return allPosts.filter(p => {
-        // Search filter
-        if (searchQuery) {
-          const q = searchQuery.toLowerCase();
-          const matchTitle = p.title.toLowerCase().includes(q);
-          const matchExcerpt = p.excerpt.toLowerCase().includes(q);
-          const matchTags = (p.tags || []).some(t => t.toLowerCase().includes(q));
-          const matchCategory = p.category.toLowerCase().includes(q);
-          if (!matchTitle && !matchExcerpt && !matchTags && !matchCategory) return false;
-        }
-        // Category filter
-        if (activeCategory && p.category !== activeCategory) return false;
-        // Tag filter
-        if (activeTag && !(p.tags || []).includes(activeTag)) return false;
-        return true;
-      });
+          if (!p.published) return false;
+          if (searchQuery) {
+            const q = searchQuery.toLowerCase();
+            const m = p.title.toLowerCase().includes(q) || p.excerpt.toLowerCase().includes(q) || (p.tags||[]).some(t=>t.toLowerCase().includes(q)) || p.category.toLowerCase().includes(q);
+            if (!m) return false;
+          }
+          if (activeCategory && p.category !== activeCategory) return false;
+          if (activeTag && !(p.tags||[]).includes(activeTag) return false;
+          return true;
+        });
     }
 
     function renderPosts() {
