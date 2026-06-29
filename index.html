@@ -238,9 +238,8 @@
     </div>
   </div></footer>
 
+  <script src="js/nav.js"></script>
   <script>
-    function toggleMobile(){document.getElementById('mobileMenu').classList.toggle('open')}
-    window.addEventListener('scroll',()=>{document.getElementById('nav').classList.toggle('scrolled',window.scrollY>50)});
     const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible')})},{threshold:0.1});
     document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
 
@@ -303,8 +302,34 @@
       // CTA
       s('cta-t1',c.cta.title_1);s('cta-t2',c.cta.title_2);s('cta-desc',c.cta.desc);s('cta-btn',c.cta.cta_text);
     });
+    // Contact form submit
+    (function(){
+      var cform=document.getElementById('contact-form');
+      if(!cform)return;
+      cform.addEventListener('submit',function(e){
+        e.preventDefault();
+        var fb=document.getElementById('contact-feedback');
+        var btn=document.getElementById('contact-submit');
+        var data={
+          name:cform.querySelector('[name=full_name]').value,
+          email:cform.querySelector('[name=email]').value,
+          phone:cform.querySelector('[name=phone]').value,
+          message:cform.querySelector('[name=message]').value,
+          source:'web_contact_form'
+        };
+        if(!data.name){fb.style.display='block';fb.style.color='#fbbf24';fb.textContent='Tu nombre es obligatorio';return}
+        btn.disabled=true;btn.textContent='Enviando...';
+        fetch('/api/webhook.php',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)})
+          .then(function(r){return r.json()})
+          .then(function(res){
+            if(res.ok){fb.style.display='block';fb.style.color='#22c55e';fb.textContent='¡Mensaje enviado! Te contacto pronto.';cform.reset()}
+            else{fb.style.display='block';fb.style.color='#f87171';fb.textContent='Error: '+(res.error||'intentá de nuevo')}
+          })
+          .catch(function(){fb.style.display='block';fb.style.color='#f87171';fb.textContent='Error de conexión. Intentalo de nuevo.'})
+          .finally(function(){btn.disabled=false;btn.textContent='Enviar mensaje'});
+      });
+    })();
   </script>
-
   <script src="js/nav.js"></script>
 </body>
 </html>
