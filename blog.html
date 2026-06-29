@@ -244,7 +244,7 @@
           // Don't navigate if clicking share buttons
           if (e.target.closest('.blog-share-btn')) return;
           const slug = card.dataset.slug;
-          window.location.href = 'post.html?id=' + slug;
+          window.location.href = SITE_URL + '/blog/post.html?id=' + slug;
         });
       });
 

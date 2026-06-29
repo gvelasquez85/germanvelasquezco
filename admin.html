@@ -579,6 +579,7 @@ document.getElementById('authPassword').addEventListener('keydown', function(e) 
 
 // ===== LOAD CONTENT =====
 var blogPosts = [];
+var SITE_URL = 'https://germanvelasquez.co';
 function loadContent(token) {
   Promise.all([
     fetch('content.json?t=' + Date.now()).then(r=>r.json()),
@@ -1115,7 +1116,7 @@ function renderBlog() {
           var viewBtn = document.createElement('button');
           viewBtn.className = 'view';
           viewBtn.textContent = 'Ver';
-          viewBtn.onclick = function() { window.open('/blog/' + post.id + '.html', '_blank'); };
+          viewBtn.onclick = function() { window.open(SITE_URL + '/blog/' + post.id + '.html', '_blank'); };
           var editBtn = document.createElement('button');
           editBtn.textContent = 'Editar';
           editBtn.onclick = function() { editingPostId = post.id; renderSection('blog'); };
