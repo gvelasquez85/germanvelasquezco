@@ -1,24 +1,32 @@
 <?php
 header('Content-Type: application/json');
 
-// Simple file-based CMS API
-// POST: save content.json
-// GET: read content.json
+// File-based CMS API
+// Supports saving both content.json and config.json via ?file= param
+// GET: read file, POST: save file
 
-$file = __DIR__ . '/../content.json';
+$file_param = $_GET['file'] ?? 'content';
+$allowed = ['content' => __DIR__ . '/../content.json', 'config' => __DIR__ . '/../config.json', 'blog' => __DIR__ . '/../blog/content.json'];
+
+if (!isset($allowed[$file_param])) {
+    http_response_code(400);
+    echo json_encode(['error' => 'Invalid file parameter']);
+    exit;
+}
+
+$file = $allowed[$file_param];
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     if (file_exists($file)) {
         echo file_get_contents($file);
     } else {
         http_response_code(404);
-        echo json_encode(['error' => 'content.json not found']);
+        echo json_encode(['error' => 'File not found']);
     }
     exit;
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Simple auth via query param or header
     $token = $_GET['token'] ?? $_SERVER['HTTP_X_CMS_TOKEN'] ?? '';
     $secret = trim(@file_get_contents(__DIR__ . '/../cms.secret') ?: 'dev2026');
     
@@ -37,10 +45,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
-    // Validate it's a proper structure (has hero key at minimum)
-    if (!isset($data['hero'])) {
+    // Basic validation: must be a non-empty object
+    if (!is_array($data) || empty($data)) {
         http_response_code(400);
-        echo json_encode(['error' => 'Invalid content structure']);
+        echo json_encode(['error' => 'Invalid data structure']);
         exit;
     }
 

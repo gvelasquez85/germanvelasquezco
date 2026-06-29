@@ -523,6 +523,8 @@ body {
     <button data-section="projects"><span class="nav-icon">🚀</span>Proyectos</button>
     <button data-section="blog"><span class="nav-icon">📝</span>Blog Posts</button>
     <button data-section="cta"><span class="nav-icon">📣</span>CTA</button>
+    <button data-section="nav" style="margin-top:12px;border-top:1px solid rgba(255,255,255,0.1);padding-top:12px"><span class="nav-icon">☰</span>Menú</button>
+    <button data-section="config"><span class="nav-icon">⚙️</span>Config</button>
   </nav>
   <div class="sidebar-footer">
     <button class="btn-preview" onclick="openPreview()"><span class="icon">👁️</span>Vista previa</button>
@@ -632,6 +634,8 @@ function renderSection(name) {
   else if (name === 'projects') area.appendChild(renderProjects());
   else if (name === 'blog') area.appendChild(renderBlog());
   else if (name === 'cta') area.appendChild(renderCTA());
+  else if (name === 'nav') area.appendChild(renderNav());
+  else if (name === 'config') area.appendChild(renderConfig());
 }
 
 // ===== HELPERS =====
@@ -1148,6 +1152,114 @@ function showToast(msg, type) {
   toast.textContent = msg;
   container.appendChild(toast);
   setTimeout(function() { if (toast.parentNode) toast.parentNode.removeChild(toast); }, 3200);
+}
+
+// ===== NAV SECTION =====
+function renderNav() {
+  var f = document.createElement('div');
+  var h = document.createElement('h2'); h.textContent = 'Menú de navegación'; f.appendChild(h);
+  var p = document.createElement('p'); p.className = 'section-hint'; p.textContent = 'Edita los items del menú superior. El último item será el CTA (botón naranja). Cambia el orden arrastrando o edita los textos.'; f.appendChild(p);
+  var items = contentData.nav ? contentData.nav.items : [];
+  var listDiv = document.createElement('div');
+  listDiv.id = 'nav-items-list';
+  function renderItems() {
+    listDiv.innerHTML = '';
+    items.forEach(function(item, i) {
+      var row = document.createElement('div');
+      row.style.cssText = 'display:flex;gap:8px;align-items:center;margin-bottom:8px;';
+      var num = document.createElement('span');
+      num.textContent = (i+1) + '.';
+      num.style.cssText = 'font-weight:600;color:#888;min-width:20px;';
+      row.appendChild(num);
+      var inp = document.createElement('input');
+      inp.type = 'text'; inp.value = item;
+      inp.style.cssText = 'flex:1;font-family:Montserrat,sans-serif;font-size:14px;padding:10px 12px;border:1px solid #ccc;border-radius:8px;';
+      inp.addEventListener('input', function(e) { items[i] = e.target.value; });
+      row.appendChild(inp);
+      var del = document.createElement('button');
+      del.textContent = '✕'; del.title = 'Eliminar';
+      del.style.cssText = 'background:none;border:none;font-size:18px;cursor:pointer;color:#dc2626;';
+      del.onclick = function() { items.splice(i, 1); contentData.nav.items = items; renderItems(); };
+      row.appendChild(del);
+      listDiv.appendChild(row);
+    });
+  }
+  renderItems();
+  f.appendChild(listDiv);
+  var addBtn = document.createElement('button');
+  addBtn.textContent = '+ Agregar item';
+  addBtn.style.cssText = 'display:block;margin:12px 0;font-family:Montserrat,sans-serif;font-size:13px;font-weight:600;padding:8px 16px;border-radius:8px;border:1px dashed #FF6B2C;background:transparent;color:#FF6B2C;cursor:pointer;';
+  addBtn.onclick = function() { items.push('Nuevo'); contentData.nav.items = items; renderItems(); };
+  f.appendChild(addBtn);
+  var saveBtn = document.createElement('button');
+  saveBtn.textContent = '💾 Guardar menú';
+  saveBtn.className = 'btn-save';
+  saveBtn.onclick = function() { contentData.nav = { items: items }; saveData(); };
+  f.appendChild(saveBtn);
+  return f;
+}
+
+// ===== CONFIG SECTION =====
+function renderConfig() {
+  var f = document.createElement('div');
+  var h = document.createElement('h2'); h.textContent = 'Configuración del sitio'; f.appendChild(h);
+  var p = document.createElement('p'); p.className = 'section-hint'; p.textContent = 'Estos valores se guardan en config.json (separado del contenido).'; f.appendChild(p);
+  // Load config.json
+  var cfg = {};
+  var cfgLoaded = false;
+  var cfgDiv = document.createElement('div');
+  cfgDiv.id = 'config-fields';
+  f.appendChild(cfgDiv);
+  function renderCfgFields() {
+    cfgDiv.innerHTML = '';
+    var fields = [
+      { key: 'gtm_id', label: 'Google Tag Manager ID', hint: 'Ej: GTM-XXXXXXX' },
+      { key: 'analytics_id', label: 'Google Analytics ID', hint: 'Ej: G-XXXXXXXXXX' },
+      { key: 'site_name', label: 'Nombre del sitio' },
+      { key: 'site_url', label: 'URL del sitio' },
+      { key: 'site_description', label: 'Descripción del sitio (SEO)' },
+      { key: 'social_image', label: 'URL imagen social (OG image)' },
+      { key: 'language', label: 'Idioma' },
+      { key: 'author', label: 'Autor' },
+      { key: 'author_email', label: 'Email del autor' },
+      { key: 'linkedin', label: 'LinkedIn URL' },
+      { key: 'twitter', label: 'Twitter handle' },
+      { key: 'github', label: 'GitHub URL' }
+    ];
+    fields.forEach(function(fd) {
+      var row = document.createElement('div'); row.className = 'field-row';
+      var lbl = document.createElement('label'); lbl.textContent = fd.label; row.appendChild(lbl);
+      if (fd.hint) { var h2 = document.createElement('small'); h2.textContent = fd.hint; h2.style.cssText = 'display:block;color:#888;font-size:11px;margin:2px 0'; row.appendChild(h2); }
+      var inp = document.createElement('input'); inp.type = 'text';
+      inp.value = cfg[fd.key] || '';
+      inp.dataset.cfgKey = fd.key;
+      inp.style.cssText = 'width:100%;font-family:Montserrat,sans-serif;font-size:14px;padding:10px 12px;border:1px solid #ccc;border-radius:8px;';
+      row.appendChild(inp);
+      cfgDiv.appendChild(row);
+    });
+  }
+  // Fetch config.json
+  fetch('config.json').then(function(r){return r.json()}).then(function(data){cfg=data;cfgLoaded=true;renderCfgFields()}).catch(function(){cfg={};renderCfgFields()});
+  var saveBtn = document.createElement('button');
+  saveBtn.textContent = '💾 Guardar configuración';
+  saveBtn.className = 'btn-save';
+  saveBtn.style.marginTop = '16px';
+  saveBtn.onclick = function() {
+    var inputs = cfgDiv.querySelectorAll('[data-cfg-key]');
+    inputs.forEach(function(inp) { cfg[inp.dataset.cfgKey] = inp.value; });
+    // Save config.json separately
+    var secret = sessionStorage.getItem('cms-secret') || '';
+    fetch('api/save.php?token=' + encodeURIComponent(secret) + '&file=config', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(cfg)
+    }).then(function(r){return r.json()}).then(function(res){
+      if(res.ok) showToast('Configuración guardada');
+      else showToast('Error: ' + (res.error||'unknown'), true);
+    }).catch(function(){ showToast('Error de conexión', true); });
+  };
+  f.appendChild(saveBtn);
+  return f;
 }
 
 // ===== INIT =====
