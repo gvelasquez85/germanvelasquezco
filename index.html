@@ -221,8 +221,8 @@
     </div>
   </div></footer>
 
-  <script src="js/nav.js"></script>
   <script>
+    function toggleMobile(){document.getElementById('mobileMenu').classList.toggle('open')}
     const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible')})},{threshold:0.1});
     document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
 
@@ -240,7 +240,20 @@
       const t=id=>document.getElementById(id);
       const s=(id,txt)=>{const e=t(id);if(e)e.textContent=txt};
       s('nav-logo',c.site.logo);
-      // Nav is handled by js/nav.js — do not duplicate here
+      // Build nav links inline (not using shared nav.js)
+      var navEl=document.getElementById('nav-links');
+      var mobEl=document.getElementById('mobile-nav-links');
+      var navCta=['conversemos'];
+      (c.nav&&c.nav.items||[]).forEach(function(item){
+        var label=item.label||item;
+        var href=item.url||'#';
+        var url=href.startsWith('#')?'/'+href:href.startsWith('http')||href.startsWith('mailto:')?href:'/'+href;
+        var isCta=navCta.indexOf(label.toLowerCase())>=0;
+        var d=isCta?'<a href="'+url+'" class="nav-cta">'+label+'</a>':'<a href="'+url+'">'+label+'</a>';
+        var m=isCta?'<a href="'+url+'" class="nav-cta" style="display:inline-block;margin-top:12px" onclick="toggleMobile()">'+label+'</a>':'<a href="'+url+'" onclick="toggleMobile()">'+label+'</a>';
+        navEl.innerHTML+=d;
+        if(mobEl)mobEl.innerHTML+=m;
+      });
       s('hero-label',c.hero.label);s('hero-t1',c.hero.title_1);s('hero-t2',c.hero.title_2);s('hero-desc',c.hero.desc);s('hero-cta1',c.hero.cta_1);s('hero-cta2',c.hero.cta_2);
       s('how-label',c.how.label);s('how-t1',c.how.title_1);s('how-t2',c.how.title_2);s('how-desc',c.how.desc);
       const sg=t('steps-grid');
@@ -305,6 +318,5 @@
       });
     })();
   </script>
-  <script src="js/nav.js"></script>
 </body>
 </html>
