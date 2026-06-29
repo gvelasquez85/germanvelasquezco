@@ -67,8 +67,8 @@
     const params=new URLSearchParams(location.search);
     const slug=params.get('id')||location.pathname.match(/blog\/(.+)\.html/)?.[1];
     if(slug){
-      fetch('/content.json').then(r=>r.json()).then(c=>{
-        const post=c.blog.posts.find(p=>p.id===slug);
+      fetch('content.json').then(r=>r.json()).then(bc=>{
+        const post=(bc.posts||[]).find(p=>p.id===slug);
         if(!post){document.getElementById('article').innerHTML='<h1>Artículo no encontrado</h1><p><a href="/">Volver al inicio</a></p>';return}
         document.title=post.title+' — Germán Velásquez';
         // SEO

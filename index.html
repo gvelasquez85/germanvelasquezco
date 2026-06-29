@@ -242,6 +242,9 @@
       // Blog
       s('blog-label',c.blog.label);s('blog-title',c.blog.title_1);s('blog-desc',c.blog.desc);
       const posts=c.blog.posts||[];
+      // Also load full blog content from blog/content.json for search
+      let fullPosts=[];
+      fetch('blog/content.json').then(r=>r.json()).then(bc=>{fullPosts=bc.posts||[]}).catch(()=>{});
       // Extract unique categories and tags
       const cats=[...new Set(posts.map(p=>p.category))].sort();
       const allTags=[...new Set(posts.flatMap(p=>p.tags||[]))].sort();
