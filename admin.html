@@ -578,20 +578,21 @@ document.getElementById('authPassword').addEventListener('keydown', function(e) 
 });
 
 // ===== LOAD CONTENT =====
+var blogPosts = [];
 function loadContent(token) {
-  fetch('content.json?t=' + Date.now())
-    .then(function(res) {
-      if (!res.ok) throw new Error('No se pudo cargar content.json');
-      return res.json();
-    })
-    .then(function(data) {
-      contentData = data;
-      renderAllSections();
-      showToast('Contenido cargado correctamente', 'success');
-    })
-    .catch(function(err) {
-      showToast('Error al cargar contenido: ' + err.message, 'error');
-    });
+  Promise.all([
+    fetch('content.json?t=' + Date.now()).then(r=>r.json()),
+    fetch('blog/content.json?t=' + Date.now()).then(r=>r.json()).catch(()=>({posts:[]}))
+  ]).then(function(results){
+    contentData = results[0];
+    blogPosts = results[1].posts || [];
+    // Ensure nav exists
+    if(!contentData.nav) contentData.nav = {items:[]};
+    renderAllSections();
+    showToast('Contenido cargado correctamente', 'success');
+  }).catch(function(err){
+    showToast('Error al cargar contenido: ' + err.message, 'error');
+  });
 }
 
 // ===== NAVIGATION =====
@@ -922,8 +923,8 @@ function renderBlog() {
   if (editingPostId !== null) {
     // Show editor
     var post = null;
-    for (var p = 0; p < d.posts.length; p++) {
-      if (d.posts[p].id === editingPostId) { post = d.posts[p]; break; }
+    for (var p = 0; p < blogPosts.length; p++) {
+      if (blogPosts[p].id === editingPostId) { post = blogPosts[p]; break; }
     }
     if (!post) post = { id: '', title: '', excerpt: '', date: '', tags: [], read_time: '', body: '' };
 
@@ -977,8 +978,8 @@ function renderBlog() {
     saveBtn.onclick = function() {
       if (!post.id) { showToast('El ID es obligatorio', 'error'); return; }
       var existingIdx = -1;
-      for (var i = 0; i < d.posts.length; i++) {
-        if (d.posts[i].id === editingPostId) { existingIdx = i; break; }
+      for (var i = 0; i < blogPosts.length; i++) {
+        if (blogPosts[i].id === editingPostId) { existingIdx = i; break; }
       }
       var newPost = {
         id: post.id,
@@ -990,19 +991,30 @@ function renderBlog() {
         body: post.body
       };
       if (existingIdx >= 0) {
-        d.posts[existingIdx] = newPost;
+        blogPosts[existingIdx] = newPost;
       } else {
-        for (var j = 0; j < d.posts.length; j++) {
-          if (d.posts[j].id === post.id) {
+        for (var j = 0; j < blogPosts.length; j++) {
+          if (blogPosts[j].id === post.id) {
             showToast('Ya existe un post con ese ID', 'error');
             return;
           }
         }
-        d.posts.push(newPost);
+        blogPosts.push(newPost);
       }
       editingPostId = null;
       renderSection('blog');
-      showToast('Post guardado en memoria. Guarda los cambios para persistir.', 'info');
+      // Save to server (blog/content.json)
+      var token = sessionStorage.getItem('cms-secret') || '';
+      fetch('api/save.php?token=' + encodeURIComponent(token) + '&file=blog', {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({posts: blogPosts})
+      }).then(function(r){return r.json()}).then(function(res){
+        if(res.ok) showToast('Post guardado y publicado', 'success');
+        else showToast('Error al guardar: ' + (res.error||'unknown'), true);
+      }).catch(function(){
+        showToast('Post guardado en memoria (error de conexión)', 'info');
+      });
     };
     editor.appendChild(saveBtn);
 
@@ -1056,13 +1068,13 @@ function renderBlog() {
     var h3 = document.createElement('h3');
     h3.style.fontSize = '15px';
     h3.style.fontWeight = '600';
-    h3.textContent = 'Posts (' + (d.posts ? d.posts.length : 0) + ')';
+    h3.textContent = 'Posts (' + (blogPosts ? blogPosts.length : 0) + ')';
     var addBtn = document.createElement('button');
     addBtn.className = 'btn-save';
     addBtn.textContent = '+ Nuevo post';
     addBtn.onclick = function() {
       editingPostId = '___new___';
-      contentData.blog.posts.push({ id: '', title: '', excerpt: '', date: '', tags: [], read_time: '', body: '' });
+      blogPosts.push({ id: '', title: '', excerpt: '', date: '', tags: [], read_time: '', body: '' });
       renderSection('blog');
     };
     header.appendChild(h3);
@@ -1071,8 +1083,8 @@ function renderBlog() {
 
     var list = document.createElement('div');
     list.className = 'blog-list';
-    if (d.posts) {
-      for (var idx = 0; idx < d.posts.length; idx++) {
+    if (blogPosts) {
+      for (var idx = 0; idx < blogPosts.length; idx++) {
         (function(post, idx) {
           var c = document.createElement('div');
           c.className = 'blog-card';
@@ -1112,9 +1124,17 @@ function renderBlog() {
           delBtn.textContent = 'Eliminar';
           delBtn.onclick = function() {
             if (confirm('¿Eliminar el post "' + (post.id || 'sin id') + '"?')) {
-              contentData.blog.posts.splice(idx, 1);
+              blogPosts.splice(idx, 1);
               renderSection('blog');
-              showToast('Post eliminado de memoria. Guarda para persistir.', 'info');
+              var token2 = sessionStorage.getItem('cms-secret') || '';
+              fetch('api/save.php?token=' + encodeURIComponent(token2) + '&file=blog', {
+                method: 'POST',
+                headers: {'Content-Type':'application/json'},
+                body: JSON.stringify({posts: blogPosts})
+              }).then(function(r){return r.json()}).then(function(res){
+                if(res.ok) showToast('Post eliminado', 'success');
+                else showToast('Error al guardar cambios', true);
+              }).catch(function(){ showToast('Eliminado de memoria (error de conexión)', 'info'); });
             }
           };
           actions.appendChild(viewBtn);
@@ -1122,7 +1142,7 @@ function renderBlog() {
           actions.appendChild(delBtn);
           c.appendChild(actions);
           list.appendChild(c);
-        })(d.posts[idx], idx);
+        })(blogPosts[idx], idx);
       }
     }
     card.appendChild(list);
