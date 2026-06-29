@@ -1,0 +1,40 @@
+/* Shared Nav Styles — germanvelasquez.co */
+:root{--orange:#FF6B2C;--orange-dark:#E85520;--orange-glow:rgba(255,107,44,0.15);--orange-glow2:rgba(255,107,44,0.08);--black:#0A0A0A;--dark:#1A1A1A;--gray-700:#555;--gray-500:#888;--gray-300:#CCC;--gray-100:#F2F2F2;--white:#FFF}
+
+/* Nav base */
+nav{position:fixed;top:0;width:100%;z-index:1000}
+nav .nav-inner{max-width:1200px;margin:0 auto;padding:16px 40px;display:flex;align-items:center;justify-content:space-between}
+nav .nav-logo{font-family:Montserrat,sans-serif;font-size:18px;font-weight:700;text-decoration:none;letter-spacing:-0.3px}
+nav .nav-links{display:flex;gap:32px;align-items:center}
+nav .nav-links a{font-family:Montserrat,sans-serif;font-size:13px;font-weight:500;text-decoration:none;letter-spacing:0.5px;text-transform:uppercase;transition:color .2s}
+/* Desktop: white on dark pages, dark on light pages */
+.nav-dark .nav-logo{color:var(--white)}
+.nav-dark .nav-links a{color:rgba(255,255,255,.8)}
+.nav-dark .nav-links a:hover{color:var(--white)}
+.nav-dark .nav-cta{color:#fff!important;background:var(--orange)}
+.nav-dark .hamburger span{background:var(--white)}
+
+.nav-light,.nav-scrolled{background:rgba(255,255,255,.97);box-shadow:0 1px 12px rgba(0,0,0,.06);backdrop-filter:blur(16px)}
+.nav-light .nav-logo,.nav-scrolled .nav-logo{color:var(--black)}
+.nav-light .nav-links a,.nav-scrolled .nav-links a{color:var(--gray-700)}
+.nav-light .nav-links a:hover,.nav-scrolled .nav-links a:hover,.nav-light .nav-links a.active,.nav-scrolled .nav-links a.active{color:var(--orange)}
+.nav-light .nav-cta,.nav-scrolled .nav-cta{color:#fff!important;background:var(--orange)}
+.nav-light .hamburger span,.nav-scrolled .hamburger span{background:var(--black)}
+
+.nav-cta{font-size:13px!important;font-weight:600!important;padding:10px 20px;border-radius:100px;text-transform:uppercase!important;letter-spacing:0.5px;transition:background .2s}
+.nav-cta:hover{background:var(--orange-dark)}
+
+/* Hamburger */
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;z-index:1001;background:none;border:none;padding:4px}
+.hamburger span{display:block;width:24px;height:2px;border-radius:2px;transition:transform .2s,opacity .2s}
+/* Mobile menu */
+.mobile-menu{display:none;position:fixed;inset:0;background:var(--white);z-index:999;flex-direction:column;align-items:center;justify-content:center;gap:24px}
+.mobile-menu.open{display:flex}
+.mobile-menu a{font-size:20px;font-family:Montserrat,sans-serif;font-weight:600;color:var(--dark);text-decoration:none}
+.mobile-menu a:hover{color:var(--orange)}
+.mobile-close{position:absolute;top:20px;right:24px;background:none;border:none;font-size:28px;cursor:pointer;font-family:sans-serif;color:var(--gray-700)}
+
+@media(max-width:768px){
+  .nav-links{display:none}
+  .hamburger{display:flex}
+}

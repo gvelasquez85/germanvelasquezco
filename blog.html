@@ -78,14 +78,15 @@
     @media(max-width:1024px){.blog-grid{grid-template-columns:repeat(2,1fr)}}
     @media(max-width:768px){.blog-hero h1{font-size:36px;letter-spacing:-1.5px}.blog-hero{padding:120px 20px 60px}.blog-section{padding:40px 20px 60px}.nav-links{display:none}.hamburger{display:flex}.blog-grid{grid-template-columns:1fr}.blog-filters{flex-direction:column;align-items:stretch}.nav-inner{padding:16px 20px}.footer-inner{flex-direction:column;gap:12px;text-align:center}}
   </style>
+  <link rel="stylesheet" href="css/nav.css">
 </head>
 <body>
-  <nav id="nav"><div class="nav-inner">
-    <a href="/" class="nav-logo" id="nav-logo-blog"></a>
-    <div class="nav-links" id="nav-links-blog"></div>
-    <div class="hamburger" onclick="toggleMobile()"><span></span><span></span><span></span></div>
+  <nav class="nav-light" id="nav"><div class="nav-inner">
+    <a href="/" class="nav-logo" id="nav-logo"></a>
+    <div class="nav-links" id="nav-links"></div>
+    <button class="hamburger" onclick="toggleMobile()" aria-label="Menu"><span></span><span></span><span></span></button>
   </div></nav>
-  <div class="mobile-menu" id="mobileMenu"><button class="mobile-close" onclick="toggleMobile()">&#x2715;</button><div id="mobile-nav-links"></div></div>
+  <div class="mobile-menu" id="mobileMenu"><button class="mobile-close" onclick="toggleMobile()">x</button><div id="mobile-nav-links"></div></div></div>
 
   <section class="blog-hero">
     <div class="blog-hero-bg"><div class="gradient1"></div><div class="gradient2"></div></div>
@@ -295,5 +296,7 @@
       document.getElementById('blog-grid').innerHTML = '<p style="color:var(--gray-500);text-align:center">Error cargando posts.</p>';
     });
   </script>
+
+  <script src="js/nav.js"></script>
 </body>
 </html>

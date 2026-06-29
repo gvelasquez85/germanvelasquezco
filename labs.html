@@ -61,14 +61,15 @@
     footer a{color:var(--gray-500);text-decoration:none}footer a:hover{color:var(--orange)}
     @media(max-width:768px){.repo-grid{grid-template-columns:1fr}.labs-hero h1{font-size:36px}.nav-links{display:none}.hamburger{display:flex}.labs-hero{padding:120px 20px 40px}.labs-section{padding:40px 20px}}
   </style>
+  <link rel="stylesheet" href="css/nav.css">
 </head>
 <body>
-  <nav id="nav"><div class="nav-inner">
-    <a href="/" class="nav-logo" id="nav-logo-labs"></a>
-    <div class="nav-links" id="nav-links-labs"></div>
-    <div class="hamburger" onclick="toggleMobile()"><span></span><span></span><span></span></div>
+  <nav class="nav-light" id="nav"><div class="nav-inner">
+    <a href="/" class="nav-logo" id="nav-logo"></a>
+    <div class="nav-links" id="nav-links"></div>
+    <button class="hamburger" onclick="toggleMobile()" aria-label="Menu"><span></span><span></span><span></span></button>
   </div></nav>
-  <div class="mobile-menu" id="mobileMenu"><button class="mobile-close" onclick="toggleMobile()">&#x2715;</button><div id="mobile-nav-links"></div></div>
+  <div class="mobile-menu" id="mobileMenu"><button class="mobile-close" onclick="toggleMobile()">x</button><div id="mobile-nav-links"></div></div></div>
 
   <section class="labs-hero">
     <h1><em>Labs</em> — Experimentos y código</h1>
@@ -140,5 +141,7 @@
       });
     }).catch(()=>{document.getElementById('repos-grid').innerHTML='<p style="color:#dc2626">Error cargando repos</p>'});
   </script>
+
+  <script src="js/nav.js"></script>
 </body>
 </html>

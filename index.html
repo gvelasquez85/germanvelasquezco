@@ -131,14 +131,15 @@
     @media(max-width:1024px){.hero-content{max-width:100%}.steps-grid{grid-template-columns:repeat(2,1fr)}.build-grid{grid-template-columns:repeat(2,1fr)}.why-grid{grid-template-columns:1fr}.project-showcase{grid-template-columns:1fr}.blog-grid{grid-template-columns:repeat(2,1fr)}}
     @media(max-width:768px){.hero-text h1{font-size:36px;letter-spacing:-1.5px}.hero{min-height:auto;padding:120px 20px 60px}section{padding:60px 20px}.nav-links{display:none}.hamburger{display:flex}.steps-grid{grid-template-columns:1fr}.build-grid{grid-template-columns:1fr}.stat-row{grid-template-columns:1fr}.section-title{font-size:28px}.cta-section h2{font-size:28px}.nav-inner{padding:16px 20px}.blog-grid{grid-template-columns:1fr}.blog-filters{flex-direction:column}}
   </style>
+  <link rel="stylesheet" href="css/nav.css">
 </head>
 <body>
-  <nav id="nav"><div class="nav-inner">
-    <a href="#" class="nav-logo" id="nav-logo"></a>
+  <nav class="nav-dark" id="nav"><div class="nav-inner">
+    <a href="/" class="nav-logo" id="nav-logo"></a>
     <div class="nav-links" id="nav-links"></div>
-    <div class="hamburger" onclick="toggleMobile()"><span></span><span></span><span></span></div>
+    <button class="hamburger" onclick="toggleMobile()" aria-label="Menu"><span></span><span></span><span></span></button>
   </div></nav>
-  <div class="mobile-menu" id="mobileMenu"><button class="mobile-close" onclick="toggleMobile()">&#x2715;</button><a href="#como" onclick="toggleMobile()">Quiero hacer</a><a href="#proyectos" onclick="toggleMobile()">Proyectos</a><a href="#blog" onclick="toggleMobile()">Blog</a><a href="mailto:gvelasquez85@gmail.com" style="color:var(--orange)">Conversemos</a></div>
+  <div class="mobile-menu" id="mobileMenu"><button class="mobile-close" onclick="toggleMobile()">x</button><div id="mobile-nav-links"></div></div>
 
   <section class="hero" id="hero">
     <div class="hero-bg"><div class="gradient1"></div><div class="gradient2"></div><div class="grid"></div></div>
@@ -303,5 +304,7 @@
       s('cta-t1',c.cta.title_1);s('cta-t2',c.cta.title_2);s('cta-desc',c.cta.desc);s('cta-btn',c.cta.cta_text);
     });
   </script>
+
+  <script src="js/nav.js"></script>
 </body>
 </html>
