@@ -1,0 +1,86 @@
+{
+  "hero": {
+    "label": "Dev As A Service",
+    "title_1": "Tú sabes lo que necesitas.",
+    "title_2": "Yo lo convierto en",
+    "title_3": "software con IA",
+    "desc": "Entiendo tu problema. Lo diseño con la tecnología correcta. Lo construyo. Y te lo entrego funcionando — no en slideware, en producción.",
+    "cta_1": "Agendar conversación",
+    "cta_2": "Ver cómo funciona"
+  },
+  "how": {
+    "label": "El proceso",
+    "title_1": "De problema a producto,",
+    "title_2": "en 4 pasos",
+    "desc": "Sin rodeos. Sin slideware. Sin sorpresas.",
+    "steps": [
+      {"icon": "💬", "title": "Conversamos", "desc": "Escucho tu problema. No necesitas hablar en idioma tech — yo traduzco."},
+      {"icon": "📐", "title": "Diseño la solución", "desc": "Arquitectura + IA + la tech correcta. No plantillas, diseño a tu medida."},
+      {"icon": "⚙️", "title": "La construyo", "desc": "Desarrollo ágil. Ves progreso real en semanas, no meses."},
+      {"icon": "🚀", "title": "Te lo entrego", "desc": "Funcionando. Documentado. En producción. Y me quedo si me necesitas."}
+    ]
+  },
+  "why": {
+    "label": "La diferencia",
+    "title_1": "No soy un dev que aprendió negocio.",
+    "title_2": "Soy de negocio y construyo con IA.",
+    "desc": "13+ años liderando transformación digital y CX en empresas reales. He implementado CRM para 100K+ clientes, automatizado procesos con IA que redujeron tiempos de horas a minutos, y consolidado canales digitales que generan millones.",
+    "stats": [
+      {"value": "+$3M", "label": "USD en ahorros generados"},
+      {"value": "+$2.6M", "label": "USD en facturación"},
+      {"value": "13+", "label": "Años en CX y tech"},
+      {"value": "70", "label": "Personas en mi team"}
+    ],
+    "diffs": [
+      {"icon": "🎯", "bold": "Hablo tu idioma", "text": " — Entiendo P&L, NPS, churn, funnels. No solo código."},
+      {"icon": "🤖", "bold": "IA como motor", "text": " — No como feature de marketing. Aplicada a procesos reales."},
+      {"icon": "📈", "bold": "Resultados medibles", "text": " — ROI+ en <12 meses. Métricas, no promesas."},
+      {"icon": "🏗️", "bold": "He estado ahí", "text": " — Comité CX con C-level, junta del gremio, 4 países."},
+      {"icon": "🔧", "bold": "Construyo, no consulto", "text": " — Entrego software funcionando, no PDFs."}
+    ]
+  },
+  "build": {
+    "label": "Servicios",
+    "title": "Lo que construyo",
+    "items": [
+      {"emoji": "🤖", "title": "Agentes de IA", "desc": "Automatización, clasificación, análisis de documentos, asistentes que aprenden tu negocio."},
+      {"emoji": "📱", "title": "Apps con IA", "desc": "Aplicaciones completas donde IA es el motor. Customer-facing y operación interna."},
+      {"emoji": "🔗", "title": "Integraciones", "desc": "CRM, APIs, flujos automatizados. Conectar sistemas que no hablan. Salesforce, Zoho, WhatsApp."},
+      {"emoji": "📊", "title": "Dashboards", "desc": "Datos → insights → acción. KPIs, reportes, herramientas de decisión."}
+    ]
+  },
+  "projects": {
+    "label": "Emprendimiento",
+    "title_1": "Proyectos que nacieron de ver",
+    "title_2": "los problemas de cerca",
+    "desc": "No son hipótesis. Son productos en mercado, con clientes reales.",
+    "lynkko": {
+      "badge": "★ Flagship",
+      "desc": "Plataforma de éxito comercial que une equipos, metas e incentivos en un solo ecosistema. Alinea el desempeño con recompensas reales y crea un ciclo donde ganar se retroalimenta. Funciona en inmobiliario, seguros, banca, telecom y resorts.",
+      "stats": [
+        {"value": "5+", "label": "Industrias"},
+        {"value": "2", "label": "Productos"},
+        {"value": "∞", "label": "Ciclo virtuoso"}
+      ],
+      "tags": ["SaaS", "Sales Enablement", "Incentivos", "Gamificación", "Multi-industria"]
+    },
+    "turnflow": {
+      "badge": "● Live",
+      "desc": "CRM + cola virtual + recordatorios automáticos para negocios locales. Centraliza clientes, elimina filas con QR, y fideliza con mensajes automatizados. Mobile-first, cero fricción.",
+      "stats": [
+        {"value": "200+", "label": "Negocios activos"},
+        {"value": "6", "label": "Industrias"},
+        {"value": "60%", "label": "↑ Contactabilidad"}
+      ],
+      "tags": ["SaaS", "CRM", "Cola QR", "Recordatorios", "Mobile-first"]
+    }
+  },
+  "cta": {
+    "title_1": "Tienes un problema.",
+    "title_2": "Yo tengo la",
+    "title_3": "obsesión",
+    "title_4": "por resolverlo.",
+    "desc": "Conversemos. No necesitas tener todo definido — solo el problema.",
+    "cta_text": "gvelasquez85@gmail.com"
+  }
+}
