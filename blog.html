@@ -76,7 +76,25 @@
     .footer-links{display:flex;gap:24px}.footer-links a{color:var(--gray-500);text-decoration:none;transition:var(--transition)}.footer-links a:hover{color:var(--orange)}
 
     @media(max-width:1024px){.blog-grid{grid-template-columns:repeat(2,1fr)}}
-    @media(max-width:768px){.blog-hero h1{font-size:36px;letter-spacing:-1.5px}.blog-hero{padding:120px 20px 60px}.blog-section{padding:40px 20px 60px}.nav-links{display:none}.hamburger{display:flex}.blog-grid{grid-template-columns:1fr}.blog-filters{flex-direction:column;align-items:stretch}.nav-inner{padding:16px 20px}.footer-inner{flex-direction:column;gap:12px;text-align:center}}
+    .filters-row{display:flex;gap:8px;align-items:center;flex:1}
+    .filters-toggle{display:inline-flex;align-items:center;gap:6px;padding:10px 16px;border:1px solid var(--gray-100);border-radius:100px;background:var(--white);font-family:Montserrat,sans-serif;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;color:var(--gray-700);cursor:pointer;transition:var(--transition);white-space:nowrap}
+    .filters-toggle:hover,.filters-toggle.active{border-color:var(--orange);color:var(--orange)}
+    .filters-toggle svg{transition:transform 0.2s}
+    .filters-toggle.active svg{transform:rotate(180deg)}
+    .filter-chips{display:flex;gap:6px;flex-wrap:wrap}
+    .filter-chip{font-size:11px;font-weight:600;padding:4px 10px;border-radius:100px;border:1px solid var(--orange);background:var(--orange-glow2);color:var(--orange);display:inline-flex;align-items:center;gap:4px}
+    .filter-chip button{background:none;border:none;color:inherit;cursor:pointer;font-size:12px;line-height:1;padding:0;margin-left:2px}
+    .filters-panel{display:none;border:1px solid var(--gray-100);border-radius:var(--radius);padding:20px;margin-bottom:24px;background:var(--white)}
+    .filters-panel.open{display:block}
+    .filter-section{margin-bottom:16px}
+    .filter-section:last-child{margin-bottom:0}
+    .filter-label{display:block;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--gray-500);margin-bottom:8px}
+    .filter-options{display:flex;flex-wrap:wrap;gap:6px}
+    .filter-opt{font-size:12px;font-weight:500;padding:6px 14px;border-radius:100px;border:1px solid var(--gray-100);background:var(--white);color:var(--gray-700);cursor:pointer;transition:var(--transition)}
+    .filter-opt:hover{border-color:var(--orange);color:var(--orange)}
+    .filter-opt.active{background:var(--orange);border-color:var(--orange);color:#fff}
+    .blog-filters{flex-direction:column;align-items:stretch;gap:12px}
+    @media(max-width:768px){.blog-hero h1{font-size:36px;letter-spacing:-1.5px}.blog-hero{padding:120px 20px 60px}.blog-section{padding:40px 20px 60px}.nav-links{display:none}.hamburger{display:flex}.blog-grid{grid-template-columns:1fr}.nav-inner{padding:16px 20px}.footer-inner{flex-direction:column;gap:12px;text-align:center}.filters-row{flex-direction:column;align-items:stretch}}
   </style>
   <link rel="stylesheet" href="css/nav.css">
 </head>
@@ -99,9 +117,24 @@
   <section class="blog-section">
     <div class="container">
       <div class="blog-filters" id="blog-filters">
-        <input type="text" class="blog-search" id="blog-search" placeholder="Buscar posts...">
-        <div class="filter-group" id="category-filters"></div>
-        <div class="filter-group" id="tag-filters"></div>
+        <input type="text" class="blog-search" id="blog-search" placeholder="Buscar posts por titulo, contenido o tag...">
+        <div class="filters-row">
+          <button class="filters-toggle" id="filters-toggle">
+            <span>Filtros</span>
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 4l3 3 3-3"/></svg>
+          </button>
+          <div class="filter-chips" id="filter-chips"></div>
+        </div>
+      </div>
+      <div class="filters-panel" id="filters-panel">
+        <div class="filter-section">
+          <span class="filter-label">Categorias</span>
+          <div class="filter-options" id="category-filters"></div>
+        </div>
+        <div class="filter-section">
+          <span class="filter-label">Tags</span>
+          <div class="filter-options" id="tag-filters"></div>
+        </div>
       </div>
       <div class="blog-grid" id="blog-grid"></div>
       <div class="no-results" id="no-results">No se encontraron posts que coincidan con tu búsqueda.</div>
@@ -156,33 +189,38 @@
     }
 
     function renderFilters(posts) {
-      const catContainer = document.getElementById('category-filters');
-      const tagContainer = document.getElementById('tag-filters');
-      const categories = getUniqueCategories(posts);
-      const tags = getUniqueTags(posts);
-
-      catContainer.innerHTML = '<span class="filter-label">Categoría:</span>' +
-        categories.map(c => `<button class="blog-filter-btn${activeCategory === c ? ' active' : ''}" data-category="${c}">${c}</button>`).join('');
-
-      tagContainer.innerHTML = '<span class="filter-label">Tags:</span>' +
-        tags.map(t => `<button class="blog-filter-btn${activeTag === t ? ' active' : ''}" data-tag="${t}">${t}</button>`).join('');
-
-      // Attach event listeners
-      catContainer.querySelectorAll('[data-category]').forEach(btn => {
-        btn.addEventListener('click', () => {
-          const cat = btn.dataset.category;
-          activeCategory = (activeCategory === cat) ? null : cat;
-          renderFilters(allPosts);
-          renderPosts();
+      var catContainer=document.getElementById('category-filters');
+      var tagContainer=document.getElementById('tag-filters');
+      var chipContainer=document.getElementById('filter-chips');
+      var categories=getUniqueCategories(posts);
+      var tags=getUniqueTags(posts);
+      catContainer.innerHTML=categories.map(function(c){
+        return '<button class="filter-opt'+(activeCategory===c?' active':'')+'" data-filter="cat" data-value="'+c+'">'+c+'</button>';
+      }).join('');
+      tagContainer.innerHTML=tags.map(function(t){
+        return '<button class="filter-opt'+(activeTag===t?' active':'')+'" data-filter="tag" data-value="'+t+'">'+t+'</button>';
+      }).join('');
+      // Active chips
+      chipContainer.innerHTML='';
+      if(activeCategory)chipContainer.innerHTML+='<span class="filter-chip">'+activeCategory+' <button data-clear="cat">&times;</button></span>';
+      if(activeTag)chipContainer.innerHTML+='<span class="filter-chip">'+activeTag+' <button data-clear="tag">&times;</button></span>';
+      // Events
+      catContainer.querySelectorAll('.filter-opt').forEach(function(btn){
+        btn.addEventListener('click',function(){
+          activeCategory=(activeCategory===btn.dataset.value)?null:btn.dataset.value;
+          renderFilters(allPosts);renderPosts();
         });
       });
-
-      tagContainer.querySelectorAll('[data-tag]').forEach(btn => {
-        btn.addEventListener('click', () => {
-          const tag = btn.dataset.tag;
-          activeTag = (activeTag === tag) ? null : tag;
-          renderFilters(allPosts);
-          renderPosts();
+      tagContainer.querySelectorAll('.filter-opt').forEach(function(btn){
+        btn.addEventListener('click',function(){
+          activeTag=(activeTag===btn.dataset.value)?null:btn.dataset.value;
+          renderFilters(allPosts);renderPosts();
+        });
+      });
+      chipContainer.querySelectorAll('[data-clear]').forEach(function(b){
+        b.addEventListener('click',function(){
+          if(b.dataset.clear==='cat')activeCategory=null;else activeTag=null;
+          renderFilters(allPosts);renderPosts();
         });
       });
     }
@@ -267,6 +305,17 @@
       searchQuery = e.target.value.trim();
       renderPosts();
     });
+    // Filters toggle
+    (function(){
+      var t=document.getElementById('filters-toggle');
+      var p=document.getElementById('filters-panel');
+      if(t&&p){
+        t.addEventListener('click',function(){
+          t.classList.toggle('active');
+          p.classList.toggle('open');
+        });
+      }
+    })();
 
     // Load posts
     // Build nav from content.json
