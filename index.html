@@ -223,6 +223,11 @@
 
   <script>
     function toggleMobile(){document.getElementById('mobileMenu').classList.toggle('open')}
+    window.addEventListener('scroll',function(){
+      var n=document.getElementById('nav');
+      if(window.scrollY>80){n.classList.remove('nav-dark');n.classList.add('nav-scrolled')}
+      else{n.classList.remove('nav-scrolled');n.classList.add('nav-dark')}
+    });
     const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible')})},{threshold:0.1});
     document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
 
