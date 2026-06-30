@@ -154,13 +154,13 @@
   </div></footer>
 
   <script>
-    function toggleMobile(){document.getElementById('mobileMenu').classList.toggle('open')}
-    window.addEventListener('scroll',()=>{document.getElementById('nav').classList.toggle('scrolled',window.scrollY>50)});
+function toggleMobile(){document.getElementById('mobileMenu').classList.toggle('open')}
+window.addEventListener('scroll',()=>{document.getElementById('nav').classList.toggle('scrolled',window.scrollY>50)})
 
-    let allPosts = [];
-    let activeCategory = null;
-    let activeTag = null;
-    let searchQuery = '';
+let allPosts = [];
+let activeCategory = null;
+let activeTag = null;
+let searchQuery = '';
 
     const SITE_URL = 'https://germanvelasquez.co';
 
@@ -236,7 +236,7 @@
             if (!m) return false;
           }
           if (activeCategory && p.category !== activeCategory) return false;
-          if (activeTag && !(p.tags||[]).includes(activeTag) return false;
+          if (activeTag && !(p.tags||[]).includes(activeTag)) return false;
           return true;
         });
     }
@@ -258,7 +258,7 @@
         var tagsHtml = '';
         if(p.tags){p.tags.forEach(function(t){tagsHtml += '<span class="blog-tag">'+t+'</span>'})}
         var imgHtml = p.image ? '<div class="blog-card-img" style="background-image:url('+p.image+')"></div>' : '';
-        var titleEscaped = p.title.replace(/'/g,"&#39;");
+        var titleEscaped = p.title.replace(/'/g, "'");
         return '<div class="blog-card" data-slug="'+p.id+'">' +
           imgHtml +
           '<div class="blog-card-content">' +
