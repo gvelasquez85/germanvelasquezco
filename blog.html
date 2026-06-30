@@ -229,7 +229,7 @@ let searchQuery = '';
 
     function filterPosts() {
       return allPosts.filter(p => {
-          if (!p.published) return false;
+          if (p.published === false) return false;
           if (searchQuery) {
             const q = searchQuery.toLowerCase();
             const m = p.title.toLowerCase().includes(q) || p.excerpt.toLowerCase().includes(q) || (p.tags||[]).some(t=>t.toLowerCase().includes(q)) || p.category.toLowerCase().includes(q);
