@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Acerca de mi — Germán Velásquez</title>
-  <meta name="description" content="German Mauricio Velasquez Tovar — Transformación digital + IA + CX. Más de 13 años de experiencia liderando la experiencia del cliente en Latinoamérica.">
+  <meta name="description" content="Perfil profesional y personal de Germán Velásquez">
   <meta property="og:title" content="Acerca de mi — Germán Velásquez">
   <meta property="og:description" content="Transformación digital, inteligencia artificial y experiencia del cliente aplicadas a problemas reales de negocio.">
   <meta property="og:url" content="https://germanvelasquez.co/about.html">
@@ -15,22 +15,17 @@
     :root{--orange:#FF6B2C;--orange-light:#FF8F5E;--orange-dark:#E85520;--orange-glow:rgba(255,107,44,0.15);--orange-glow2:rgba(255,107,44,0.08);--black:#0A0A0A;--dark:#1A1A1A;--gray-100:#F2F2F2;--gray-300:#CCC;--gray-500:#888;--gray-700:#555;--white:#FFF;--font:'Montserrat',sans-serif;--radius:12px;--transition:0.3s cubic-bezier(0.4,0,0.2,1)}
     *{margin:0;padding:0;box-sizing:border-box}
     body{font-family:var(--font);color:var(--dark);background:var(--white);line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:hidden}
-
-    /* Hero */
     .about-hero{padding:140px 40px 80px;background:var(--black);position:relative;overflow:hidden;text-align:center}
     .about-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 50%,var(--orange-glow) 0%,transparent 60%),radial-gradient(ellipse at 70% 50%,rgba(37,99,235,0.06) 0%,transparent 60%);pointer-events:none}
     .about-hero h1{font-size:48px;font-weight:800;letter-spacing:-2px;color:var(--white);margin-bottom:16px;position:relative}
     .about-hero h1 em{font-style:normal;color:var(--orange)}
     .about-hero p{font-size:18px;color:var(--gray-300);max-width:640px;margin:0 auto;position:relative}
     .hero-photo{width:120px;height:120px;border-radius:50%;border:3px solid var(--orange);object-fit:cover;margin-bottom:24px;position:relative;background:var(--gray-700)}
-
-    /* Sections */
-    .about-section{padding:80px 40px}.container{max-width:900px;margin:0 auto}
+    .about-section{padding:80px 40px}
+    .container{max-width:900px;margin:0 auto}
     .section-title{font-size:32px;font-weight:800;letter-spacing:-1px;margin-bottom:8px}
     .section-title em{font-style:normal;color:var(--orange)}
     .section-desc{font-size:16px;color:var(--gray-700);margin-bottom:40px;max-width:600px}
-
-    /* Bio */
     .bio-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
     .bio-text p{font-size:15px;color:var(--gray-700);margin-bottom:16px;line-height:1.8}
     .bio-highlight{color:var(--orange);font-weight:600}
@@ -38,8 +33,6 @@
     .stat-card{background:var(--gray-100);border-radius:var(--radius);padding:24px;text-align:center}
     .stat-card .num{font-size:32px;font-weight:800;color:var(--orange);line-height:1}
     .stat-card .label{font-size:12px;color:var(--gray-700);margin-top:6px;text-transform:uppercase;letter-spacing:0.5px}
-
-    /* Timeline */
     .timeline{position:relative;padding-left:32px}
     .timeline::before{content:'';position:absolute;left:8px;top:0;bottom:0;width:2px;background:var(--gray-300)}
     .timeline-item{position:relative;margin-bottom:32px}
@@ -48,8 +41,6 @@
     .timeline-item .company{font-size:14px;font-weight:600;color:var(--orange);margin-bottom:4px}
     .timeline-item .period{font-size:12px;color:var(--gray-500);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px}
     .timeline-item p{font-size:14px;color:var(--gray-700);line-height:1.6}
-
-    /* Skills */
     .skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
     .skill-card{border:1px solid var(--gray-300);border-radius:var(--radius);padding:24px;transition:var(--transition)}
     .skill-card:hover{border-color:var(--orange);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,0.06)}
@@ -57,43 +48,24 @@
     .skill-card .skill-tags{display:flex;flex-wrap:wrap;gap:6px}
     .skill-card .skill-tag{font-size:11px;font-weight:600;color:var(--gray-700);background:var(--gray-100);padding:4px 10px;border-radius:100px}
     .skill-card:hover .skill-tag{background:var(--orange-glow2);color:var(--orange-dark)}
-
-    /* Education */
     .edu-list{display:grid;gap:12px}
     .edu-item{display:flex;align-items:start;gap:16px;padding:16px;border:1px solid var(--gray-100);border-radius:var(--radius);border-left:3px solid var(--orange)}
     .edu-item h4{font-size:14px;font-weight:700}
     .edu-item p{font-size:13px;color:var(--gray-700)}
-
-    /* Contact */
     .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
     .contact-card{display:flex;align-items:center;gap:12px;padding:16px;border:1px solid var(--gray-300);border-radius:var(--radius);text-decoration:none;color:var(--dark);transition:var(--transition)}
     .contact-card:hover{border-color:var(--orange);color:var(--orange);transform:translateY(-2px)}
     .contact-card .icon{font-size:20px}
     .contact-card .label{font-size:13px;font-weight:600}
     .contact-card .value{font-size:12px;color:var(--gray-500)}
-
-    /* Recognition */
     .recognition-list{display:grid;gap:12px}
     .recognition-item{display:flex;align-items:center;gap:12px;padding:14px 16px;background:var(--gray-100);border-radius:var(--radius)}
     .recognition-item .badge{font-size:11px;font-weight:700;color:var(--white);background:var(--orange);padding:4px 10px;border-radius:100px;text-transform:uppercase;letter-spacing:0.5px;white-space:nowrap}
     .recognition-item span{font-size:14px;color:var(--dark)}
-
     footer{background:var(--black);border-top:1px solid rgba(255,255,255,0.06);padding:32px 40px;text-align:center;font-size:13px;color:var(--gray-500)}
     footer a{color:var(--gray-500);text-decoration:none}footer a:hover{color:var(--orange)}
-
-    @media(max-width:768px){
-      .about-hero h1{font-size:36px}
-      .about-hero{padding:120px 20px 60px}
-      .about-section{padding:60px 20px}
-      .bio-grid{grid-template-columns:1fr;gap:32px}
-      .skills-grid{grid-template-columns:1fr 1fr}
-      .contact-grid{grid-template-columns:1fr}
-      .nav-links{display:none}.hamburger{display:flex}
-    }
-    @media(max-width:480px){
-      .skills-grid{grid-template-columns:1fr}
-      .bio-stats{grid-template-columns:1fr}
-    }
+    @media(max-width:768px){.about-hero h1{font-size:36px}.about-hero{padding:120px 20px 60px}.about-section{padding:60px 20px}.bio-grid{grid-template-columns:1fr;gap:32px}.skills-grid{grid-template-columns:1fr 1fr}.contact-grid{grid-template-columns:1fr}.nav-links{display:none}.hamburger{display:flex}}
+    @media(max-width:480px){.skills-grid{grid-template-columns:1fr}.bio-stats{grid-template-columns:1fr}}
   </style>
   <link rel="stylesheet" href="css/nav.css">
 </head>
@@ -106,252 +78,59 @@
   <div class="mobile-menu" id="mobileMenu"><button class="mobile-close" onclick="toggleMobile()">x</button><div id="mobile-nav-links"></div></div>
 
   <section class="about-hero">
-    <img src="personal/germanVelasquezFotoDesktop.png" alt="Germán Velásquez" class="hero-photo" onerror="this.onerror=null;this.src='https://ui-avatars.com/api/?name=German+Velasquez&size=400&background=FF6B2C&color=fff&font-size=0.35&bold=true'">
-    <h1><em>Acerca</em> de mi</h1>
-    <p>Transformación digital, inteligencia artificial y experiencia del cliente aplicadas a problemas reales de negocio.</p>
+    <img id="heroPhoto" class="hero-photo" alt="Germán Velásquez">
+    <h1 id="heroTitle"></h1>
+    <p id="heroSubtitle"></p>
   </section>
 
-  <!-- QUIEN SOY -->
   <section class="about-section">
     <div class="container">
-      <h2 class="section-title">Quien <em>soy</em></h2>
-      <p class="section-desc">Ingeniero, emprendedor y líder en transformación digital con más de 13 años de experiencia en Latinoamérica.</p>
+      <h2 class="section-title" id="bioTitle"></h2>
+      <p class="section-desc" id="bioDesc"></p>
       <div class="bio-grid">
-        <div class="bio-text">
-          <p>Soy <span class="bio-highlight">German Mauricio Velasquez Tovar</span>, de Cúcuta, Colombia. Dedico mi carrera a transformar la forma en que las empresas entienden, sirven y retienen a sus clientes usando tecnología e inteligencia artificial.</p>
-          <p>He liderado equipos de experiencia del cliente en compañías como Amarilo, Falabella Seguros, Viajes Falabella/Despegar y Yale/ASSA ABLOY, siempre con foco en resultados medibles y escalables.</p>
-          <p>Soy creador de <span class="bio-highlight">Lynkko</span> y <span class="bio-highlight">TurnFlow</span>, y hago parte de la Junta Directiva del Gremio CX Colombia. Disfruto conectar personas con tecnología y convertir ideas en productos que generan valor.</p>
-        </div>
-        <div class="bio-stats">
-          <div class="stat-card">
-            <div class="num">13+</div>
-            <div class="label">Años de experiencia</div>
-          </div>
-          <div class="stat-card">
-            <div class="num">4</div>
-            <div class="label">Países liderados</div>
-          </div>
-          <div class="stat-card">
-            <div class="num">2</div>
-            <div class="label">Productos creados</div>
-          </div>
-          <div class="stat-card">
-            <div class="num">∞</div>
-            <div class="label">Curiosidad</div>
-          </div>
-        </div>
+        <div class="bio-text" id="bioText"></div>
+        <div class="bio-stats" id="statsGrid"></div>
       </div>
     </div>
   </section>
 
-  <!-- EXPERIENCIA -->
   <section class="about-section" style="background:var(--gray-100)">
     <div class="container">
-      <h2 class="section-title">Experiencia <em>profesional</em></h2>
-      <p class="section-desc">Un recorrido por las empresas y roles que han formado mi carrera.</p>
-      <div class="timeline">
-        <div class="timeline-item">
-          <div class="role">Director de Experiencia del Cliente</div>
-          <div class="company">Amarilo</div>
-          <div class="period">2023 — Presente</div>
-          <p>Lidero la estrategia CX a nivel nacional, integrando inteligencia artificial y automatización para mejorar la satisfacción y retención de clientes.</p>
-        </div>
-        <div class="timeline-item">
-          <div class="role">Gerente de Experiencia del Cliente</div>
-          <div class="company">Falabella Seguros</div>
-          <div class="period">2021 — 2023</div>
-          <p>Gerencié la experiencia del cliente del canal digital, implementando modelos de atención omnicanal y reduciendo tiempos de respuesta en un 40%.</p>
-        </div>
-        <div class="timeline-item">
-          <div class="role">Director CX Regional (4 países)</div>
-          <div class="company">Viajes Falabella / Despegar</div>
-          <div class="period">2019 — 2021</div>
-          <p>Lideré la estrategia de experiencia del cliente para Chile, Colombia, Perú y México, gestionando equipos multiculturales y procesos de mejora continua.</p>
-        </div>
-        <div class="timeline-item">
-          <div class="role">CX & Operations Lead</div>
-          <div class="company">Yale / ASSA ABLOY</div>
-          <div class="period">2017 — 2019</div>
-          <p>Responsable de la experiencia del cliente y operaciones de servicio para la región andina, implementando metodologías ágiles y KPIs de servicio.</p>
-        </div>
-        <div class="timeline-item">
-          <div class="role">CX Specialist</div>
-          <div class="company">Indexcol</div>
-          <div class="period">2015 — 2017</div>
-          <p>Gestión de experiencia del cliente en el sector B2B, desarrollando programas de fidelización y voice of customer.</p>
-        </div>
-        <div class="timeline-item">
-          <div class="role">Analista de Servicio</div>
-          <div class="company">Teleinte</div>
-          <div class="period">2013 — 2015</div>
-          <p>Inicio de carrera profesional en atención al cliente y resolución de incidencias, construyendo las bases de mi pasión por CX.</p>
-        </div>
-      </div>
+      <h2 class="section-title" id="experienceTitle"></h2>
+      <p class="section-desc" id="experienceDesc"></p>
+      <div class="timeline" id="experienceList"></div>
     </div>
   </section>
 
-  <!-- SKILLS -->
   <section class="about-section">
     <div class="container">
-      <h2 class="section-title">Skills & <em>Tecnologías</em></h2>
-      <p class="section-desc">Las herramientas y competencias que uso día a día para transformar la experiencia del cliente.</p>
-      <div class="skills-grid">
-        <div class="skill-card">
-          <h4>🧠 IA & Datos</h4>
-          <div class="skill-tags">
-            <span class="skill-tag">Chatbots</span>
-            <span class="skill-tag">NLP</span>
-            <span class="skill-tag">Machine Learning</span>
-            <span class="skill-tag">Prompt Engineering</span>
-            <span class="skill-tag">Analytics</span>
-          </div>
-        </div>
-        <div class="skill-card">
-          <h4>📊 CX Strategy</h4>
-          <div class="skill-tags">
-            <span class="skill-tag">Customer Journey</span>
-            <span class="skill-tag">NPS / CSAT</span>
-            <span class="skill-tag">Voice of Customer</span>
-            <span class="skill-tag">Omnicanalidad</span>
-          </div>
-        </div>
-        <div class="skill-card">
-          <h4>⚙️ Herramientas</h4>
-          <div class="skill-tags">
-            <span class="skill-tag">Zendesk</span>
-            <span class="skill-tag">Salesforce</span>
-            <span class="skill-tag">HubSpot</span>
-            <span class="skill-tag">Power BI</span>
-          </div>
-        </div>
-        <div class="skill-card">
-          <h4>💡 Metodologías</h4>
-          <div class="skill-tags">
-            <span class="skill-tag">Design Thinking</span>
-            <span class="skill-tag">Lean</span>
-            <span class="skill-tag">Agile / Scrum</span>
-            <span class="skill-tag">OKRs</span>
-          </div>
-        </div>
-        <div class="skill-card">
-          <h4>💻 Tech</h4>
-          <div class="skill-tags">
-            <span class="skill-tag">Python</span>
-            <span class="skill-tag">APIs</span>
-            <span class="skill-tag">SQL</span>
-            <span class="skill-tag">No-code</span>
-          </div>
-        </div>
-        <div class="skill-card">
-          <h4>🚀 Liderazgo</h4>
-          <div class="skill-tags">
-            <span class="skill-tag">Equipos remotos</span>
-            <span class="skill-tag">Stakeholders</span>
-            <span class="skill-tag">P&L</span>
-            <span class="skill-tag">Change Management</span>
-          </div>
-        </div>
-      </div>
+      <h2 class="section-title" id="skillsTitle"></h2>
+      <p class="section-desc" id="skillsDesc"></p>
+      <div class="skills-grid" id="skillsGrid"></div>
     </div>
   </section>
 
-  <!-- EDUCACION -->
   <section class="about-section" style="background:var(--gray-100)">
     <div class="container">
-      <h2 class="section-title">Educación & <em>Formación</em></h2>
-      <p class="section-desc">Mi base académica y de formación continua.</p>
-      <div class="edu-list">
-        <div class="edu-item">
-          <div>
-            <h4>Maestría en Marketing</h4>
-            <p>EUDE Business School — Madrid, España</p>
-          </div>
-        </div>
-        <div class="edu-item">
-          <div>
-            <h4>MBA en Digital Business</h4>
-            <p>Universidad Rey Juan Carlos — Madrid, España</p>
-          </div>
-        </div>
-        <div class="edu-item">
-          <div>
-            <h4>Ingeniería Electrónica</h4>
-            <p>Pontificia Universidad Javeriana — Bogotá, Colombia</p>
-          </div>
-        </div>
-      </div>
+      <h2 class="section-title" id="educationTitle"></h2>
+      <p class="section-desc" id="educationDesc"></p>
+      <div class="edu-list" id="educationList"></div>
     </div>
   </section>
 
-  <!-- RECONOCIMIENTOS -->
   <section class="about-section">
     <div class="container">
-      <h2 class="section-title">Reconocimientos & <em>Comunidad</em></h2>
-      <p class="section-desc">Participaciones y aportes al ecosistema CX en Latinoamérica.</p>
-      <div class="recognition-list">
-        <div class="recognition-item">
-          <span class="skill-tag" style="background:var(--orange);color:#fff;font-size:11px;font-weight:700;padding:4px 10px;border-radius:100px;text-transform:uppercase;letter-spacing:0.5px">Junta Directiva</span>
-          <span>Gremio Colombia CX — Junta directiva</span>
-        </div>
-        <div class="recognition-item">
-          <span class="skill-tag" style="background:var(--orange);color:#fff;font-size:11px;font-weight:700;padding:4px 10px;border-radius:100px;text-transform:uppercase;letter-spacing:0.5px">Creador</span>
-          <span>Lynkko — Plataforma de experiencia del cliente</span>
-        </div>
-        <div class="recognition-item">
-          <span class="skill-tag" style="background:var(--orange);color:#fff;font-size:11px;font-weight:700;padding:4px 10px;border-radius:100px;text-transform:uppercase;letter-spacing:0.5px">Creador</span>
-          <span>TurnFlow — Herramienta de automatización</span>
-        </div>
-        <div class="recognition-item">
-          <span class="skill-tag" style="background:var(--orange);color:#fff;font-size:11px;font-weight:700;padding:4px 10px;border-radius:100px;text-transform:uppercase;letter-spacing:0.5px">Panelista</span>
-          <span>SOFTIC 2025 — Speaker</span>
-        </div>
-        <div class="recognition-item">
-          <span class="skill-tag" style="background:var(--orange);color:#fff;font-size:11px;font-weight:700;padding:4px 10px;border-radius:100px;text-transform:uppercase;letter-spacing:0.5px">Panelista</span>
-          <span>CAMACOL — Panel de experiencia del cliente</span>
-        </div>
-        <div class="recognition-item">
-          <span class="skill-tag" style="background:var(--orange);color:#fff;font-size:11px;font-weight:700;padding:4px 10px;border-radius:100px;text-transform:uppercase;letter-spacing:0.5px">Panelista</span>
-          <span>Outsiders v2 — Panel de innovación CX</span>
-        </div>
-      </div>
+      <h2 class="section-title" id="recognitionsTitle"></h2>
+      <p class="section-desc" id="recognitionsDesc"></p>
+      <div class="recognition-list" id="recognitionList"></div>
     </div>
   </section>
 
-  <!-- CONTACTO -->
   <section class="about-section" style="background:var(--black);color:var(--white)">
     <div class="container">
-      <h2 class="section-title" style="color:var(--white)">Contacto</h2>
-      <p class="section-desc" style="color:var(--gray-300)">¿Hablamos? Estoy disponible para proyectos, consultorías y conversaciones sobre CX e IA.</p>
-      <div class="contact-grid">
-        <a href="https://www.linkedin.com/in/germanvelasquezco" target="_blank" class="contact-card" style="border-color:rgba(255,255,255,0.15);color:var(--white)">
-          <span class="icon">💼</span>
-          <div>
-            <div class="label">LinkedIn</div>
-            <div class="value" style="color:var(--gray-300)">germanvelasquezco</div>
-          </div>
-        </a>
-        <a href="mailto:gvelasquez85@gmail.com" class="contact-card" style="border-color:rgba(255,255,255,0.15);color:var(--white)">
-          <span class="icon">📧</span>
-          <div>
-            <div class="label">Email</div>
-            <div class="value" style="color:var(--gray-300)">gvelasquez85@gmail.com</div>
-          </div>
-        </a>
-        <a href="https://github.com/gvelasquez85" target="_blank" class="contact-card" style="border-color:rgba(255,255,255,0.15);color:var(--white)">
-          <span class="icon">💻</span>
-          <div>
-            <div class="label">GitHub</div>
-            <div class="value" style="color:var(--gray-300)">gvelasquez85</div>
-          </div>
-        </a>
-        <a href="https://wa.me=" target="_blank" class="contact-card" style="border-color:rgba(255,255,255,0.15);color:var(--white)">
-          <span class="icon">💬</span>
-          <div>
-            <div class="label">WhatsApp</div>
-            <div class="value" style="color:var(--gray-300)">Escríbeme</div>
-          </div>
-        </a>
-      </div>
+      <h2 class="section-title" id="contactTitle" style="color:var(--white)"></h2>
+      <p class="section-desc" id="contactDesc" style="color:var(--gray-300)"></p>
+      <div class="contact-grid" id="contactGrid"></div>
     </div>
   </section>
 
@@ -363,6 +142,57 @@
 
   <script>
     function toggleMobile(){document.getElementById('mobileMenu').classList.toggle('open')}
+
+    function renderTags(items){
+      return items.map(function(item){return '<span class="skill-tag">'+item+'</span>';}).join('');
+    }
+
+    fetch('about-me.json?t=' + Date.now())
+      .then(function(r){return r.json()})
+      .then(function(data){
+        document.title = (data.hero && data.hero.title ? data.hero.title : 'Acerca de mi') + ' — Germán Velásquez';
+        document.getElementById('heroPhoto').src = (data.hero && data.hero.photo) ? data.hero.photo : 'https://ui-avatars.com/api/?name=German+Velasquez&size=400&background=FF6B2C&color=fff&font-size=0.35&bold=true';
+        document.getElementById('heroTitle').innerHTML = '<em>' + (data.hero && data.hero.title ? data.hero.title.split(' ')[0] : 'Acerca') + '</em>' + (data.hero && data.hero.title ? ' ' + data.hero.title.split(' ').slice(1).join(' ') : ' de mi');
+        document.getElementById('heroSubtitle').textContent = data.hero && data.hero.subtitle ? data.hero.subtitle : '';
+
+        document.getElementById('bioTitle').innerHTML = data.sections.bio.title;
+        document.getElementById('bioDesc').textContent = data.sections.bio.desc;
+        document.getElementById('bioText').innerHTML = (data.bioParagraphs || []).map(function(p){return '<p>'+p+'</p>';}).join('');
+        document.getElementById('statsGrid').innerHTML = (data.stats || []).map(function(s){return '<div class="stat-card"><div class="num">'+s.value+'</div><div class="label">'+s.label+'</div></div>';}).join('');
+
+        document.getElementById('experienceTitle').innerHTML = data.sections.experience.title;
+        document.getElementById('experienceDesc').textContent = data.sections.experience.desc;
+        document.getElementById('experienceList').innerHTML = (data.experience || []).map(function(e){
+          return '<div class="timeline-item"><div class="role">'+e.role+'</div><div class="company">'+e.company+'</div><div class="period">'+e.period+'</div><p>'+e.description+'</p></div>';
+        }).join('');
+
+        document.getElementById('skillsTitle').innerHTML = data.sections.skills.title;
+        document.getElementById('skillsDesc').textContent = data.sections.skills.desc;
+        document.getElementById('skillsGrid').innerHTML = (data.skills || []).map(function(s){
+          return '<div class="skill-card"><h4>'+s.title+'</h4><div class="skill-tags">'+renderTags(s.items || [])+'</div></div>';
+        }).join('');
+
+        document.getElementById('educationTitle').innerHTML = data.sections.education.title;
+        document.getElementById('educationDesc').textContent = data.sections.education.desc;
+        document.getElementById('educationList').innerHTML = (data.education || []).map(function(e){
+          return '<div class="edu-item"><div><h4>'+e.title+'</h4><p>'+e.school+'</p></div></div>';
+        }).join('');
+
+        document.getElementById('recognitionsTitle').innerHTML = data.sections.recognitions.title;
+        document.getElementById('recognitionsDesc').textContent = data.sections.recognitions.desc;
+        document.getElementById('recognitionList').innerHTML = (data.recognitions || []).map(function(r){
+          return '<div class="recognition-item"><span class="badge">'+r.badge+'</span><span>'+r.text+'</span></div>';
+        }).join('');
+
+        document.getElementById('contactTitle').innerHTML = data.sections.contact.title;
+        document.getElementById('contactDesc').textContent = data.sections.contact.desc;
+        document.getElementById('contactGrid').innerHTML = (data.contact || []).map(function(c){
+          return '<a href="'+c.url+'" target="_blank" class="contact-card" style="border-color:rgba(255,255,255,0.15);color:var(--white)"><span class="icon">'+c.icon+'</span><div><div class="label">'+c.label+'</div><div class="value" style="color:var(--gray-300)">'+c.value+'</div></div></a>';
+        }).join('');
+      })
+      .catch(function(){
+        document.getElementById('bioDesc').textContent = 'No se pudo cargar el contenido.';
+      });
   </script>
   <script src="js/nav.js"></script>
 </body>

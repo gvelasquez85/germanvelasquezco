@@ -1,8 +1,38 @@
 {
-  "hero": {
-    "title": "Labs",
-    "subtitle": "Experimentos, ideas y prototipos en construcción."
-  },
-  "repos": [],
-  "ideas": []
+    "hero": {
+        "title": "Labs",
+        "subtitle": "Experimentos, ideas y prototipos en construcción."
+    },
+    "sections": {
+        "repos": {
+            "title": "Repositorios",
+            "desc": "Lo que tengo público en GitHub. Algunos son productos, otros solo experimentos."
+        },
+        "ideas": {
+            "title": "Ideas en el tintero",
+            "desc": "Cosas que estoy pensando, probando o dejando de lado. Algunas algún día serán productos."
+        }
+    },
+    "github_user": "gvelasquez85",
+    "featured_repos": [
+        "lynkko",
+        "turnflow"
+    ],
+    "ideas": [
+        {
+            "title": "Editor de experiencias",
+            "description": "Un generador de journeys para negocios pequeños con automatización e IA.",
+            "status": "idea"
+        },
+        {
+            "title": "Asistente de CX",
+            "description": "Un copiloto para equipos de servicio que resume casos, detecta fricción y sugiere acciones.",
+            "status": "wip"
+        },
+        {
+            "title": "Playbooks de ventas con IA",
+            "description": "Flujos guiados para equipos comerciales con metas, incentivos y seguimiento.",
+            "status": "idea"
+        }
+    ]
 }

@@ -2,7 +2,217 @@
     "hero": {
         "title": "Acerca de mi",
         "subtitle": "Transformación digital, inteligencia artificial y experiencia del cliente aplicadas a problemas reales de negocio.",
-        "photo": ""
+        "photo": "personal\/germanVelasquezFotoDesktop.png"
     },
-    "summary": "Perfil profesional y personal de Germán Velásquez."
+    "summary": "Perfil profesional y personal de Germán Velásquez.",
+    "sections": {
+        "bio": {
+            "title": "Quien soy",
+            "desc": "Ingeniero, emprendedor y líder en transformación digital con más de 13 años de experiencia en Latinoamérica."
+        },
+        "experience": {
+            "title": "Experiencia profesional",
+            "desc": "Un recorrido por las empresas y roles que han formado mi carrera."
+        },
+        "skills": {
+            "title": "Skills & Tecnologías",
+            "desc": "Las herramientas y competencias que uso día a día para transformar la experiencia del cliente."
+        },
+        "education": {
+            "title": "Educación & Formación",
+            "desc": "Mi base académica y de formación continua."
+        },
+        "recognitions": {
+            "title": "Reconocimientos & Comunidad",
+            "desc": "Participaciones y aportes al ecosistema CX en Latinoamérica."
+        },
+        "contact": {
+            "title": "Contacto",
+            "desc": "¿Hablamos? Estoy disponible para proyectos, consultorías y conversaciones sobre CX e IA."
+        }
+    },
+    "bioParagraphs": [
+        "Soy Germán Mauricio Velásquez Tovar, de Cúcuta, Colombia. Dedico mi carrera a transformar la forma en que las empresas entienden, sirven y retienen a sus clientes usando tecnología e inteligencia artificial.",
+        "He liderado equipos de experiencia del cliente en compañías como Amarilo, Falabella Seguros, Viajes Falabella\/Despegar y Yale\/ASSA ABLOY, siempre con foco en resultados medibles y escalables.",
+        "Soy creador de Lynkko y TurnFlow, y hago parte de la Junta Directiva del Gremio Colombia CX. Me apasiona conectar personas con tecnología y convertir ideas en productos que generan valor."
+    ],
+    "stats": [
+        {
+            "value": "13+",
+            "label": "Años de experiencia"
+        },
+        {
+            "value": "4",
+            "label": "Países liderados"
+        },
+        {
+            "value": "2",
+            "label": "Productos creados"
+        },
+        {
+            "value": "∞",
+            "label": "Curiosidad"
+        }
+    ],
+    "experience": [
+        {
+            "role": "Director de Experiencia del Cliente",
+            "company": "Amarilo",
+            "period": "2023 — Presente",
+            "description": "Lidero la estrategia CX a nivel nacional, integrando inteligencia artificial y automatización para mejorar la satisfacción y retención de clientes."
+        },
+        {
+            "role": "Gerente de Experiencia del Cliente",
+            "company": "Falabella Seguros",
+            "period": "2021 — 2023",
+            "description": "Gerencié la experiencia del cliente del canal digital, implementando modelos de atención omnicanal y reduciendo tiempos de respuesta en un 40%."
+        },
+        {
+            "role": "Director CX Regional (4 países)",
+            "company": "Viajes Falabella \/ Despegar",
+            "period": "2019 — 2021",
+            "description": "Lideré la estrategia de experiencia del cliente para Chile, Colombia, Perú y México, gestionando equipos multiculturales y procesos de mejora continua."
+        },
+        {
+            "role": "CX & Operations Lead",
+            "company": "Yale \/ ASSA ABLOY",
+            "period": "2017 — 2019",
+            "description": "Responsable de la experiencia del cliente y operaciones de servicio para la región andina, implementando metodologías ágiles y KPIs de servicio."
+        },
+        {
+            "role": "CX Specialist",
+            "company": "Indexcol",
+            "period": "2015 — 2017",
+            "description": "Gestión de experiencia del cliente en el sector B2B, desarrollando programas de fidelización y voice of customer."
+        },
+        {
+            "role": "Analista de Servicio",
+            "company": "Teleinte",
+            "period": "2013 — 2015",
+            "description": "Inicio de carrera profesional en atención al cliente y resolución de incidencias, construyendo las bases de mi pasión por CX."
+        }
+    ],
+    "skills": [
+        {
+            "title": "IA & Datos",
+            "items": [
+                "Chatbots",
+                "NLP",
+                "Machine Learning",
+                "Prompt Engineering",
+                "Analytics"
+            ]
+        },
+        {
+            "title": "CX Strategy",
+            "items": [
+                "Customer Journey",
+                "NPS \/ CSAT",
+                "Voice of Customer",
+                "Omnicanalidad"
+            ]
+        },
+        {
+            "title": "Herramientas",
+            "items": [
+                "Zendesk",
+                "Salesforce",
+                "HubSpot",
+                "Power BI"
+            ]
+        },
+        {
+            "title": "Metodologías",
+            "items": [
+                "Design Thinking",
+                "Lean",
+                "Agile \/ Scrum",
+                "OKRs"
+            ]
+        },
+        {
+            "title": "Tech",
+            "items": [
+                "Python",
+                "APIs",
+                "SQL",
+                "No-code"
+            ]
+        },
+        {
+            "title": "Liderazgo",
+            "items": [
+                "Equipos remotos",
+                "Stakeholders",
+                "P&L",
+                "Change Management"
+            ]
+        }
+    ],
+    "education": [
+        {
+            "title": "Maestría en Marketing",
+            "school": "EUDE Business School — Madrid, España"
+        },
+        {
+            "title": "MBA en Digital Business",
+            "school": "Universidad Rey Juan Carlos — Madrid, España"
+        },
+        {
+            "title": "Ingeniería Electrónica",
+            "school": "Pontificia Universidad Javeriana — Bogotá, Colombia"
+        }
+    ],
+    "recognitions": [
+        {
+            "badge": "Junta Directiva",
+            "text": "Gremio Colombia CX — Junta directiva"
+        },
+        {
+            "badge": "Creador",
+            "text": "Lynkko — Plataforma de experiencia del cliente"
+        },
+        {
+            "badge": "Creador",
+            "text": "TurnFlow — Herramienta de automatización"
+        },
+        {
+            "badge": "Panelista",
+            "text": "SOFTIC 2025 — Speaker"
+        },
+        {
+            "badge": "Panelista",
+            "text": "CAMACOL — Panel de experiencia del cliente"
+        },
+        {
+            "badge": "Panelista",
+            "text": "Outsiders v2 — Panel de innovación CX"
+        }
+    ],
+    "contact": [
+        {
+            "label": "LinkedIn",
+            "value": "germanvelasquezco",
+            "url": "https:\/\/www.linkedin.com\/in\/germanvelasquezco",
+            "icon": "💼"
+        },
+        {
+            "label": "Email",
+            "value": "gvelasquez85@gmail.com",
+            "url": "mailto:gvelasquez85@gmail.com",
+            "icon": "📧"
+        },
+        {
+            "label": "GitHub",
+            "value": "gvelasquez85",
+            "url": "https:\/\/github.com\/gvelasquez85",
+            "icon": "💻"
+        },
+        {
+            "label": "WhatsApp",
+            "value": "Escríbeme",
+            "url": "https:\/\/wa.me\/",
+            "icon": "💬"
+        }
+    ]
 }

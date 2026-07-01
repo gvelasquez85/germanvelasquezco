@@ -25,7 +25,6 @@ curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
 
 $response = curl_exec($ch);
 $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-curl_close($ch);
 
 http_response_code($http_code);
 echo $response;

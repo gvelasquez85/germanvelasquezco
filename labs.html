@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Labs — Germán Velásquez</title>
-  <meta name="description" content="Experimentos, ideas locas y repositorios en construcción.">
+  <meta name="description" content="Experimentos, ideas y prototipos en construcción.">
   <meta property="og:title" content="Labs — Germán Velásquez">
   <meta property="og:description" content="Experimentos, ideas y código en construcción.">
   <meta property="og:url" content="https://germanvelasquez.co/labs.html">
@@ -26,29 +26,24 @@
     .mobile-menu{display:none;position:fixed;inset:0;background:var(--white);z-index:999;flex-direction:column;align-items:center;justify-content:center;gap:24px}
     .mobile-menu.open{display:flex}.mobile-menu a{font-size:20px;font-weight:600;color:var(--dark);text-decoration:none}
     .mobile-close{position:absolute;top:20px;right:20px;background:none;border:none;font-size:28px;cursor:pointer}
-    /* Labs hero */
     .labs-hero{padding:140px 40px 60px;background:var(--black);position:relative;overflow:hidden;text-align:center}
     .labs-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 50%,var(--orange-glow) 0%,transparent 60%),radial-gradient(ellipse at 70% 50%,rgba(37,99,235,0.08) 0%,transparent 60%);pointer-events:none}
     .labs-hero h1{font-size:48px;font-weight:800;letter-spacing:-2px;color:var(--white);margin-bottom:16px;position:relative}
     .labs-hero h1 em{font-style:normal;color:var(--orange)}
     .labs-hero p{font-size:18px;color:var(--gray-300);max-width:600px;margin:0 auto;position:relative}
-    /* Content */
     .labs-section{padding:60px 40px}.container{max-width:900px;margin:0 auto}
     .section-title{font-size:28px;font-weight:800;letter-spacing:-1px;margin-bottom:8px}
     .section-desc{font-size:15px;color:var(--gray-700);margin-bottom:32px}
-    /* Repo cards */
     .repo-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
     .repo-card{border:1px dashed var(--gray-300);border-radius:var(--radius);padding:20px;transition:var(--transition);position:relative;overflow:hidden}
     .repo-card:hover{border-color:var(--orange);border-style:solid;transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,0.06)}
     .repo-card.featured{border-color:var(--orange);border-style:solid;background:var(--orange-glow2)}
-    .repo-card h3{font-size:16px;font-weight:700;margin-bottom:6px;display:flex;align-items:center;gap:8px}
+    .repo-card h3{font-size:16px;font-weight:700;margin-bottom:6px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
     .repo-card h3 a{color:var(--dark);text-decoration:none}.repo-card h3 a:hover{color:var(--orange)}
     .repo-card .badge{font-size:10px;font-weight:600;color:var(--orange);background:var(--orange-glow2);padding:2px 8px;border-radius:100px;text-transform:uppercase;letter-spacing:0.5px}
-    .repo-card .badge. Featured{background:var(--orange);color:#fff}
     .repo-card p{font-size:14px;color:var(--gray-700);line-height:1.6}
-    .repo-meta{display:flex;gap:16px;margin-top:12px;font-size:12px;color:var(--gray-500);font-family:var(--mono)}
+    .repo-meta{display:flex;gap:16px;margin-top:12px;font-size:12px;color:var(--gray-500);font-family:var(--mono);flex-wrap:wrap}
     .repo-meta span{display:flex;align-items:center;gap:4px}
-    /* Ideas section */
     .ideas-grid{display:grid;gap:12px}
     .idea-card{border:1px solid var(--gray-100);border-left:3px solid var(--orange);border-radius:var(--radius);padding:16px 20px}
     .idea-card h4{font-size:15px;font-weight:700;margin-bottom:4px}
@@ -69,17 +64,17 @@
     <div class="nav-links" id="nav-links"></div>
     <button class="hamburger" onclick="toggleMobile()" aria-label="Menu"><span></span><span></span><span></span></button>
   </div></nav>
-  <div class="mobile-menu" id="mobileMenu"><button class="mobile-close" onclick="toggleMobile()">x</button><div id="mobile-nav-links"></div></div></div>
+  <div class="mobile-menu" id="mobileMenu"><button class="mobile-close" onclick="toggleMobile()">x</button><div id="mobile-nav-links"></div></div>
 
   <section class="labs-hero">
-    <h1><em>Labs</em> — Experimentos y código</h1>
-    <p id="labs-desc"></p>
+    <h1 id="labsHeroTitle"></h1>
+    <p id="labsHeroSubtitle"></p>
   </section>
 
   <section class="labs-section">
     <div class="container">
-      <h2 class="section-title">Repositorios</h2>
-      <p class="section-desc">Lo que tengo público en GitHub. Algunos son productos, otros solo experimentos.</p>
+      <h2 class="section-title" id="reposTitle"></h2>
+      <p class="section-desc" id="reposDesc"></p>
       <div class="repo-grid" id="repos-grid">
         <div class="repo-card"><p style="color:#888">Cargando repos...</p></div>
       </div>
@@ -88,8 +83,8 @@
 
   <section class="labs-section" style="background:var(--gray-100)">
     <div class="container">
-      <h2 class="section-title">Ideas en el tintero</h2>
-      <p class="section-desc">Cosas que estoy pensando, probando o dejando de lado. Algunas algún día serán productos.</p>
+      <h2 class="section-title" id="ideasTitle"></h2>
+      <p class="section-desc" id="ideasDesc"></p>
       <div class="ideas-grid" id="ideas-grid"></div>
     </div>
   </section>
@@ -102,46 +97,61 @@
 
   <script>
     function toggleMobile(){document.getElementById('mobileMenu').classList.toggle('open')}
+    function ideaClass(status){return status==='wip'?'status-wip':status==='done'?'status-done':'status-idea';}
 
-    // Load content.json for nav + labs config
-    fetch('content.json').then(r=>r.json()).then(c=>{
-      // Nav
-      document.getElementById('nav-logo-labs').textContent=c.site.logo;
-      const navEl=document.getElementById('nav-links-labs'),mobileEl=document.getElementById('mobile-nav-links');
-      const navCta=['conversemos'];
-      (c.nav&&c.nav.items||[]).forEach(item=>{
-        const label=item.label||item,href=item.url||'#';
-        const resolvedHref=href.startsWith('#')?'/'+href:href.startsWith('http')||href.startsWith('mailto:')?href:'/'+href;
-        const isCta=navCta.includes(label.toLowerCase());
-        navEl.innerHTML+=isCta?`<a href="${resolvedHref}" class="nav-cta">${label}</a>`:`<a href="${resolvedHref}" ${href=='labs.html'?'class="active"':''}>${label}</a>`;
-        mobileEl.innerHTML+=`<a href="${resolvedHref}" onclick="toggleMobile()">${label}</a>`;
+    fetch('labs.json?t=' + Date.now())
+      .then(function(r){return r.json()})
+      .then(function(data){
+        document.title = (data.hero && data.hero.title ? data.hero.title : 'Labs') + ' — Germán Velásquez';
+        document.getElementById('labsHeroTitle').innerHTML = '<em>' + (data.hero && data.hero.title ? data.hero.title : 'Labs') + '</em>' + ' — Experimentos y código';
+        document.getElementById('labsHeroSubtitle').textContent = data.hero && data.hero.subtitle ? data.hero.subtitle : '';
+        document.getElementById('reposTitle').textContent = data.sections && data.sections.repos ? data.sections.repos.title : 'Repositorios';
+        document.getElementById('reposDesc').textContent = data.sections && data.sections.repos ? data.sections.repos.desc : '';
+        document.getElementById('ideasTitle').textContent = data.sections && data.sections.ideas ? data.sections.ideas.title : 'Ideas en el tintero';
+        document.getElementById('ideasDesc').textContent = data.sections && data.sections.ideas ? data.sections.ideas.desc : '';
+
+        const user = data.github_user || 'gvelasquez85';
+        const featured = data.featured_repos || [];
+        return fetch('/api/github-proxy.php?path=users/' + user + '/repos?sort=updated&per_page=100')
+          .then(function(r){return r.json()})
+          .then(function(repos){
+            if(!Array.isArray(repos)){
+              document.getElementById('repos-grid').innerHTML = '<p style="color:#888">No se pudieron cargar los repos</p>';
+              return;
+            }
+            const grid = document.getElementById('repos-grid');
+            grid.innerHTML = '';
+            repos.filter(function(r){return !r.fork}).sort(function(a,b){return b.stargazers_count-a.stargazers_count}).forEach(function(r){
+              const isFeatured = featured.includes(r.name);
+              const lang = r.language || '';
+              grid.innerHTML += '<div class="repo-card ' + (isFeatured ? 'featured' : '') + '">'
+                + '<h3><a href="' + r.html_url + '" target="_blank">' + r.name + '</a>' + (isFeatured ? ' <span class="badge">★ Destacado</span>' : '') + '</h3>'
+                + '<p>' + (r.description || 'Sin descripción') + '</p>'
+                + '<div class="repo-meta">'
+                + (lang ? '<span>● ' + lang + '</span>' : '')
+                + '<span>★ ' + r.stargazers_count + '</span>'
+                + '<span>⑂ ' + r.forks_count + '</span>'
+                + '<span>Actualizado ' + new Date(r.updated_at).toLocaleDateString('es') + '</span>'
+                + '</div></div>';
+            });
+          });
+      })
+      .then(function(){
+        const data = arguments[0];
+      })
+      .catch(function(){
+        document.getElementById('repos-grid').innerHTML = '<p style="color:#dc2626">Error cargando repos</p>';
       });
-      // Labs config
-      document.getElementById('labs-desc').textContent=c.labs.desc;
-      // Load GitHub repos
-      const user=c.labs.github_user||'gvelasquez85';
-      const featured=(c.labs.featured_repos||[]);
-      return fetch('/api/github-proxy.php?path=users/'+user+'/repos?sort=updated&per_page=100').then(r=>r.json()).then(repos=>{
-        if(!Array.isArray(repos)){document.getElementById('repos-grid').innerHTML='<p style="color:#888">No se pudieron cargar los repos</p>';return}
-        const grid=document.getElementById('repos-grid');grid.innerHTML='';
-        repos.filter(r=>!r.fork).sort((a,b)=>b.stargazers_count-a.stargazers_count).forEach(r=>{
-          const isFeatured=featured.includes(r.name);
-          const lang=r.language||'';
-          grid.innerHTML+=`<div class="repo-card ${isFeatured?'featured':''}">
-            <h3><a href="${r.html_url}" target="_blank">${r.name}</a> ${isFeatured?'<span class="badge Featured">★ Destacado</span>':''}</h3>
-            <p>${r.description||'Sin descripción'}</p>
-            <div class="repo-meta">
-              ${lang?'<span>● '+lang+'</span>':''}
-              <span>★ ${r.stargazers_count}</span>
-              <span> ${r.forks_count}</span>
-              <span>Actualizado ${new Date(r.updated_at).toLocaleDateString('es')}</span>
-            </div>
-          </div>`;
-        });
-      });
-    }).catch(()=>{document.getElementById('repos-grid').innerHTML='<p style="color:#dc2626">Error cargando repos</p>'});
+
+    fetch('labs.json?t=' + Date.now()).then(function(r){return r.json()}).then(function(data){
+      const ideas = (data.ideas || []);
+      document.getElementById('ideas-grid').innerHTML = ideas.map(function(i){
+        return '<div class="idea-card"><h4>' + i.title + '</h4><p>' + i.description + '</p><span class="idea-status ' + ideaClass(i.status) + '">' + i.status + '</span></div>';
+      }).join('');
+    }).catch(function(){
+      document.getElementById('ideas-grid').innerHTML = '<div class="idea-card"><p style="color:#dc2626">Error cargando ideas</p></div>';
+    });
   </script>
-
   <script src="js/nav.js"></script>
 </body>
 </html>
