@@ -748,6 +748,7 @@ function repeaterItem(item, idx, path, fields) {
 
   var fieldsDiv = document.createElement('div');
   fieldsDiv.className = 'repeater-fields' + (fields.length === 1 ? ' single' : '');
+  var stringMode = (typeof item !== 'object' || item === null);
 
   for (var f = 0; f < fields.length; f++) {
     var fieldDef = fields[f];
@@ -762,14 +763,19 @@ function repeaterItem(item, idx, path, fields) {
       inp = document.createElement('input');
       inp.type = 'text';
     }
-    inp.value = item[fieldDef.key] || '';
-    (function(fieldDef, idx, path) {
+    inp.value = stringMode ? (item || '') : (fieldDef.key ? (item[fieldDef.key] || '') : '');
+    (function(fieldDef, idx, path, stringMode) {
       inp.addEventListener('input', function(e) {
         var arr = getNestedValue(path) || [];
-        arr[idx][fieldDef.key] = e.target.value;
+        if (stringMode || !fieldDef.key) {
+          arr[idx] = e.target.value;
+        } else {
+          arr[idx] = arr[idx] || {};
+          arr[idx][fieldDef.key] = e.target.value;
+        }
         setNestedValue(path, arr);
       });
-    })(fieldDef, idx, path);
+    })(fieldDef, idx, path, stringMode);
     wrap.appendChild(inp);
     fieldsDiv.appendChild(wrap);
   }
@@ -1213,44 +1219,136 @@ function renderCTA() {
 }
 
 function renderAboutMe() {
+  contentData = aboutMeData || {};
+  var d = contentData;
   var card = document.createElement('div');
   card.className = 'section active';
-  var f = document.createElement('div');
-  f.className = 'form-card';
-  var ta = document.createElement('textarea');
-  ta.className = 'tall';
-  ta.value = JSON.stringify(aboutMeData || {}, null, 2);
-  ta.style.width = '100%';
-  ta.style.fontFamily = 'Menlo, Monaco, Courier New, monospace';
-  ta.style.fontSize = '12.5px';
-  ta.style.minHeight = '360px';
-  ta.addEventListener('input', function(e) {
-    try { aboutMeData = JSON.parse(e.target.value || '{}'); }
-    catch(err) { aboutMeData = null; }
-  });
-  f.appendChild(ta);
-  card.appendChild(f);
+
+  var hero = document.createElement('div');
+  hero.className = 'form-card';
+  hero.appendChild(document.createElement('h3')).textContent = 'Hero';
+  hero.appendChild(field('Título', d.hero && d.hero.title, 'hero.title'));
+  hero.appendChild(field('Subtítulo', d.hero && d.hero.subtitle, 'hero.subtitle', { type: 'textarea', tall: true }));
+  hero.appendChild(field('Foto', d.hero && d.hero.photo, 'hero.photo'));
+  card.appendChild(hero);
+
+  var bio = document.createElement('div');
+  bio.className = 'form-card';
+  bio.appendChild(document.createElement('h3')).textContent = 'Quién soy';
+  bio.appendChild(field('Título de sección', d.sections && d.sections.bio && d.sections.bio.title, 'sections.bio.title'));
+  bio.appendChild(field('Descripción de sección', d.sections && d.sections.bio && d.sections.bio.desc, 'sections.bio.desc', { type: 'textarea', tall: true }));
+  var bioWrap = document.createElement('div');
+  bioWrap.appendChild(repeater(d.bioParagraphs || [], 'bioParagraphs', [
+    { key: '', label: 'Párrafo', type: 'textarea' }
+  ], function() { return ''; }));
+  bio.appendChild(bioWrap);
+  card.appendChild(bio);
+
+  var stats = document.createElement('div');
+  stats.className = 'form-card';
+  stats.appendChild(document.createElement('h3')).textContent = 'Stats';
+  stats.appendChild(repeater(d.stats || [], 'stats', [
+    { key: 'value', label: 'Valor' },
+    { key: 'label', label: 'Label' }
+  ], function() { return { value: '', label: '' }; }));
+  card.appendChild(stats);
+
+  var exp = document.createElement('div');
+  exp.className = 'form-card';
+  exp.appendChild(document.createElement('h3')).textContent = 'Experiencia';
+  exp.appendChild(field('Título de sección', d.sections && d.sections.experience && d.sections.experience.title, 'sections.experience.title'));
+  exp.appendChild(field('Descripción de sección', d.sections && d.sections.experience && d.sections.experience.desc, 'sections.experience.desc', { type: 'textarea', tall: true }));
+  exp.appendChild(repeater(d.experience || [], 'experience', [
+    { key: 'role', label: 'Cargo' },
+    { key: 'company', label: 'Empresa' },
+    { key: 'period', label: 'Periodo' },
+    { key: 'description', label: 'Descripción', type: 'textarea' }
+  ], function() { return { role: '', company: '', period: '', description: '' }; }));
+  card.appendChild(exp);
+
+  var skills = document.createElement('div');
+  skills.className = 'form-card';
+  skills.appendChild(document.createElement('h3')).textContent = 'Skills & Tecnologías';
+  skills.appendChild(field('Título de sección', d.sections && d.sections.skills && d.sections.skills.title, 'sections.skills.title'));
+  skills.appendChild(field('Descripción de sección', d.sections && d.sections.skills && d.sections.skills.desc, 'sections.skills.desc', { type: 'textarea', tall: true }));
+  skills.appendChild(repeater(d.skills || [], 'skills', [
+    { key: 'title', label: 'Categoría' },
+    { key: 'items', label: 'Items (separados por |)', type: 'textarea' }
+  ], function() { return { title: '', items: [] }; }));
+  card.appendChild(skills);
+
+  var edu = document.createElement('div');
+  edu.className = 'form-card';
+  edu.appendChild(document.createElement('h3')).textContent = 'Educación';
+  edu.appendChild(field('Título de sección', d.sections && d.sections.education && d.sections.education.title, 'sections.education.title'));
+  edu.appendChild(field('Descripción de sección', d.sections && d.sections.education && d.sections.education.desc, 'sections.education.desc', { type: 'textarea', tall: true }));
+  edu.appendChild(repeater(d.education || [], 'education', [
+    { key: 'title', label: 'Título' },
+    { key: 'school', label: 'Institución' }
+  ], function() { return { title: '', school: '' }; }));
+  card.appendChild(edu);
+
+  var rec = document.createElement('div');
+  rec.className = 'form-card';
+  rec.appendChild(document.createElement('h3')).textContent = 'Reconocimientos';
+  rec.appendChild(field('Título de sección', d.sections && d.sections.recognitions && d.sections.recognitions.title, 'sections.recognitions.title'));
+  rec.appendChild(field('Descripción de sección', d.sections && d.sections.recognitions && d.sections.recognitions.desc, 'sections.recognitions.desc', { type: 'textarea', tall: true }));
+  rec.appendChild(repeater(d.recognitions || [], 'recognitions', [
+    { key: 'badge', label: 'Badge' },
+    { key: 'text', label: 'Texto', type: 'textarea' }
+  ], function() { return { badge: '', text: '' }; }));
+  card.appendChild(rec);
+
+  var contact = document.createElement('div');
+  contact.className = 'form-card';
+  contact.appendChild(document.createElement('h3')).textContent = 'Contacto';
+  contact.appendChild(field('Título de sección', d.sections && d.sections.contact && d.sections.contact.title, 'sections.contact.title'));
+  contact.appendChild(field('Descripción de sección', d.sections && d.sections.contact && d.sections.contact.desc, 'sections.contact.desc', { type: 'textarea', tall: true }));
+  contact.appendChild(repeater(d.contact || [], 'contact', [
+    { key: 'label', label: 'Label' },
+    { key: 'value', label: 'Valor' },
+    { key: 'url', label: 'URL' },
+    { key: 'icon', label: 'Icono' }
+  ], function() { return { label: '', value: '', url: '', icon: '' }; }));
+  card.appendChild(contact);
+
   return card;
 }
 
 function renderLabs() {
+  contentData = labsData || {};
+  var d = contentData;
   var card = document.createElement('div');
   card.className = 'section active';
-  var f = document.createElement('div');
-  f.className = 'form-card';
-  var ta = document.createElement('textarea');
-  ta.className = 'tall';
-  ta.value = JSON.stringify(labsData || {}, null, 2);
-  ta.style.width = '100%';
-  ta.style.fontFamily = 'Menlo, Monaco, Courier New, monospace';
-  ta.style.fontSize = '12.5px';
-  ta.style.minHeight = '360px';
-  ta.addEventListener('input', function(e) {
-    try { labsData = JSON.parse(e.target.value || '{}'); }
-    catch(err) { labsData = null; }
-  });
-  f.appendChild(ta);
-  card.appendChild(f);
+
+  var hero = document.createElement('div');
+  hero.className = 'form-card';
+  hero.appendChild(document.createElement('h3')).textContent = 'Hero';
+  hero.appendChild(field('Título', d.hero && d.hero.title, 'hero.title'));
+  hero.appendChild(field('Subtítulo', d.hero && d.hero.subtitle, 'hero.subtitle', { type: 'textarea', tall: true }));
+  card.appendChild(hero);
+
+  var repo = document.createElement('div');
+  repo.className = 'form-card';
+  repo.appendChild(document.createElement('h3')).textContent = 'Repositorios';
+  repo.appendChild(field('GitHub user', d.github_user, 'github_user'));
+  repo.appendChild(field('Destacados (separados por |)', (d.featured_repos_text != null ? d.featured_repos_text : (d.featured_repos || []).join(' | ')), 'featured_repos_text', { type: 'textarea', tall: true }));
+  repo.appendChild(field('Título de sección', d.sections && d.sections.repos && d.sections.repos.title, 'sections.repos.title'));
+  repo.appendChild(field('Descripción de sección', d.sections && d.sections.repos && d.sections.repos.desc, 'sections.repos.desc', { type: 'textarea', tall: true }));
+  card.appendChild(repo);
+
+  var ideas = document.createElement('div');
+  ideas.className = 'form-card';
+  ideas.appendChild(document.createElement('h3')).textContent = 'Ideas';
+  ideas.appendChild(field('Título de sección', d.sections && d.sections.ideas && d.sections.ideas.title, 'sections.ideas.title'));
+  ideas.appendChild(field('Descripción de sección', d.sections && d.sections.ideas && d.sections.ideas.desc, 'sections.ideas.desc', { type: 'textarea', tall: true }));
+  ideas.appendChild(repeater(d.ideas || [], 'ideas', [
+    { key: 'title', label: 'Título' },
+    { key: 'description', label: 'Descripción', type: 'textarea' },
+    { key: 'status', label: 'Estado' }
+  ], function() { return { title: '', description: '', status: 'idea' }; }));
+  card.appendChild(ideas);
+
   return card;
 }
 
@@ -1265,12 +1363,27 @@ function saveContent() {
 
   var fileParam = null;
   var bodyData = contentData;
+  function normalizeList(value) {
+    if (Array.isArray(value)) return value;
+    if (typeof value === 'string') return value.split(/\s*\|\s*|\n+/).map(function(v){ return v.trim(); }).filter(Boolean);
+    return [];
+  }
   if (currentSection === 'about-me') {
     fileParam = 'about-me';
     bodyData = aboutMeData;
+    if (Array.isArray(bodyData.skills)) {
+      bodyData.skills = bodyData.skills.map(function(skill) {
+        return {
+          title: skill.title || '',
+          items: normalizeList(skill.items)
+        };
+      });
+    }
   } else if (currentSection === 'labs') {
     fileParam = 'labs';
     bodyData = labsData;
+    bodyData.featured_repos = normalizeList(bodyData.featured_repos_text || bodyData.featured_repos);
+    delete bodyData.featured_repos_text;
   }
 
   var saveUrl = 'api/save.php?token=' + encodeURIComponent(token) + (fileParam ? '&file=' + encodeURIComponent(fileParam) : '');
