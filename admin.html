@@ -1055,7 +1055,7 @@ function renderBlog() {
       editingPostId = null;
       renderSection('blog');
       // Save to server (blog/content.json)
-      var token = sessionStorage.getItem('cms-secret') || '';
+      var token = sessionStorage.getItem('cms-secret') || DEFAULT_TOKEN;
       fetch('api/save.php?token=' + encodeURIComponent(token) + '&file=blog', {
         method: 'POST',
         headers: {'Content-Type':'application/json'},
@@ -1180,7 +1180,7 @@ function renderBlog() {
             if (confirm('¿Eliminar el post "' + (post.id || 'sin id') + '"?')) {
               blogPosts.splice(idx, 1);
               renderSection('blog');
-              var token2 = sessionStorage.getItem('cms-secret') || '';
+              var token2 = sessionStorage.getItem('cms-secret') || DEFAULT_TOKEN;
               fetch('api/save.php?token=' + encodeURIComponent(token2) + '&file=blog', {
                 method: 'POST',
                 headers: {'Content-Type':'application/json'},
@@ -1414,6 +1414,8 @@ function saveContent() {
     });
 }
 
+function saveData() { return saveContent(); }
+
 // ===== PREVIEW =====
 function openPreview() {
   window.open('index.html', '_blank');
@@ -1500,7 +1502,7 @@ function renderNav() {
   var saveBtn = document.createElement('button');
   saveBtn.textContent = '💾 Guardar menú';
   saveBtn.className = 'btn-save';
-  saveBtn.onclick = function() { contentData.nav = { items: items }; saveData(); };
+  saveBtn.onclick = function() { contentData.nav = { items: items }; saveContent(); };
   f.appendChild(saveBtn);
   return f;
 }
@@ -1554,7 +1556,7 @@ function renderConfig() {
     var inputs = cfgDiv.querySelectorAll('[data-cfg-key]');
     inputs.forEach(function(inp) { cfg[inp.dataset.cfgKey] = inp.value; });
     // Save config.json separately
-    var secret = sessionStorage.getItem('cms-secret') || '';
+    var secret = sessionStorage.getItem('cms-secret') || DEFAULT_TOKEN;
     fetch('api/save.php?token=' + encodeURIComponent(secret) + '&file=config', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
