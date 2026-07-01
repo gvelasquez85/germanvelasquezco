@@ -531,6 +531,8 @@ body {
     <button data-section="projects"><span class="nav-icon">🚀</span>Proyectos</button>
     <button data-section="blog"><span class="nav-icon">📝</span>Blog Posts</button>
     <button data-section="cta"><span class="nav-icon">📣</span>CTA</button>
+    <button data-section="about-me"><span class="nav-icon">👤</span>About me</button>
+    <button data-section="labs"><span class="nav-icon">🔬</span>Labs</button>
     <button data-section="nav" style="margin-top:12px;border-top:1px solid rgba(255,255,255,0.1);padding-top:12px"><span class="nav-icon">☰</span>Menú</button>
     <button data-section="config"><span class="nav-icon">⚙️</span>Config</button>
     <button data-section="contacts" style="margin-top:12px;border-top:1px solid rgba(255,255,255,0.1);padding-top:12px"><span class="nav-icon">👥</span>Contactos <span id="contact-count" style="background:#FF6B2C;color:#fff;font-size:10px;padding:2px 6px;border-radius:100px;margin-left:4px">0</span></button>
@@ -588,14 +590,20 @@ document.getElementById('authPassword').addEventListener('keydown', function(e) 
 
 // ===== LOAD CONTENT =====
 var blogPosts = [];
+var aboutMeData = null;
+var labsData = null;
 var SITE_URL = 'https://germanvelasquez.co';
 function loadContent(token) {
   Promise.all([
     fetch('content.json?t=' + Date.now()).then(r=>r.json()),
-    fetch('blog/content.json?t=' + Date.now()).then(r=>r.json()).catch(()=>({posts:[]}))
+    fetch('blog/content.json?t=' + Date.now()).then(r=>r.json()).catch(()=>({posts:[]})),
+    fetch('about-me.json?t=' + Date.now()).then(r=>r.json()).catch(()=>({})),
+    fetch('labs.json?t=' + Date.now()).then(r=>r.json()).catch(()=>({}))
   ]).then(function(results){
     contentData = results[0];
     blogPosts = results[1].posts || [];
+    aboutMeData = results[2] || {};
+    labsData = results[3] || {};
     // Ensure nav exists
     if(!contentData.nav) contentData.nav = {items:[]};
     renderAllSections();
@@ -626,7 +634,9 @@ function updateTitle() {
     build: 'Servicios',
     projects: 'Proyectos',
     blog: 'Blog Posts',
-    cta: 'CTA'
+    cta: 'CTA',
+    'about-me': 'About me',
+    labs: 'Labs'
   };
   document.getElementById('sectionTitle').textContent = titles[currentSection] || currentSection;
 }
@@ -646,6 +656,8 @@ function renderSection(name) {
   else if (name === 'projects') area.appendChild(renderProjects());
   else if (name === 'blog') area.appendChild(renderBlog());
   else if (name === 'cta') area.appendChild(renderCTA());
+  else if (name === 'about-me') area.appendChild(renderAboutMe());
+  else if (name === 'labs') area.appendChild(renderLabs());
   else if (name === 'nav') area.appendChild(renderNav());
   else if (name === 'config') area.appendChild(renderConfig());
   else if (name === 'contacts') area.appendChild(renderContacts());
@@ -1200,6 +1212,48 @@ function renderCTA() {
   return card;
 }
 
+function renderAboutMe() {
+  var card = document.createElement('div');
+  card.className = 'section active';
+  var f = document.createElement('div');
+  f.className = 'form-card';
+  var ta = document.createElement('textarea');
+  ta.className = 'tall';
+  ta.value = JSON.stringify(aboutMeData || {}, null, 2);
+  ta.style.width = '100%';
+  ta.style.fontFamily = 'Menlo, Monaco, Courier New, monospace';
+  ta.style.fontSize = '12.5px';
+  ta.style.minHeight = '360px';
+  ta.addEventListener('input', function(e) {
+    try { aboutMeData = JSON.parse(e.target.value || '{}'); }
+    catch(err) { aboutMeData = null; }
+  });
+  f.appendChild(ta);
+  card.appendChild(f);
+  return card;
+}
+
+function renderLabs() {
+  var card = document.createElement('div');
+  card.className = 'section active';
+  var f = document.createElement('div');
+  f.className = 'form-card';
+  var ta = document.createElement('textarea');
+  ta.className = 'tall';
+  ta.value = JSON.stringify(labsData || {}, null, 2);
+  ta.style.width = '100%';
+  ta.style.fontFamily = 'Menlo, Monaco, Courier New, monospace';
+  ta.style.fontSize = '12.5px';
+  ta.style.minHeight = '360px';
+  ta.addEventListener('input', function(e) {
+    try { labsData = JSON.parse(e.target.value || '{}'); }
+    catch(err) { labsData = null; }
+  });
+  f.appendChild(ta);
+  card.appendChild(f);
+  return card;
+}
+
 // ===== SAVE =====
 function saveContent() {
   var token = sessionStorage.getItem('cms-secret') || DEFAULT_TOKEN;
@@ -1209,10 +1263,22 @@ function saveContent() {
   status.className = 'save-status saving';
   btn.disabled = true;
 
-  fetch('api/save.php?token=' + encodeURIComponent(token), {
+  var fileParam = null;
+  var bodyData = contentData;
+  if (currentSection === 'about-me') {
+    fileParam = 'about-me';
+    bodyData = aboutMeData;
+  } else if (currentSection === 'labs') {
+    fileParam = 'labs';
+    bodyData = labsData;
+  }
+
+  var saveUrl = 'api/save.php?token=' + encodeURIComponent(token) + (fileParam ? '&file=' + encodeURIComponent(fileParam) : '');
+
+  fetch(saveUrl, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(contentData)
+    body: JSON.stringify(bodyData)
   })
     .then(function(res) { return res.json().then(function(d) { return { ok: res.ok, data: d }; }); })
     .then(function(result) {

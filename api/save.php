@@ -6,7 +6,7 @@ header('Content-Type: application/json');
 // GET: read file, POST: save file
 
 $file_param = $_GET['file'] ?? 'content';
-$allowed = ['content' => __DIR__ . '/../content.json', 'config' => __DIR__ . '/../config.json', 'blog' => __DIR__ . '/../blog/content.json'];
+$allowed = ['content' => __DIR__ . '/../content.json', 'config' => __DIR__ . '/../config.json', 'blog' => __DIR__ . '/../blog/content.json', 'about-me' => __DIR__ . '/../about-me.json', 'labs' => __DIR__ . '/../labs.json'];
 
 if (!isset($allowed[$file_param])) {
     http_response_code(400);
