@@ -1056,13 +1056,9 @@ function renderBlog() {
       renderSection('blog');
       // Save to server (blog/content.json)
       var token = sessionStorage.getItem('cms-secret') || DEFAULT_TOKEN;
-      fetch('api/save.php?token=' + encodeURIComponent(token) + '&file=blog', {
-        method: 'POST',
-        headers: {'Content-Type':'application/json'},
-        body: JSON.stringify({posts: blogPosts})
-      }).then(function(r){return r.json()}).then(function(res){
-        if(res.ok) showToast('Post guardado y publicado', 'success');
-        else showToast('Error al guardar: ' + (res.error||'unknown'), true);
+      postJsonWithAuth('api/save.php?file=blog', {posts: blogPosts}, token).then(function(result){
+        if(result.ok) showToast('Post guardado y publicado', 'success');
+        else showToast('Error al guardar: ' + (result.data.error||'unknown'), true);
       }).catch(function(){
         showToast('Post guardado en memoria (error de conexión)', 'info');
       });
@@ -1181,12 +1177,8 @@ function renderBlog() {
               blogPosts.splice(idx, 1);
               renderSection('blog');
               var token2 = sessionStorage.getItem('cms-secret') || DEFAULT_TOKEN;
-              fetch('api/save.php?token=' + encodeURIComponent(token2) + '&file=blog', {
-                method: 'POST',
-                headers: {'Content-Type':'application/json'},
-                body: JSON.stringify({posts: blogPosts})
-              }).then(function(r){return r.json()}).then(function(res){
-                if(res.ok) showToast('Post eliminado', 'success');
+              postJsonWithAuth('api/save.php?file=blog', {posts: blogPosts}, token2).then(function(result){
+                if(result.ok) showToast('Post eliminado', 'success');
                 else showToast('Error al guardar cambios', true);
               }).catch(function(){ showToast('Eliminado de memoria (error de conexión)', 'info'); });
             }
@@ -1386,14 +1378,9 @@ function saveContent() {
     delete bodyData.featured_repos_text;
   }
 
-  var saveUrl = 'api/save.php?token=' + encodeURIComponent(token) + (fileParam ? '&file=' + encodeURIComponent(fileParam) : '');
+  var saveUrl = 'api/save.php' + (fileParam ? '?file=' + encodeURIComponent(fileParam) : '');
 
-  fetch(saveUrl, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(bodyData)
-  })
-    .then(function(res) { return res.json().then(function(d) { return { ok: res.ok, data: d }; }); })
+  postJsonWithAuth(saveUrl, bodyData, token)
     .then(function(result) {
       if (result.ok && result.data.success !== false) {
         status.textContent = '✓ Guardado';
@@ -1415,6 +1402,28 @@ function saveContent() {
 }
 
 function saveData() { return saveContent(); }
+
+function postJsonWithAuth(url, bodyData, token) {
+  function attempt(currentToken, allowRetry) {
+    return fetch(url + (url.indexOf('?') >= 0 ? '&' : '?') + 'token=' + encodeURIComponent(currentToken), {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(bodyData)
+    }).then(function(res) {
+      return res.json().then(function(data) {
+        return { ok: res.ok, status: res.status, data: data };
+      });
+    }).then(function(result) {
+      var unauthorized = result.status === 401 || result.data.error === 'Unauthorized';
+      if (unauthorized && allowRetry && currentToken !== DEFAULT_TOKEN) {
+        sessionStorage.setItem('cms-secret', DEFAULT_TOKEN);
+        return attempt(DEFAULT_TOKEN, false);
+      }
+      return result;
+    });
+  }
+  return attempt(token || DEFAULT_TOKEN, true);
+}
 
 // ===== PREVIEW =====
 function openPreview() {
@@ -1557,13 +1566,9 @@ function renderConfig() {
     inputs.forEach(function(inp) { cfg[inp.dataset.cfgKey] = inp.value; });
     // Save config.json separately
     var secret = sessionStorage.getItem('cms-secret') || DEFAULT_TOKEN;
-    fetch('api/save.php?token=' + encodeURIComponent(secret) + '&file=config', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(cfg)
-    }).then(function(r){return r.json()}).then(function(res){
-      if(res.ok) showToast('Configuración guardada');
-      else showToast('Error: ' + (res.error||'unknown'), true);
+    postJsonWithAuth('api/save.php?file=config', cfg, secret).then(function(result){
+      if(result.ok) showToast('Configuración guardada');
+      else showToast('Error: ' + (result.data.error||'unknown'), true);
     }).catch(function(){ showToast('Error de conexión', true); });
   };
   f.appendChild(saveBtn);
