@@ -7,7 +7,6 @@
 <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
 <title>CMS Admin — Germán Velásquez</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/nav.css">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
@@ -41,8 +40,32 @@ body {
   overflow: hidden;
 }
 
-/* SHARED NAV (mobile only) */
-nav.shared-nav { display: none; }
+/* ADMIN MOBILE MENU */
+.admin-menu-toggle{
+  display:none;
+  align-items:center;
+  justify-content:center;
+  width:40px;
+  height:40px;
+  background:var(--sidebar-bg);
+  color:#fff;
+  border:none;
+  border-radius:8px;
+  cursor:pointer;
+  margin-right:10px;
+}
+.admin-menu-toggle span{display:block;width:20px;height:2px;background:#fff;border-radius:2px;position:relative}
+.admin-menu-toggle span::before,.admin-menu-toggle span::after{content:'';position:absolute;left:0;width:20px;height:2px;background:#fff;border-radius:2px}
+.admin-menu-toggle span::before{top:-6px}.admin-menu-toggle span::after{top:6px}
+.admin-mobile-menu{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:9999}
+.admin-mobile-menu.open{display:block}
+.admin-mobile-panel{width:min(86vw,320px);height:100%;background:var(--sidebar-bg);color:#fff;overflow-y:auto;box-shadow:20px 0 40px rgba(0,0,0,0.3)}
+.admin-mobile-head{padding:20px;border-bottom:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:space-between}
+.admin-mobile-head h3{font-size:16px;font-weight:700}
+.admin-mobile-close{background:none;border:none;color:#fff;font-size:28px;line-height:1;cursor:pointer}
+.admin-mobile-nav{padding:12px 0}
+.admin-mobile-nav button{display:flex;align-items:center;width:100%;padding:12px 20px;background:none;border:none;color:var(--gray-400);font-family:'Montserrat',sans-serif;font-size:13.5px;font-weight:500;cursor:pointer;text-align:left;border-left:3px solid transparent}
+.admin-mobile-nav button.active,.admin-mobile-nav button:hover{background:var(--sidebar-hover);color:#fff}
 
 /* SIDEBAR */
 .sidebar {
@@ -436,13 +459,15 @@ nav.shared-nav { display: none; }
 }
 @keyframes fadeOut { to { opacity: 0; transform: translateX(40px); } }
 
-/* ADMIN RESPONSIVE: show shared nav on mobile, hide sidebar */
+/* ADMIN RESPONSIVE: show admin hamburger on mobile, hide sidebar */
 @media(max-width:1024px){
-  nav.shared-nav { display: block; }
+  .admin-menu-toggle { display:flex; }
   .sidebar { display: none; }
   .main { margin-left: 0; }
 
-  .topbar { margin-top: 56px; }
+  .topbar { margin-top: 0; padding: 16px 20px; }
+  .topbar h2 { font-size: 18px; }
+  .btn-save { padding: 10px 16px; }
 }
 
 /* AUTH MODAL */
@@ -511,14 +536,6 @@ nav.shared-nav { display: none; }
 </head>
 <body>
 
-<!-- SHARED MOBILE NAV -->
-<nav class="nav-dark shared-nav" id="nav"><div class="nav-inner">
-  <a href="/" class="nav-logo" id="nav-logo"></a>
-  <div class="nav-links" id="nav-links"></div>
-  <button class="hamburger" onclick="toggleMobile()" aria-label="Menu"><span></span><span></span><span></span></button>
-</div></nav>
-<div class="mobile-menu" id="mobileMenu"><button class="mobile-close" onclick="toggleMobile()">x</button><div id="mobile-nav-links"></div></div>
-
 <!-- AUTH MODAL -->
 <div class="auth-overlay" id="authOverlay">
   <div class="auth-box">
@@ -559,10 +576,22 @@ nav.shared-nav { display: none; }
 <!-- MAIN -->
 <div class="main">
   <div class="topbar">
-    <h2 id="sectionTitle">Hero</h2>
-    <div style="display:flex;align-items:center;">
+    <div style="display:flex;align-items:center;min-width:0;">
+      <button class="admin-menu-toggle" id="adminMenuToggle" type="button" aria-label="Abrir menú"><span></span></button>
+      <h2 id="sectionTitle">Hero</h2>
+    </div>
+    <div style="display:flex;align-items:center;gap:12px;">
       <span class="save-status" id="saveStatus"></span>
       <button class="btn-save" id="btnSave" onclick="saveContent()">💾 Guardar cambios</button>
+    </div>
+  </div>
+  <div class="admin-mobile-menu" id="adminMobileMenu" aria-hidden="true">
+    <div class="admin-mobile-panel">
+      <div class="admin-mobile-head">
+        <h3>CMS Admin</h3>
+        <button class="admin-mobile-close" id="adminMenuClose" type="button" aria-label="Cerrar menú">×</button>
+      </div>
+      <nav class="admin-mobile-nav" id="adminMobileNav"></nav>
     </div>
   </div>
   <div class="content-area" id="contentArea">
@@ -627,17 +656,40 @@ function loadContent(token) {
 }
 
 // ===== NAVIGATION =====
-document.getElementById('sidebarNav').addEventListener('click', function(e) {
-  var btn = e.target.closest('button[data-section]');
-  if (!btn) return;
-  currentSection = btn.dataset.section;
-  editingPostId = null;
-  var btns = document.querySelectorAll('#sidebarNav button');
-  for (var i = 0; i < btns.length; i++) btns[i].classList.remove('active');
-  btn.classList.add('active');
-  renderSection(currentSection);
-  updateTitle();
-});
+function setupSectionNav(containerId, closeMobile) {
+  var el = document.getElementById(containerId);
+  if (!el) return;
+  el.addEventListener('click', function(e) {
+    var btn = e.target.closest('button[data-section]');
+    if (!btn) return;
+    currentSection = btn.dataset.section;
+    editingPostId = null;
+    var btns = document.querySelectorAll('#sidebarNav button, #adminMobileNav button');
+    for (var i = 0; i < btns.length; i++) btns[i].classList.remove('active');
+    btn.classList.add('active');
+    renderSection(currentSection);
+    updateTitle();
+    if (closeMobile) toggleAdminMenu(false);
+  });
+}
+function toggleAdminMenu(force) {
+  var menu = document.getElementById('adminMobileMenu');
+  if (!menu) return;
+  var open = typeof force === 'boolean' ? force : !menu.classList.contains('open');
+  menu.classList.toggle('open', open);
+  menu.setAttribute('aria-hidden', open ? 'false' : 'true');
+}
+
+setupSectionNav('sidebarNav', false);
+setupSectionNav('adminMobileNav', true);
+var adminMenuToggle = document.getElementById('adminMenuToggle');
+if (adminMenuToggle) adminMenuToggle.addEventListener('click', function(){ toggleAdminMenu(); });
+var adminMenuClose = document.getElementById('adminMenuClose');
+if (adminMenuClose) adminMenuClose.addEventListener('click', function(){ toggleAdminMenu(false); });
+var adminMobileMenu = document.getElementById('adminMobileMenu');
+if (adminMobileMenu) adminMobileMenu.addEventListener('click', function(e){ if (e.target === adminMobileMenu) toggleAdminMenu(false); });
+var adminMobileNav = document.getElementById('adminMobileNav');
+if (adminMobileNav) adminMobileNav.innerHTML = document.getElementById('sidebarNav').innerHTML;
 
 function updateTitle() {
   var titles = {
@@ -1677,7 +1729,7 @@ function renderContacts() {
 
 // ===== INIT =====
 initAuth();
+
 </script>
-<script src="js/nav.js"></script>
 </body>
 </html>
