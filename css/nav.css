@@ -35,6 +35,7 @@ nav .nav-links a{font-family:Montserrat,sans-serif;font-size:13px;font-weight:50
 .mobile-close{position:absolute;top:20px;right:24px;background:none;border:none;font-size:28px;cursor:pointer;font-family:sans-serif;color:var(--gray-700)}
 
 @media(max-width:768px){
-  .nav-links{display:none}
-  .hamburger{display:flex}
+  nav .nav-links{display:none !important}
+  nav .hamburger{display:flex !important}
+  nav .nav-inner{padding:16px 20px}
 }
