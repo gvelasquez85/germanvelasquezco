@@ -4,7 +4,7 @@
 /* Nav base */
 nav{position:fixed;top:0;width:100%;z-index:1000}
 nav .nav-inner{max-width:1200px;margin:0 auto;padding:16px 40px;display:flex;align-items:center;justify-content:space-between}
-nav .nav-logo{font-family:Montserrat,sans-serif;font-size:18px;font-weight:700;text-decoration:none;letter-spacing:-0.3px}
+nav .nav-logo{font-family:Montserrat,sans-serif;font-size:18px;font-weight:700;text-decoration:none;letter-spacing:-0.3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:calc(100% - 96px)}
 nav .nav-links{display:flex;gap:32px;align-items:center}
 nav .nav-links a{font-family:Montserrat,sans-serif;font-size:13px;font-weight:500;text-decoration:none;letter-spacing:0.5px;text-transform:uppercase;transition:color .2s}
 /* Desktop: white on dark pages, dark on light pages */
@@ -28,13 +28,14 @@ nav .nav-links a{font-family:Montserrat,sans-serif;font-size:13px;font-weight:50
 .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;z-index:1001;background:none;border:none;padding:4px}
 .hamburger span{display:block;width:24px;height:2px;border-radius:2px;transition:transform .2s,opacity .2s}
 /* Mobile menu */
-.mobile-menu{display:none;position:fixed;inset:0;background:var(--white);z-index:999;flex-direction:column;align-items:center;justify-content:center;gap:24px}
+.mobile-menu{display:none;position:fixed;inset:0;background:var(--white);z-index:999;flex-direction:column;align-items:center;justify-content:flex-start;gap:24px;padding:88px 24px 32px;overflow-y:auto;-webkit-overflow-scrolling:touch}
 .mobile-menu.open{display:flex}
+.mobile-menu #mobile-nav-links{display:flex;flex-direction:column;align-items:center;gap:18px;width:100%}
 .mobile-menu a{font-size:20px;font-family:Montserrat,sans-serif;font-weight:600;color:var(--dark);text-decoration:none}
 .mobile-menu a:hover{color:var(--orange)}
 .mobile-close{position:absolute;top:20px;right:24px;background:none;border:none;font-size:28px;cursor:pointer;font-family:sans-serif;color:var(--gray-700)}
 
-@media(max-width:768px){
+@media(max-width:1024px){
   nav .nav-links{display:none !important}
   nav .hamburger{display:flex !important}
   nav .nav-inner{padding:16px 20px}
